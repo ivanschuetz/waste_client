@@ -9,7 +9,10 @@ const SearchResults = ({results}) => {
         const containers = results['containers'];
         const pContainers = results['pcontainers'];
         const containersListItems = containers.map(container =>
-            <li key={'c' + container.id}>{container.name}</li>
+            <li key={'c' + container.id}>
+                <span className="dot" style={{backgroundColor: "#" + container.color}}/>
+                {container.name}
+            </li>
         );
         const pContainersListItems = pContainers.map(pContainer =>
             <li key={'p' + pContainer.id}>{pContainer.name} {pContainer.address}</li>
@@ -25,7 +28,7 @@ const SearchResults = ({results}) => {
 };
 
 const ItemSearch = ({suggestion}) => {
-    console.log('redering items search');
+    console.log('rendering items search');
     const [results, setResults] = useState(null);
 
     useEffect(() => {
@@ -41,7 +44,7 @@ const ItemSearch = ({suggestion}) => {
         fetchData();
     }, [suggestion.id]);
 
-    return results && <SearchResults results={results} />
+    return results && <SearchResults results={results}/>
 };
 
 export default ItemSearch;
