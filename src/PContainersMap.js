@@ -26,33 +26,24 @@ const PContainersMap = ({pContainers}) => {
     );
 
     const map = React.createRef();
-    const road = [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)];
 
     return (
-        <Map center={[57.74, 11.94]} zoom={12} ref={map}  style={{height: 380}}>
-            <TileLayer
-                attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {/*{this.road.map((point, index) => <Marker key={index} icon={this.defaultIcon} position={point} />)}*/}
-            <RoutingMachine
-                color="#000"
-                map={map}
-                road={road}
-            />
-        </Map>
-        // <div>
-        //     <Map center={[52.520008, 13.404954]} zoom={11} style={{height: 380}}>
-        //         <TileLayer
-        //             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        //         />
-        //         {markers()}
-        //         <RoutingMachine
-        //             color="#000"
-        //         />
-        //     </Map>
-        //     <div><a>Walking</a> | <a>Car</a> | <a>Public transport</a> | <a>Show all</a></div>
-        // </div>
+        <div>
+            <Map center={[52.520008, 13.404954]} zoom={11} ref={map} style={{height: 380}}>
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {markers()}
+                {pContainers.map(container =>
+                    <RoutingMachine
+                        color="#000"
+                        map={map}
+                        road={[L.latLng(52.520008, 13.404954), L.latLng(container["lat"], container["lon"])]}
+                    />
+                )}
+            </Map>
+            <div><a>Walking</a> | <a>Car</a> | <a>Public transport</a> | <a>Show all</a></div>
+        </div>
     );
 };
 
