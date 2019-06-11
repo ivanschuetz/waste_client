@@ -27,9 +27,13 @@ const PContainersMap = ({pContainers}) => {
             </Popup>
         </Marker>;
 
-    const routeLink = (myLoc, dstLat, dstLon) => {
+    const routeLink = (myLoc, dstLat, dstLon, travelmode) => {
         const origin = myLoc == null ? "" : `&origin=${myLoc.latitude},${myLoc.longitude}`;
-        return `https://www.google.com/maps/dir/?api=1${origin}&destination=${dstLat},${dstLon}&travelmode=driving`;
+        return `https://www.google.com/maps/dir/?api=1${origin}&destination=${dstLat},${dstLon}&travelmode=${travelmode}`;
+    };
+
+    const transportImg = (src, alt, link) => {
+        return <a href={link} target="_blank"><img src={src} alt={alt} style={{width: 20, height: 20, marginRight: 20}}/></a>
     };
 
     const markers = () => pContainers.map(container => {
@@ -37,10 +41,12 @@ const PContainersMap = ({pContainers}) => {
         const lon = container["lon"];
         return marker(lat, lon, <div>
             {container["name"]}<br/>{container["address"]}<br/>
-            <a
-                href={routeLink(myLoc)}
-                target="_blank"
-            >Route</a>
+            {[
+                transportImg(require("./walk.svg"), "Walking", routeLink(myLoc, lat, lon, "walking")),
+                transportImg(require("./bike.svg"), "Bike", routeLink(myLoc, lat, lon, "bicycling")),
+                transportImg(require("./transit.svg"), "Transit", routeLink(myLoc, lat, lon, "transit")),
+                transportImg(require("./car.svg"), "Car", routeLink(myLoc, lat, lon, "driving")),
+            ]}
         </div>);
     });
 
