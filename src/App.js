@@ -10,6 +10,7 @@ const App = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [selectedSuggestion, setSelectedSuggestion] = useState(null);
     const [results, setResults] = useState(null);
+    const [showMap, setShowMap] = useState(false);
 
     const handleSuggestions = suggestions => {
         console.log('suggestions: ' + JSON.stringify(suggestions));
@@ -26,12 +27,15 @@ const App = () => {
         setResults(results)
     };
 
+    const onShowMapClick = () => setShowMap(true);
+
     return (
         <div className="App">
             <SearchBox onResults={handleSuggestions}/>
             <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick} />
             {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}/>}
-            {results && <PContainersMap pContainers={results["pcontainers"]}/>}
+            {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
+            {results && !showMap && <a onClick={onShowMapClick}>Public containers</a>}
         </div>);
 };
 
