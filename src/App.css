@@ -1,3 +1,5 @@
+@import url('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css');
+
 .App {
   text-align: center;
 }
@@ -37,4 +39,11 @@
     width: 10px;
     border-radius: 50%;
     display: inline-block;
+}
+
+/*TODO Read docs and maybe remove this. Leaflet css has a whitebg and border for .leaflet-div-icon, which we override here*/
+/*TODO Seems a strange default*/
+.leaflet-marker-icon {
+  background: transparent;
+  border: none;
 }
