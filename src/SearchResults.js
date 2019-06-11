@@ -27,7 +27,7 @@ const SearchResults = ({results}) => {
     );
 };
 
-const ItemSearch = ({suggestion}) => {
+const ItemSearch = ({suggestion, onResult}) => {
     console.log('rendering items search');
     const [results, setResults] = useState(null);
 
@@ -36,10 +36,11 @@ const ItemSearch = ({suggestion}) => {
             const result = await axios(
                 'http://localhost:8080/options/' + suggestion.id,
             );
-            const finalResult = result.hasOwnProperty("containers") ? result : null;
+            const finalResult = result.data.hasOwnProperty("containers") ? result.data : null;
             console.log('finalResult: ' + JSON.stringify(result));
             setResults(finalResult);
-            setResults(result.data);
+            // setResults(result.data);
+            onResult(finalResult)
         };
         fetchData();
     }, [suggestion.id]);
