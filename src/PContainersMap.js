@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './App.css';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
@@ -18,21 +18,43 @@ const markerIcon = new L.Icon({
 // https://developers.google.com/maps/documentation/urls/guide
 
 const PContainersMap = ({pContainers}) => {
+    const [myLoc, setMyLoc] = useState(null);
+
+    const marker = (lat, lon, children) => {
+        return <Marker position={[lat, lon]} icon={markerIcon}>
+            <Popup>
+                {children}
+            </Popup>
+        </Marker>;
+    };
+
     const markers = () => pContainers.map(container => {
         const lat = container["lat"];
         const lon = container["lon"];
-        return <Marker position={[lat, lon]} icon={markerIcon}>
-            <Popup>
-                {container["name"]}<br/>{container["address"]}<br/>
-                <a
-                    href={`https://www.google.com/maps/dir/?api=1&origin=52.5283204,13.3569057&destination=${lat},${lon}&travelmode=driving`}
-                    target="_blank"
-                >Route</a>
-            </Popup>
-        </Marker>
+        return marker(lat, lon, <div>
+            {container["name"]}<br/>{container["address"]}<br/>
+            <a
+                href={`https://www.google.com/maps/dir/?api=1&origin=52.5283204,13.3569057&destination=${lat},${lon}&travelmode=driving`}
+                target="_blank"
+            >Route</a>
+        </div>);
     });
 
     const map = React.createRef();
+
+    const displayLocationInfo = (position) => setMyLoc(position.coords);
+
+    useEffect(() => {
+        const fetchMyLoc = async () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(displayLocationInfo);
+            } else {
+                // no can do
+                console.log('No geolocation available');
+            }
+        };
+        fetchMyLoc();
+    }, []);
 
     return (
         <div>
@@ -41,6 +63,7 @@ const PContainersMap = ({pContainers}) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {markers()}
+                {myLoc && marker(myLoc.latitude, myLoc.longitude, <p>Your location!</p>)}
             </Map>
         </div>
     );
