@@ -15,14 +15,22 @@ const markerIcon = new L.Icon({
     className: 'leaflet-div-icon'
 });
 
+// https://developers.google.com/maps/documentation/urls/guide
+
 const PContainersMap = ({pContainers}) => {
-    const markers = () => pContainers.map(container =>
-        <Marker position={[container["lat"], container["lon"]]} icon={markerIcon}>
+    const markers = () => pContainers.map(container => {
+        const lat = container["lat"];
+        const lon = container["lon"];
+        return <Marker position={[lat, lon]} icon={markerIcon}>
             <Popup>
-                {container["name"]}<br/>{container["address"]}
+                {container["name"]}<br/>{container["address"]}<br/>
+                <a
+                    href={`https://www.google.com/maps/dir/?api=1&origin=52.5283204,13.3569057&destination=${lat},${lon}&travelmode=driving`}
+                    target="_blank"
+                >Route</a>
             </Popup>
         </Marker>
-    );
+    });
 
     const map = React.createRef();
 
