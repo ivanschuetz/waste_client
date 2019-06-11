@@ -2,6 +2,7 @@ import React from "react";
 import './App.css';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
+import RoutingMachine from './RoutingMachine';
 
 const markerIcon = new L.Icon({
     iconUrl: require('./marker.svg'),
@@ -24,13 +25,34 @@ const PContainersMap = ({pContainers}) => {
         </Marker>
     );
 
+    const map = React.createRef();
+    const road = [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)];
+
     return (
-        <Map center={[52.520008, 13.404954]} zoom={11} style={{height: 380}}>
+        <Map center={[57.74, 11.94]} zoom={12} ref={map}  style={{height: 380}}>
             <TileLayer
+                attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {markers()}
+            {/*{this.road.map((point, index) => <Marker key={index} icon={this.defaultIcon} position={point} />)}*/}
+            <RoutingMachine
+                color="#000"
+                map={map}
+                road={road}
+            />
         </Map>
+        // <div>
+        //     <Map center={[52.520008, 13.404954]} zoom={11} style={{height: 380}}>
+        //         <TileLayer
+        //             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        //         />
+        //         {markers()}
+        //         <RoutingMachine
+        //             color="#000"
+        //         />
+        //     </Map>
+        //     <div><a>Walking</a> | <a>Car</a> | <a>Public transport</a> | <a>Show all</a></div>
+        // </div>
     );
 };
 
