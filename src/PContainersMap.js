@@ -20,12 +20,16 @@ const markerIcon = new L.Icon({
 const PContainersMap = ({pContainers}) => {
     const [myLoc, setMyLoc] = useState(null);
 
-    const marker = (lat, lon, children) => {
-        return <Marker position={[lat, lon]} icon={markerIcon}>
+    const marker = (lat, lon, children) =>
+        <Marker position={[lat, lon]} icon={markerIcon}>
             <Popup>
                 {children}
             </Popup>
         </Marker>;
+
+    const routeLink = (myLoc, dstLat, dstLon) => {
+        const origin = myLoc == null ? "" : `&origin=${myLoc.latitude},${myLoc.longitude}`;
+        return `https://www.google.com/maps/dir/?api=1${origin}&destination=${dstLat},${dstLon}&travelmode=driving`;
     };
 
     const markers = () => pContainers.map(container => {
@@ -34,7 +38,7 @@ const PContainersMap = ({pContainers}) => {
         return marker(lat, lon, <div>
             {container["name"]}<br/>{container["address"]}<br/>
             <a
-                href={`https://www.google.com/maps/dir/?api=1&origin=52.5283204,13.3569057&destination=${lat},${lon}&travelmode=driving`}
+                href={routeLink(myLoc)}
                 target="_blank"
             >Route</a>
         </div>);
