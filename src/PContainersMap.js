@@ -15,12 +15,25 @@ const markerIcon = new L.Icon({
     className: 'leaflet-div-icon'
 });
 
+
+const myLocMarkerIcon = new L.Icon({
+    iconUrl: require('./my_loc.svg'),
+    iconRetinaUrl: require('./my_loc.svg'),
+    iconAnchor: null,
+    popupAnchor: [-3, -26],
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: new L.Point(30, 30),
+    className: 'leaflet-div-icon'
+});
+
 // https://developers.google.com/maps/documentation/urls/guide
 
 const PContainersMap = ({pContainers}) => {
     const [myLoc, setMyLoc] = useState(null);
 
-    const marker = (lat, lon, children) =>
+    const marker = (lat, lon, markerIcon, children) =>
         <Marker position={[lat, lon]} icon={markerIcon}>
             <Popup>
                 {children}
@@ -39,7 +52,7 @@ const PContainersMap = ({pContainers}) => {
         const lat = container["lat"];
         const lon = container["lon"];
         const phone = container["phone"];
-        return marker(lat, lon, <div>
+        return marker(lat, lon, markerIcon, <div>
             {container["name"]}
             <a href={container["url"]} target="_blank">
                 <img src={require("./external_url.svg")} alt={"Go to link"} style={{width: 15, height: 15}}/>
@@ -79,7 +92,7 @@ const PContainersMap = ({pContainers}) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {markers()}
-                {myLoc && marker(myLoc.latitude, myLoc.longitude, <p>Your location!</p>)}
+                {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>Your location!</p>)}
             </Map>
         </div>
     );
