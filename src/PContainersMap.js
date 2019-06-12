@@ -32,9 +32,8 @@ const PContainersMap = ({pContainers}) => {
         return `https://www.google.com/maps/dir/?api=1${origin}&destination=${dstLat},${dstLon}&travelmode=${travelmode}`;
     };
 
-    const transportImg = (src, alt, link) => {
-        return <a href={link} target="_blank"><img src={src} alt={alt} style={{width: 20, height: 20, marginRight: 20}}/></a>
-    };
+    const transportImg = (src, alt, link) =>
+        <a href={link} target="_blank"><img src={src} alt={alt} style={{width: 20, height: 20, marginRight: 20}}/></a>;
 
     const markers = () => pContainers.map(container => {
         const lat = container["lat"];
