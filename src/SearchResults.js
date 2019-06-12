@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 const axios = require('axios');
 
-const SearchResults = ({results}) => {
+const SearchResults = ({results, onPContainersClick}) => {
     console.log('rendering search results: ' + JSON.stringify(results));
 
     const listItems = () => {
@@ -15,9 +15,7 @@ const SearchResults = ({results}) => {
                 {container.name}
             </li>
         );
-        const pContainersListItems = pContainers.map(pContainer =>
-            <li key={'p' + pContainer.id}>{pContainer.name} {pContainer.address}</li>
-        );
+
         const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
             const company = companyResult["company"];
             return <li key={'p' + company.id}>
@@ -27,7 +25,15 @@ const SearchResults = ({results}) => {
                 {companyResult["min_weight"] || ""}<br/>
             </li>;
         });
-        return containersListItems.concat(pContainersListItems).concat(pickupCompaniesListItems)
+
+        const pContainersListItems = [];
+        if (pContainers.length > 0) {
+            pContainersListItems.push(
+                <li key='pcont'><a onClick={onPContainersClick}>Public containers({pContainers.length})</a></li>
+            )
+        }
+
+        return containersListItems.concat(pickupCompaniesListItems).concat(pContainersListItems)
     };
 
     return (
@@ -37,7 +43,7 @@ const SearchResults = ({results}) => {
     );
 };
 
-const ItemSearch = ({suggestion, onResult}) => {
+const ItemSearch = ({suggestion, onResult, onPContainersClick}) => {
     console.log('rendering items search');
     const [results, setResults] = useState(null);
 
@@ -55,7 +61,7 @@ const ItemSearch = ({suggestion, onResult}) => {
         fetchData();
     }, [suggestion.id]);
 
-    return results && <SearchResults results={results}/>
+    return results && <SearchResults results={results} onPContainersClick={onPContainersClick}/>
 };
 
 export default ItemSearch;

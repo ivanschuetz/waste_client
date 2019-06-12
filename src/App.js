@@ -26,15 +26,15 @@ const App = () => {
         setResults(results)
     };
 
-    const onShowMapClick = () => setShowMap(true);
+    const onPContainersClick = () => setShowMap(true);
 
     return (
         <div className="App">
             <SearchBox onResults={handleSuggestions}/>
             <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick} />
-            {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}/>}
+            {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
+                                               onPContainersClick={onPContainersClick}/>}
             {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
-            {results && !showMap && <a onClick={onShowMapClick}>Public containers</a>}
         </div>);
 };
 
