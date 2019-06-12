@@ -3,7 +3,6 @@ import './App.css';
 import SearchBox from "./SearchBox";
 import ItemSuggestions from "./ItemSuggestions";
 import ItemSearch from "./SearchResults";
-
 import PContainersMap from "./PContainersMap";
 
 const App = () => {

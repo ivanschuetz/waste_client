@@ -8,6 +8,7 @@ const SearchResults = ({results}) => {
     const listItems = () => {
         const containers = results['containers'];
         const pContainers = results['pcontainers'];
+        const pickupCompanies = results['companies'];
         const containersListItems = containers.map(container =>
             <li key={'c' + container.id}>
                 <span className="dot" style={{backgroundColor: "#" + container.color}}/>
@@ -17,7 +18,16 @@ const SearchResults = ({results}) => {
         const pContainersListItems = pContainers.map(pContainer =>
             <li key={'p' + pContainer.id}>{pContainer.name} {pContainer.address}</li>
         );
-        return containersListItems.concat(pContainersListItems)
+        const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
+            const company = companyResult["company"];
+            return <li key={'p' + company.id}>
+                {company.name} {company.address}<br/>
+                {company.phone} {company.email}<br/>
+                {companyResult["website"] || company["website"]}<br/>
+                {companyResult["min_weight"] || ""}<br/>
+            </li>;
+        });
+        return containersListItems.concat(pContainersListItems).concat(pickupCompaniesListItems)
     };
 
     return (
