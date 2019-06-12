@@ -40,7 +40,7 @@ const PContainersMap = ({pContainers}) => {
         const lat = container["lat"];
         const lon = container["lon"];
         return marker(lat, lon, <div>
-            {container["name"]}<br/>{container["address"]}<br/>
+            {container["name"]}<br/>{container["address"]}<br/>{container["company"]}<br/>{container["phone"] || ""}
             {[
                 transportImg(require("./walk.svg"), "Walking", routeLink(myLoc, lat, lon, "walking")),
                 transportImg(require("./bike.svg"), "Bike", routeLink(myLoc, lat, lon, "bicycling")),
