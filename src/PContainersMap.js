@@ -39,8 +39,15 @@ const PContainersMap = ({pContainers}) => {
     const markers = () => pContainers.map(container => {
         const lat = container["lat"];
         const lon = container["lon"];
+        const phone = container["phone"];
         return marker(lat, lon, <div>
-            {container["name"]}<br/>{container["address"]}<br/>{container["company"]}<br/>{container["phone"] || ""}
+            {container["name"]}
+            <a href={container["url"]} target="_blank">
+                <img src={require("./external_url.svg")} alt={"Go to link"} style={{width: 15, height: 15}}/>
+            </a><br/>
+            {container["address"]}<br/>
+            {phone ? <p>phone</p> : <span/>}
+            {container["company"]}<br/>
             {[
                 transportImg(require("./walk.svg"), "Walking", routeLink(myLoc, lat, lon, "walking")),
                 transportImg(require("./bike.svg"), "Bike", routeLink(myLoc, lat, lon, "bicycling")),
