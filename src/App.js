@@ -62,16 +62,15 @@ const App = () => {
                 {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
             </div>
             <div className="footer">
-                <a href="mailto:ivanschuetz@gmail.com">Feedback</a> | <a
-                onClick={() => setShowAboutModal(!showAboutModal)}>Impressum</a>
+                <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank">Feedback</a> |&nbsp;
+                <a className="about-link" onClick={() => setShowAboutModal(!showAboutModal)}>Impressum</a>
             </div>
             {showAboutModal &&
-            <Modal>
+            <Modal onCloseClick={() => setShowAboutModal(false)}>
                 <p>Ivan Schütz</p>
                 <p>Birkenstraße 15</p>
                 <p>10559 Berlin</p>
                 <p>Deutschland</p>
-                <button onClick={() => setShowAboutModal(false)}>Close</button>
             </Modal>}
         </div>);
 };
