@@ -5,6 +5,7 @@ import ItemSuggestions from "./ItemSuggestions";
 import ItemSearch from "./SearchResults";
 import PContainersMap from "./PContainersMap";
 import Modal from "./Modal";
+import ProgressBar from "./ProgressBar";
 
 const App = () => {
     const [suggestions, setSuggestions] = useState([]);
@@ -14,6 +15,7 @@ const App = () => {
     const [showMap, setShowMap] = useState(false);
     const [showAboutModal, setShowAboutModal] = useState(false);
     const [searchText, setSearchText] = useState("");
+    const [showProgressBar, setShowProgressBar] = useState(false);
 
     const searchBoxRef = React.createRef();
 
@@ -28,11 +30,12 @@ const App = () => {
         setSelectedSuggestion(suggestion);
         setSearchText(suggestion.name);
         setShowingSuggestions(false);
+        setShowProgressBar(true);
     };
 
     const handleResults = results => {
-        console.log('results: ' + JSON.stringify(results));
-        setResults(results)
+        setResults(results);
+        setShowProgressBar(false);
     };
 
     const handleSearchBoxInput = text => {
@@ -44,9 +47,11 @@ const App = () => {
 
     return (
         <div className="App">
+            {showProgressBar && <ProgressBar/>}
             <div className="top">
                 <div className="page-title">Wohin damit?</div>
-                <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput} ref={searchBoxRef} searchText={searchText}/>
+                <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput} ref={searchBoxRef}
+                           searchText={searchText}/>
             </div>
             {showingSuggestions && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
             <div className="all-results">

@@ -65,7 +65,7 @@
     bottom: 0;
     width: 100%;
     text-align: center;
-    z-index: 10001;
+    z-index: 100;
     background-color: #fff;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .top {
-    margin-top: 150px;
+    padding-top: 150px;
 }
 
 .searchbox {
@@ -119,7 +119,7 @@
     top: 281px;
     left: 50%;
     transform: translate(-50%, 0%);
-    z-index: 10000;
+    z-index: 50;
     background: white;
     width: 486px;
     margin: 0;
@@ -214,4 +214,68 @@
 
 .leaflet-popup-content {
     width: 220px;
+}
+
+.progress-overlay {
+    position: absolute;
+    width: 500px;
+    top: 282px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    height: 400px;
+    z-index: 30;
+    background-color: rgba(255, 0, 255, 0.5);
+}
+
+/* Progress bar https://stackoverflow.com/a/34773398/930450 */
+
+.slider {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    overflow-x: hidden;
+}
+
+.line {
+    position: absolute;
+    opacity: 0.4;
+    background: #4a8df8;
+    width: 100%;
+    height: 5px;
+}
+
+.subline {
+    position: absolute;
+    background: #4a8df8;
+    height: 5px;
+}
+
+.inc {
+    animation: increase 2s infinite;
+}
+
+.dec {
+    animation: decrease 2s 0.5s infinite;
+}
+
+@keyframes increase {
+    from {
+        left: -5%;
+        width: 5%;
+    }
+    to {
+        left: 130%;
+        width: 100%;
+    }
+}
+
+@keyframes decrease {
+    from {
+        left: -80%;
+        width: 80%;
+    }
+    to {
+        left: 110%;
+        width: 10%;
+    }
 }

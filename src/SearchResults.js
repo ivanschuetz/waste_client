@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from "react";
 import './App.css';
+import {sleep} from "./Utils";
 const axios = require('axios');
 
 const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {
-    console.log('rendering search results: ' + JSON.stringify(results));
-
     const listItems = () => {
         const containers = results['containers'];
         const pContainers = results['pcontainers'];
@@ -16,8 +15,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     <span className={dotClass} style={{backgroundColor: "#" + color, marginRight: 5}}/>
                     {container.name}
                 </li>
-        }
-        );
+        });
 
         const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
             const company = companyResult["company"];
@@ -81,18 +79,19 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 };
 
 const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersButton}) => {
-    console.log('rendering items search');
     const [results, setResults] = useState(null);
 
     useEffect(() => {
+        setResults(null); // When selecting a new suggestion, stop showing current results immediately
+
         const fetchData = async () => {
             const result = await axios(
                 'http://localhost:8080/options/' + suggestion.id,
             );
+            // await sleep(2000);
+
             const finalResult = result.data.hasOwnProperty("containers") ? result.data : null;
-            console.log('finalResult: ' + JSON.stringify(result));
             setResults(finalResult);
-            // setResults(result.data);
             onResult(finalResult);
         };
         fetchData();
