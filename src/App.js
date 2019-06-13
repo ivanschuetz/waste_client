@@ -9,6 +9,7 @@ import Modal from "./Modal";
 const App = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+    const [showingSuggestions, setShowingSuggestions] = useState(false);
     const [results, setResults] = useState(null);
     const [showMap, setShowMap] = useState(false);
     const [showAboutModal, setShowAboutModal] = useState(false);
@@ -18,13 +19,15 @@ const App = () => {
 
     const handleSuggestions = suggestions => {
         console.log('suggestions: ' + JSON.stringify(suggestions));
-        setSuggestions(suggestions)
+        setShowingSuggestions(true);
+        setSuggestions(suggestions);
     };
 
     const onSuggestionClick = suggestion => {
         console.log('clicked suggestion: ' + JSON.stringify(suggestion));
         setSelectedSuggestion(suggestion);
         setSearchText(suggestion.name);
+        setShowingSuggestions(false);
     };
 
     const handleResults = results => {
@@ -35,7 +38,6 @@ const App = () => {
     const handleSearchBoxInput = text => {
         // Note that the search is performed inside the search box bomponent. Probably this should be restructured.
         setSearchText(text);
-        setSelectedSuggestion(null);
     };
 
     const onPContainersClick = () => setShowMap(true);
@@ -46,12 +48,11 @@ const App = () => {
                 <div className="page-title">Wohin damit?</div>
                 <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput} ref={searchBoxRef} searchText={searchText}/>
             </div>
-            {!selectedSuggestion && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
+            {showingSuggestions && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
             <div className="all-results">
                 {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
                                                    onPContainersClick={onPContainersClick}
                                                    showPContainersButton={!showMap}
-
                 />}
                 {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
             </div>
