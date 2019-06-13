@@ -12,6 +12,9 @@ const App = () => {
     const [results, setResults] = useState(null);
     const [showMap, setShowMap] = useState(false);
     const [showAboutModal, setShowAboutModal] = useState(false);
+    const [searchText, setSearchText] = useState("");
+
+    const searchBoxRef = React.createRef();
 
     const handleSuggestions = suggestions => {
         console.log('suggestions: ' + JSON.stringify(suggestions));
@@ -20,12 +23,19 @@ const App = () => {
 
     const onSuggestionClick = suggestion => {
         console.log('clicked suggestion: ' + JSON.stringify(suggestion));
-        setSelectedSuggestion(suggestion)
+        setSelectedSuggestion(suggestion);
+        setSearchText(suggestion.name);
     };
 
     const handleResults = results => {
         console.log('results: ' + JSON.stringify(results));
         setResults(results)
+    };
+
+    const handleSearchBoxInput = text => {
+        // Note that the search is performed inside the search box bomponent. Probably this should be restructured.
+        setSearchText(text);
+        setSelectedSuggestion(null);
     };
 
     const onPContainersClick = () => setShowMap(true);
@@ -34,9 +44,9 @@ const App = () => {
         <div className="App">
             <div className="top">
                 <div className="page-title">Wohin damit?</div>
-                <SearchBox onResults={handleSuggestions}/>
+                <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput} ref={searchBoxRef} searchText={searchText}/>
             </div>
-            <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>
+            {!selectedSuggestion && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
             {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
                                                onPContainersClick={onPContainersClick}/>}
             {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}

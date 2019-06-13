@@ -1,9 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import './App.css';
 
-const SearchBox = ({onResults}) => {
-    const [searchText, setSearchText] = useState("");
-
+const SearchBox = ({onResults, onInput, searchText}) => {
     const search = (text) => {
         if (!text) {
             onResults([]);
@@ -25,7 +23,7 @@ const SearchBox = ({onResults}) => {
     };
 
     const onSearchInput = (text) => {
-        setSearchText(text);
+        onInput(text);
         search(text);
     };
 
