@@ -9,11 +9,14 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const containers = results['containers'];
         const pContainers = results['pcontainers'];
         const pickupCompanies = results['companies'];
-        const containersListItems = containers.map(container =>
-            <li key={'c' + container.id}>
-                <span className="dot" style={{backgroundColor: "#" + container.color, marginRight: 5}}/>
-                {container.name}
-            </li>
+        const containersListItems = containers.map(container => {
+            const color = container["color"];
+            const dotClass = color === 'FFFFFF' ? 'dot-bordered' : 'dot';
+                return <li key={'c' + container.id}>
+                    <span className={dotClass} style={{backgroundColor: "#" + color, marginRight: 5}}/>
+                    {container.name}
+                </li>
+        }
         );
 
         const pickupCompaniesListItems = pickupCompanies.map(companyResult => {

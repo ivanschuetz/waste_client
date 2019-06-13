@@ -41,6 +41,14 @@
     display: inline-block;
 }
 
+.dot-bordered {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid #000;
+}
+
 /*TODO Read docs and maybe remove this. Leaflet css has a whitebg and border for .leaflet-div-icon, which we override here*/
 /*TODO Seems a strange default*/
 .leaflet-marker-icon {
