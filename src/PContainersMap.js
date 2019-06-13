@@ -7,7 +7,7 @@ const markerIcon = new L.Icon({
     iconUrl: require('./marker.svg'),
     iconRetinaUrl: require('./marker.svg'),
     iconAnchor: null,
-    popupAnchor: [-3, -26],
+    popupAnchor: [0, -26],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,
@@ -20,11 +20,11 @@ const myLocMarkerIcon = new L.Icon({
     iconUrl: require('./my_loc.svg'),
     iconRetinaUrl: require('./my_loc.svg'),
     iconAnchor: null,
-    popupAnchor: [-3, -26],
+    popupAnchor: [0, -26],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,
-    iconSize: new L.Point(30, 30),
+    iconSize: new L.Point(20, 20),
     className: 'leaflet-div-icon'
 });
 
