@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import './App.css';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
@@ -32,6 +32,10 @@ const myLocMarkerIcon = new L.Icon({
 
 const PContainersMap = ({pContainers}) => {
     const [myLoc, setMyLoc] = useState(null);
+    const myRef = useRef(null);
+
+    // Scroll such that maps becomes fully visible when loading component
+    useEffect(() => myRef.current && window.scrollTo(0, myRef.current.offsetTop));
 
     const marker = (lat, lon, markerIcon, children) =>
         <Marker position={[lat, lon]} icon={markerIcon}>
@@ -89,7 +93,7 @@ const PContainersMap = ({pContainers}) => {
     }, []);
 
     return (
-        <div className='map-container'>
+        <div className='map-container' ref={myRef}>
             <Map center={[52.520008, 13.404954]} zoom={11} ref={map} style={{height: 380}}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
