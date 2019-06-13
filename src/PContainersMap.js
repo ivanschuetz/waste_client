@@ -52,14 +52,17 @@ const PContainersMap = ({pContainers}) => {
         const lat = container["lat"];
         const lon = container["lon"];
         const phone = container["phone"];
-        return marker(lat, lon, markerIcon, <div>
-            {container["name"]}
-            <a href={container["url"]} target="_blank">
-                <img src={require("./external_url.svg")} alt={"Go to link"} style={{width: 15, height: 15}}/>
+        return marker(lat, lon, markerIcon, <div style={{minWidth: 200}}>
+            <a className="p-container-popup-title" href={container["url"]} target="_blank">
+                {container["name"]}
             </a><br/>
             {container["address"]}<br/>
             {phone ? <p>phone</p> : <span/>}
-            {container["company"]}<br/>
+            {/*<a className="p-container-popup-company" href={container["url"]} target="_blank">*/}
+            {/*    {container["company"]}*/}
+            {/*</a>*/}
+            <div className="p-container-popup-routes"/>
+            <span style={{float: "left", marginRight: 5}}>Route:</span>
             {[
                 transportImg(require("./walk.svg"), "Walking", routeLink(myLoc, lat, lon, "walking")),
                 transportImg(require("./bike.svg"), "Bike", routeLink(myLoc, lat, lon, "bicycling")),
