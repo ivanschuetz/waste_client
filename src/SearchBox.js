@@ -31,6 +31,7 @@ const SearchBox = ({onResults}) => {
 
     return (
         <input
+            className="searchbox"
             type="text"
             value={searchText}
             onChange={event => onSearchInput(event.target.value)}

@@ -32,7 +32,10 @@ const App = () => {
 
     return (
         <div className="App">
-            <SearchBox onResults={handleSuggestions}/>
+            <div className="top">
+                <div className="page-title">Wohin damit?</div>
+                <SearchBox onResults={handleSuggestions}/>
+            </div>
             <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>
             {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
                                                onPContainersClick={onPContainersClick}/>}
