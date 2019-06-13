@@ -78,7 +78,7 @@
     -moz-border-radius: 50px;
     border-radius: 50px;
     font-size: 25px;
-    border-color: #888888;
+    border-color: #cccccc;
     padding: 10px;
 }
 
@@ -96,4 +96,35 @@
 
 .suggestion {
     cursor: pointer;
+}
+
+.result-header {
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.result-header-p-containers {
+}
+
+.p-containers-link {
+    cursor: pointer;
+    padding-top: 20px;
+    height: 50px;
+    display: block;
+}
+
+.p-containers-span {
+    padding: 5px 8px 5px 8px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    border-color: #000000;
+    border-width: 1px;
+    border-style: solid;
+    display: inline-block;
+}
+
+.results-list {
+    list-style: none;
 }

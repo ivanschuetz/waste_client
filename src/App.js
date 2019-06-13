@@ -48,7 +48,10 @@ const App = () => {
             </div>
             {!selectedSuggestion && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
             {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
-                                               onPContainersClick={onPContainersClick}/>}
+                                               onPContainersClick={onPContainersClick}
+                                               showPContainersButton={!showMap}
+
+            />}
             {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
             <div className="footer">
                 <a href="mailto:ivanschuetz@gmail.com">Feedback</a> | <a
