@@ -86,7 +86,7 @@ const PContainersMap = ({pContainers}) => {
     }, []);
 
     return (
-        <div>
+        <div className='map-container'>
             <Map center={[52.520008, 13.404954]} zoom={11} ref={map} style={{height: 380}}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

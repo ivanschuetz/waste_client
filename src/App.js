@@ -47,12 +47,14 @@ const App = () => {
                 <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput} ref={searchBoxRef} searchText={searchText}/>
             </div>
             {!selectedSuggestion && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
-            {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
-                                               onPContainersClick={onPContainersClick}
-                                               showPContainersButton={!showMap}
+            <div className="all-results">
+                {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
+                                                   onPContainersClick={onPContainersClick}
+                                                   showPContainersButton={!showMap}
 
-            />}
-            {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
+                />}
+                {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
+            </div>
             <div className="footer">
                 <a href="mailto:ivanschuetz@gmail.com">Feedback</a> | <a
                 onClick={() => setShowAboutModal(!showAboutModal)}>Impressum</a>

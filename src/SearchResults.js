@@ -19,10 +19,20 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
             const company = companyResult["company"];
             return <li key={'p' + company.id}>
-                {company.name} {company.address}<br/>
-                {company.phone} {company.email}<br/>
-                {companyResult["website"] || company["website"]}<br/>
-                {companyResult["min_weight"] || ""}<br/>
+                <a className='pickup-company-name' href={companyResult["website"] || company["website"]}>
+                    <span style={{ verticalAlign: 'middle'}}>{company.name}</span>
+                </a>
+                <a className='company-data-link' href={"tel:" + company.phone}>
+                    <img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>
+                    <span style={{ verticalAlign: 'middle'}}>{company.phone}</span>
+                </a>
+                <a className='company-data-link' href={"mailto:" + company.email}>
+                    <img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>
+                    <span style={{ verticalAlign: 'middle'}}>{company.email}</span>
+                </a>
+                <br/>
+                {/*{company.address}*/}
+                {/*{companyResult["min_weight"] || ""}<br/>*/}
             </li>;
         });
 

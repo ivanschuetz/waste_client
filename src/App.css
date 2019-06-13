@@ -67,13 +67,12 @@
 
 .top {
     margin-top: 150px;
-    left: 50%;
 }
 
 .searchbox {
     margin-top: 30px;
     height: 20px;
-    min-width: 500px;
+    width: 500px;
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
@@ -88,6 +87,7 @@
 
 .suggestions {
     list-style: none;
+    padding: 0;
 }
 
 .suggestion-item {
@@ -101,10 +101,14 @@
 .result-header {
     font-weight: bold;
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+    border-bottom: solid 1px #000;
+    padding-bottom: 10px;
 }
 
 .result-header-p-containers {
+    border-top: solid 1px #000;
+    margin-top: 20px;
 }
 
 .p-containers-link {
@@ -127,4 +131,29 @@
 
 .results-list {
     list-style: none;
+    width: 100%;
+    padding: 0;
+}
+
+.map-container {
+    width: 100%;
+    margin-bottom: 100px;
+    margin-top: 30px;
+}
+
+.pickup-company-name {
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.company-data-link {
+    cursor: pointer;
+    margin-left: 30px;
+    text-decoration: none;
+}
+
+.all-results {
+    width: 500px;
+    display: inline-block;
 }
