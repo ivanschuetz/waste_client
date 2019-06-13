@@ -26,11 +26,11 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     <span style={{ verticalAlign: 'middle'}}>{company.name}</span>
                 </a>
                 <a className='company-data-link' href={"tel:" + company.phone}>
-                    <img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>
+                    {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                     <span style={{ verticalAlign: 'middle'}}>{company.phone}</span>
                 </a>
                 <a className='company-data-link' href={"mailto:" + company.email} target='_blank'>
-                    <img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>
+                    {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                     <span style={{ verticalAlign: 'middle'}}>{company.email}</span>
                 </a>
                 <br/>
@@ -40,17 +40,25 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         });
 
         const pContainersListItems = [];
-        if (pContainers.length > 0 && showPContainersButton) {
-            pContainersListItems.push(
-                <li key='pcont' className='result-header-p-containers'>
-                    <a className='p-containers-link' onClick={onPContainersClick}>
-                        <div className='p-containers-span'>
-                            <img src={require('./map.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>
-                            <span style={{ verticalAlign: 'middle'}}>Public containers({pContainers.length})</span>
-                        </div>
-                    </a>
-                </li>
-            )
+        if (pContainers.length > 0) {
+            if (showPContainersButton)  {
+                pContainersListItems.push(
+                    <li key='pcont' className='result-header-p-containers'>
+                        <a className='p-containers-link' onClick={onPContainersClick}>
+                            <div className='p-containers-span'>
+                                <img src={require('./map.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>
+                                <span style={{ verticalAlign: 'middle'}}>Public containers({pContainers.length})</span>
+                            </div>
+                        </a>
+                    </li>
+                )
+            } else {
+                pContainersListItems.push(
+                    <li key='pcheader' className='result-header-p-containers'>
+                        <div style={{marginTop: 20, fontWeight: 'bold'}}>Public containers</div>
+                    </li>
+                );
+            }
         }
 
         const containersHeader = <li key='cheader' className='result-header'>Containers</li>;

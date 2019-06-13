@@ -33,6 +33,7 @@ const SearchBox = ({onResults, onInput, searchText}) => {
             type="text"
             value={searchText}
             onChange={event => onSearchInput(event.target.value)}
+            autoFocus
         />
     );
 };

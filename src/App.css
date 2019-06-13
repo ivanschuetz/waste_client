@@ -2,6 +2,7 @@
 
 .App {
     text-align: center;
+    font: 16px arial, sans-serif;
 }
 
 .App-logo {
@@ -59,9 +60,13 @@
 .footer {
     position: fixed;
     left: 0;
-    bottom: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    bottom: 0;
     width: 100%;
     text-align: center;
+    z-index: 10001;
+    background-color: #fff;
 }
 
 .modal {
@@ -84,10 +89,24 @@
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
-    font-size: 25px;
-    border-color: #cccccc;
+    border: solid 2px #cccccc;
     padding: 10px;
+    font-size: 18px;
+    outline: 0;
 }
+
+.searchbox:focus {
+    /*box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);*/
+}
+
+/*input.rounded:focus {*/
+
+/*    !* supported IE8+ and all other browsers tested.*/
+/*     * optional, but gives the input focues when selected.*/
+/*     * change to a color that suits your design.*/
+/*     *!*/
+
+/*}*/
 
 .page-title {
     font-size: 50px;
@@ -97,12 +116,12 @@
     list-style: none;
     padding: 0;
     position: absolute;
-    top: 282px;
+    top: 281px;
     left: 50%;
     transform: translate(-50%, 0%);
-    z-index: 100000;
+    z-index: 10000;
     background: white;
-    width: 490px;
+    width: 486px;
     margin: 0;
     border: 1px solid #ccc;
 }
@@ -155,7 +174,7 @@
 .map-container {
     width: 100%;
     margin-bottom: 100px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .pickup-company-name {
