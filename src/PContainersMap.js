@@ -17,18 +17,6 @@ const markerIcon = new L.Icon({
     className: 'leaflet-div-icon'
 });
 
-const dotIcon = new L.Icon({
-    iconUrl: require('./dot.svg'),
-    iconRetinaUrl: require('./dot.svg'),
-    iconAnchor: [1, 1],
-    popupAnchor: [0, -26],
-    shadowUrl: null,
-    shadowSize: null,
-    shadowAnchor: null,
-    iconSize: new L.Point(2, 2),
-    className: 'leaflet-div-icon'
-});
-
 const createClusterIcon = (count) => {
     return new L.DivIcon({
         className: 'my-div-icon',
@@ -163,13 +151,6 @@ const PContainersMap = ({pContainers}) => {
 
     // markers = markers.filter(marker => marker);
 
-    const dots = () => clusteringResults.map((result) => {
-        const coords = result["geometry"]["coordinates"];
-        const lat = coords[0];
-        const lng = coords[1];
-        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={dotIcon} />
-    });
-
     const onZoomEvent = (event) => {
         setZoom(event.target._zoom);
     };
@@ -228,7 +209,7 @@ const PContainersMap = ({pContainers}) => {
                 {/*    <Marker position={[51.5074, -0.0901]}/>*/}
                 {/*</MarkerClusterGroup>*/}
 
-                {markers().concat(dots())}
+                {markers()}
                 {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>Your location!</p>)}
             </Map>
         </div>
