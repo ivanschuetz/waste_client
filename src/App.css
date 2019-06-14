@@ -251,6 +251,33 @@
     cursor: pointer;
 }
 
+.cluster-cont {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 3px;
+    margin-left: 2px;
+}
+
+.cluster-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    margin-top: -1px;
+}
+
+.cluster-label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    color: #fff;
+}
+
 /* Progress bar https://stackoverflow.com/a/34773398/930450 */
 
 .slider {
@@ -281,6 +308,7 @@
 .dec {
     animation: decrease 2s 0.5s infinite;
 }
+
 
 @keyframes increase {
     from {

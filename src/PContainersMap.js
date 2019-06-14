@@ -8,7 +8,7 @@ import Supercluster from 'supercluster';
 const markerIcon = new L.Icon({
     iconUrl: require('./marker.svg'),
     iconRetinaUrl: require('./marker.svg'),
-    iconAnchor: null,
+    iconAnchor: [15, 27],
     popupAnchor: [0, -26],
     shadowUrl: null,
     shadowSize: null,
@@ -17,23 +17,36 @@ const markerIcon = new L.Icon({
     className: 'leaflet-div-icon'
 });
 
-const clusterIcon = new L.Icon({
-    iconUrl: require('./cluster.svg'),
-    iconRetinaUrl: require('./cluster.svg'),
-    iconAnchor: null,
+const dotIcon = new L.Icon({
+    iconUrl: require('./dot.svg'),
+    iconRetinaUrl: require('./dot.svg'),
+    iconAnchor: [1, 1],
     popupAnchor: [0, -26],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,
-    iconSize: new L.Point(30, 30),
+    iconSize: new L.Point(2, 2),
     className: 'leaflet-div-icon'
 });
+
+const createClusterIcon = (count) => {
+    return new L.DivIcon({
+        className: 'my-div-icon',
+        iconAnchor: [12, 12],
+        iconSize: new L.Point(20, 20),
+        html:
+            `<div class="cluster-cont">` +
+            `<img class="cluster-img" src=${require('./cluster.svg')} />` +
+            `<span class="cluster-label">${count}</span>` +
+            `</div>`
+    });
+};
 
 const myLocMarkerIcon = new L.Icon({
     iconUrl: require('./my_loc.svg'),
     iconRetinaUrl: require('./my_loc.svg'),
     iconAnchor: null,
-    popupAnchor: [0, -26],
+    popupAnchor: [10, 10],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,
@@ -87,7 +100,9 @@ const PContainersMap = ({pContainers}) => {
         maxZoom: 18
     });
     index.load(points);
+    // const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
     const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
+        // .filter(res => !res.hasOwnProperty('type'));
     // console.log('points: ' + JSON.stringify(points));
     // console.log('clusters: ' + JSON.stringify(clusters));
 
@@ -125,10 +140,12 @@ const PContainersMap = ({pContainers}) => {
     };
 
     const clusterMarker = (result) => {
+        console.log("result: " + JSON.stringify(result));
         const coords = result["geometry"]["coordinates"];
         const lat = coords[0];
         const lng = coords[1];
-        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={clusterIcon} />
+        const count = result["properties"]["point_count"];
+        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={createClusterIcon(count)} />
     };
 
     const markers = () => clusteringResults.map((result) => {
@@ -142,6 +159,15 @@ const PContainersMap = ({pContainers}) => {
             return pointMarker(result["properties"]["container"]);
             // return <Marker position={[lat, lng]}/>
         }
+    });
+
+    // markers = markers.filter(marker => marker);
+
+    const dots = () => clusteringResults.map((result) => {
+        const coords = result["geometry"]["coordinates"];
+        const lat = coords[0];
+        const lng = coords[1];
+        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={dotIcon} />
     });
 
     const onZoomEvent = (event) => {
@@ -202,7 +228,7 @@ const PContainersMap = ({pContainers}) => {
                 {/*    <Marker position={[51.5074, -0.0901]}/>*/}
                 {/*</MarkerClusterGroup>*/}
 
-                {markers()}
+                {markers().concat(dots())}
                 {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>Your location!</p>)}
             </Map>
         </div>
