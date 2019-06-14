@@ -144,6 +144,9 @@ const PContainersMap = ({pContainers}) => {
         }
     });
 
+    const onZoomEvent = (event) => {
+        setZoom(event.target._zoom);
+    };
 
     // const markers = () => pContainers.map(container => {
     //     const lat = container["lat"];
@@ -187,7 +190,7 @@ const PContainersMap = ({pContainers}) => {
 
     return (
         <div className='map-container' ref={myRef}>
-            <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{height: 380}}>
+            <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{height: 380}} onZoomend={onZoomEvent}>
 
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
