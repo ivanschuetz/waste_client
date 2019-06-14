@@ -2,20 +2,22 @@ import React, {useState, useEffect, useRef} from "react";
 import './App.css';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
 import Supercluster from 'supercluster';
 
-const markerIcon = new L.Icon({
-    iconUrl: require('./marker.svg'),
-    iconRetinaUrl: require('./marker.svg'),
-    iconAnchor: [15, 27],
-    popupAnchor: [0, -26],
+const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
+    iconUrl: path,
+    iconRetinaUrl: path,
+    iconAnchor: iconAnchor,
+    popupAnchor: popupAnchor,
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,
-    iconSize: new L.Point(30, 30),
+    iconSize: iconSize,
     className: 'leaflet-div-icon'
 });
+
+const markerIcon = makeIcon(require('./marker.svg'), [15, 27], new L.Point(30, 30), [0, -30]);
+const myLocMarkerIcon = makeIcon(require('./my_loc.svg'), null, new L.Point(20, 20), [0, -15]);
 
 const createClusterIcon = (count) => {
     return new L.DivIcon({
@@ -29,18 +31,6 @@ const createClusterIcon = (count) => {
             `</div>`
     });
 };
-
-const myLocMarkerIcon = new L.Icon({
-    iconUrl: require('./my_loc.svg'),
-    iconRetinaUrl: require('./my_loc.svg'),
-    iconAnchor: null,
-    popupAnchor: [10, 10],
-    shadowUrl: null,
-    shadowSize: null,
-    shadowAnchor: null,
-    iconSize: new L.Point(20, 20),
-    className: 'leaflet-div-icon'
-});
 
 // https://developers.google.com/maps/documentation/urls/guide
 
@@ -88,12 +78,7 @@ const PContainersMap = ({pContainers}) => {
         maxZoom: 18
     });
     index.load(points);
-    // const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
     const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
-        // .filter(res => !res.hasOwnProperty('type'));
-    // console.log('points: ' + JSON.stringify(points));
-    // console.log('clusters: ' + JSON.stringify(clusters));
-
 
     console.log('calculated new clusters: ' + clusteringResults.length);
 
@@ -133,51 +118,21 @@ const PContainersMap = ({pContainers}) => {
         const lat = coords[0];
         const lng = coords[1];
         const count = result["properties"]["point_count"];
-        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={createClusterIcon(count)} />
+        const countText = count > 999 ? "+" : count;
+        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={createClusterIcon(countText)} />
     };
 
     const markers = () => clusteringResults.map((result) => {
         if (result.hasOwnProperty("type")) { // cluster
-            // return
-            {/*<MarkerClusterGroup>*/}
             return clusterMarker(result);
-                // return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} />
-            // </MarkerClusterGroup>
         } else { // point
             return pointMarker(result["properties"]["container"]);
-            // return <Marker position={[lat, lng]}/>
         }
     });
-
-    // markers = markers.filter(marker => marker);
 
     const onZoomEvent = (event) => {
         setZoom(event.target._zoom);
     };
-
-    // const markers = () => pContainers.map(container => {
-    //     const lat = container["lat"];
-    //     const lon = container["lon"];
-    //     const phone = container["phone"];
-    //     return marker(lat, lon, markerIcon, <div style={{minWidth: 200}}>
-    //         <a className="p-container-popup-title" href={container["url"]} target="_blank">
-    //             {container["name"]}
-    //         </a><br/>
-    //         {container["address"]}<br/>
-    //         {phone ? <p>phone</p> : <span/>}
-    //         {/*<a className="p-container-popup-company" href={container["url"]} target="_blank">*/}
-    //         {/*    {container["company"]}*/}
-    //         {/*</a>*/}
-    //         <div className="p-container-popup-routes"/>
-    //         <span style={{float: "left", marginRight: 5}}>Route:</span>
-    //         {[
-    //             transportImg(require("./walk.svg"), "Walking", routeLink(myLoc, lat, lon, "walking")),
-    //             transportImg(require("./bike.svg"), "Bike", routeLink(myLoc, lat, lon, "bicycling")),
-    //             transportImg(require("./transit.svg"), "Transit", routeLink(myLoc, lat, lon, "transit")),
-    //             transportImg(require("./car.svg"), "Car", routeLink(myLoc, lat, lon, "driving")),
-    //         ]}
-    //     </div>);
-    // });
 
     const map = React.createRef();
 
@@ -198,17 +153,9 @@ const PContainersMap = ({pContainers}) => {
     return (
         <div className='map-container' ref={myRef}>
             <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{height: 380}} onZoomend={onZoomEvent}>
-
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-
-                {/*<MarkerClusterGroup>*/}
-                {/*    <Marker position={[49.8397, 24.0297]}/>*/}
-                {/*    <Marker position={[52.2297, 21.0122]}/>*/}
-                {/*    <Marker position={[51.5074, -0.0901]}/>*/}
-                {/*</MarkerClusterGroup>*/}
-
                 {markers()}
                 {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>Your location!</p>)}
             </Map>
