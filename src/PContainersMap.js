@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import './App.css';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 const markerIcon = new L.Icon({
     iconUrl: require('./marker.svg'),
@@ -94,11 +95,19 @@ const PContainersMap = ({pContainers}) => {
 
     return (
         <div className='map-container' ref={myRef}>
-            <Map center={[52.520008, 13.404954]} zoom={11} ref={map} style={{height: 380}}>
+            <Map center={[52.520008, 13.404954]} zoom={11} maxZoom={12} ref={map} style={{height: 380}}>
+
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {markers()}
+
+                <MarkerClusterGroup>
+                    <Marker position={[49.8397, 24.0297]} />
+                    <Marker position={[52.2297, 21.0122]} />
+                    <Marker position={[51.5074, -0.0901]} />
+                </MarkerClusterGroup>
+
+                {/*{markers()}*/}
                 {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>Your location!</p>)}
             </Map>
         </div>

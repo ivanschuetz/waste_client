@@ -6,6 +6,7 @@ import ItemSearch from "./SearchResults";
 import PContainersMap from "./PContainersMap";
 import Modal from "./Modal";
 import ProgressBar from "./ProgressBar";
+require('react-leaflet-markercluster/dist/styles.min.css');
 
 const App = () => {
     const [suggestions, setSuggestions] = useState([]);
