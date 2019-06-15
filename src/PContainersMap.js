@@ -6,6 +6,8 @@ import Supercluster from 'supercluster';
 import WebWorker from "./WebWorker";
 import w from "./app.worker";
 import OpeningHours from "./OpeningHours";
+import moment from "moment";
+import {nowIsBetween} from "./Time";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     iconUrl: path,
@@ -19,7 +21,8 @@ const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     className: 'leaflet-div-icon'
 });
 
-const markerIcon = makeIcon(require('./marker.svg'), [15, 27], new L.Point(30, 30), [0, -30]);
+const markerClosedIcon = makeIcon(require('./marker_closed.svg'), [15, 27], new L.Point(30, 30), [0, -30]);
+const markerOpenIcon = makeIcon(require('./marker_open.svg'), [15, 27], new L.Point(30, 30), [0, -30]);
 const myLocMarkerIcon = makeIcon(require('./my_loc.svg'), null, new L.Point(20, 20), [0, -15]);
 
 const createClusterIcon = (count) => {
@@ -99,7 +102,22 @@ const PContainersMap = ({pContainers}) => {
                     <OpeningHours openingHoursList={open["hours"]}/>
                 </div>;
             default:
-                console.log('Unknown open value: ' + JSON.stringify(open));
+                console.log('Unknown openType value: ' + JSON.stringify(openType));
+        }
+    };
+
+    const isOpen = (container) => {
+        switch (container["openType"]) {
+            case "a":
+                return true;
+            case "u":
+                return true;
+            case "h":
+                const hours = container["open"]["hours"];
+                return hours.some((hour) => nowIsBetween(hour["start"], hour["end"]));
+            default:
+                console.log('Unknown openType value: ' + JSON.stringify(container["openType"]));
+                return false;
         }
     };
 
@@ -108,7 +126,7 @@ const PContainersMap = ({pContainers}) => {
         const lon = container["lon"];
         const phone = container["phone"];
 
-        return marker(lat, lon, markerIcon, <div style={{minWidth: 200}}>
+        return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>
             <a className="p-container-popup-title" href={container["url"]} target="_blank">
                 {container["name"]}
             </a><br/>

@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import moment from "moment";
+import {nowIsBetween} from "./Time";
 
 const OpeningHoursTable = ({openingHoursList}) => <table className="opening-times-table">
     {openingHoursList.map((openingHours) => OpeningHoursRow(openingHours))}
@@ -11,14 +11,6 @@ const OpeningHoursRow = (openingHours) =>
         <td>{formatWeekdayStr(openingHours["weekday"])}</td>
         <td>{formatTime(openingHours["start"])} - {formatTime(openingHours["end"])}</td>
     </tr>;
-
-const nowIsBetween = (start, end) => {
-    const now = moment();
-    const timeFormat = 'hh:mm';
-    const startMoment = moment(start, timeFormat);
-    const endMoment = moment(end, timeFormat);
-    return now.isBetween(startMoment, endMoment);
-};
 
 const rowClassName = (start, end) => {
     if (nowIsBetween(start, end))  {
