@@ -3,10 +3,7 @@ import './App.css';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
 import Supercluster from 'supercluster';
-import WebWorker from "./WebWorker";
-import w from "./app.worker";
 import OpeningHours from "./OpeningHours";
-import moment from "moment";
 import {nowIsBetween} from "./Time";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
@@ -43,7 +40,6 @@ const createClusterIcon = (count) => {
 const PContainersMap = ({pContainers}) => {
     const [myLoc, setMyLoc] = useState(null);
     const [zoom, setZoom] = useState(11);
-    const [markers, setMarkers] = useState([]);
     const myRef = useRef(null);
 
     // Scroll such that maps becomes fully visible when loading component
@@ -162,24 +158,16 @@ const PContainersMap = ({pContainers}) => {
 
     const displayLocationInfo = (position) => setMyLoc(position.coords);
 
-    useEffect(() => {
-            const worker = new WebWorker(w);
-            worker.addEventListener('message', event => {
-                index.load(points);
-                const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
+    index.load(points);
+    const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
 
-                const markers = clusteringResults.map((result) => {
-                    if (result.hasOwnProperty("type")) { // cluster
-                        return clusterMarker(result);
-                    } else { // point
-                        return pointMarker(result["properties"]["container"]);
-                    }
-                });
-                setMarkers(markers)
-            });
-            worker.postMessage("work!");
-        }, [zoom]
-    );
+    const markers = clusteringResults.map((result) => {
+        if (result.hasOwnProperty("type")) { // cluster
+            return clusterMarker(result);
+        } else { // point
+            return pointMarker(result["properties"]["container"]);
+        }
+    });
 
     useEffect(() => {
         const fetchMyLoc = async () => {
