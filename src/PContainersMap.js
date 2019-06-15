@@ -5,6 +5,7 @@ import L from 'leaflet';
 import Supercluster from 'supercluster';
 import WebWorker from "./WebWorker";
 import w from "./app.worker";
+import OpeningHours from "./OpeningHours";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     iconUrl: path,
@@ -86,16 +87,34 @@ const PContainersMap = ({pContainers}) => {
         setZoom(zoom);
     };
 
+    const openElement = (openType, open) => {
+        switch (openType) {
+            case "a":
+                return <p>Always open</p>;
+            case "u":
+                return <span/>;
+            case "h":
+                return <div>
+                    <div className="opening-times-title">Öffnungszeiten</div>
+                    <OpeningHours openingHoursList={open["hours"]}/>
+                </div>;
+            default:
+                console.log('Unknown open value: ' + JSON.stringify(open));
+        }
+    };
+
     const pointMarker = (container) => {
         const lat = container["lat"];
         const lon = container["lon"];
         const phone = container["phone"];
+
         return marker(lat, lon, markerIcon, <div style={{minWidth: 200}}>
             <a className="p-container-popup-title" href={container["url"]} target="_blank">
                 {container["name"]}
             </a><br/>
             {container["address"]}<br/>
             {phone ? <p>phone</p> : <span/>}
+            {openElement(container["openType"], container["open"])}
             {/*<a className="p-container-popup-company" href={container["url"]} target="_blank">*/}
             {/*    {container["company"]}*/}
             {/*</a>*/}
@@ -116,10 +135,9 @@ const PContainersMap = ({pContainers}) => {
         const lng = coords[1];
         const count = result["properties"]["point_count"];
         const countText = count > 999 ? "+" : count;
-        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={createClusterIcon(countText)} />
+        return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)}
+                       icon={createClusterIcon(countText)}/>
     };
-
-    // const generateMarkers = () => ;
 
     const onZoomEvent = (event) => {
         setZoom(event.target._zoom);
@@ -162,7 +180,8 @@ const PContainersMap = ({pContainers}) => {
 
     return (
         <div className='map-container' ref={myRef}>
-            <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{height: 380}} onZoomend={onZoomEvent}>
+            <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{height: 380}}
+                 onZoomend={onZoomEvent}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />

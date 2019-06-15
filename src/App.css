@@ -278,6 +278,18 @@
     color: #fff;
 }
 
+.opening-times-title {
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    border-top: 1px solid #000;
+    padding-top: 5px;
+}
+
+.opening-times-table td {
+    padding-right: 10px;
+}
+
 /* Progress bar https://stackoverflow.com/a/34773398/930450 */
 
 .slider {
