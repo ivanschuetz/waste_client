@@ -2,6 +2,13 @@ import React from "react";
 import './App.css';
 import {nowIsBetween} from "./Time";
 
+const OpeningHours = ({openingHoursList}) => <div>
+    {!openingHoursList.some((hour) => nowIsBetween(hour["start"], hour["end"])) ?
+        <div className="opening-times-status-closed">Derzeit geschlossen!</div> : <div className="opening-times-status-open">Geöffnet!</div>}
+    <div className="opening-times-title">Öffnungszeiten</div>
+    <OpeningHoursTable openingHoursList={openingHoursList}/>
+</div>;
+
 const OpeningHoursTable = ({openingHoursList}) => <table className="opening-times-table">
     {openingHoursList.map((openingHours) => OpeningHoursRow(openingHours))}
 </table>;
@@ -13,7 +20,7 @@ const OpeningHoursRow = (openingHours) =>
     </tr>;
 
 const rowClassName = (start, end) => {
-    if (nowIsBetween(start, end))  {
+    if (nowIsBetween(start, end)) {
         return 'opening-hours-row-now'
     } else {
         return 'opening-hours-row-default'
@@ -43,4 +50,4 @@ const formatWeekdayStr = (weekdayStr) => {
     }
 };
 
-export default OpeningHoursTable;
+export default OpeningHours;

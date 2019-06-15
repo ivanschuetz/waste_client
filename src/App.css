@@ -286,6 +286,22 @@
     padding-top: 5px;
 }
 
+.opening-times-status-open {
+    margin-top: 5px;
+    font-weight: bold;
+    color: #0f0;
+}
+
+.opening-times-status-closed {
+    margin-top: 5px;
+    font-weight: bold;
+    color: #000;
+}
+
+.always-open-label {
+    font-weight: bold;
+}
+
 .opening-times-table td {
     padding-right: 10px;
 }

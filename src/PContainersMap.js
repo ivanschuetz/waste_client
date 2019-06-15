@@ -93,14 +93,11 @@ const PContainersMap = ({pContainers}) => {
     const openElement = (openType, open) => {
         switch (openType) {
             case "a":
-                return <p>Always open</p>;
+                return <div className="always-open-label">Immer geöffnet!</div>;
             case "u":
                 return <span/>;
             case "h":
-                return <div>
-                    <div className="opening-times-title">Öffnungszeiten</div>
-                    <OpeningHours openingHoursList={open["hours"]}/>
-                </div>;
+                return <OpeningHours openingHoursList={open["hours"]}/>;
             default:
                 console.log('Unknown openType value: ' + JSON.stringify(openType));
         }
