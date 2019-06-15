@@ -290,6 +290,14 @@
     padding-right: 10px;
 }
 
+.opening-hours-row-now {
+    font-weight: bold;
+    color: #0f0;
+}
+
+.opening-hours-row-default {
+}
+
 /* Progress bar https://stackoverflow.com/a/34773398/930450 */
 
 .slider {
