@@ -3,6 +3,8 @@ import './App.css';
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
 import Supercluster from 'supercluster';
+import WebWorker from "./WebWorker";
+import w from "./app.worker";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     iconUrl: path,
@@ -37,10 +39,16 @@ const createClusterIcon = (count) => {
 const PContainersMap = ({pContainers}) => {
     const [myLoc, setMyLoc] = useState(null);
     const [zoom, setZoom] = useState(11);
+    const [markers, setMarkers] = useState([]);
     const myRef = useRef(null);
 
     // Scroll such that maps becomes fully visible when loading component
     useEffect(() => myRef.current && window.scrollTo(0, myRef.current.offsetTop));
+
+    const index = new Supercluster({
+        radius: 40,
+        maxZoom: 18
+    });
 
     const marker = (lat, lon, markerIcon, children) =>
         <Marker position={[lat, lon]} icon={markerIcon}>
@@ -73,18 +81,8 @@ const PContainersMap = ({pContainers}) => {
         }
     );
 
-    const index = new Supercluster({
-        radius: 40,
-        maxZoom: 18
-    });
-    index.load(points);
-    const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
-
-    console.log('calculated new clusters: ' + clusteringResults.length);
-
     const onClusterClick = (cluster) => {
         const zoom = index.getClusterExpansionZoom(cluster["id"]);
-        console.log('setting zoom to:' + zoom);
         setZoom(zoom);
     };
 
@@ -113,7 +111,6 @@ const PContainersMap = ({pContainers}) => {
     };
 
     const clusterMarker = (result) => {
-        console.log("result: " + JSON.stringify(result));
         const coords = result["geometry"]["coordinates"];
         const lat = coords[0];
         const lng = coords[1];
@@ -122,13 +119,7 @@ const PContainersMap = ({pContainers}) => {
         return <Marker position={[lat, lng]} onClick={() => onClusterClick(result)} icon={createClusterIcon(countText)} />
     };
 
-    const markers = () => clusteringResults.map((result) => {
-        if (result.hasOwnProperty("type")) { // cluster
-            return clusterMarker(result);
-        } else { // point
-            return pointMarker(result["properties"]["container"]);
-        }
-    });
+    // const generateMarkers = () => ;
 
     const onZoomEvent = (event) => {
         setZoom(event.target._zoom);
@@ -137,6 +128,25 @@ const PContainersMap = ({pContainers}) => {
     const map = React.createRef();
 
     const displayLocationInfo = (position) => setMyLoc(position.coords);
+
+    useEffect(() => {
+            const worker = new WebWorker(w);
+            worker.addEventListener('message', event => {
+                index.load(points);
+                const clusteringResults = index.getClusters([-180, -85, 180, 85], zoom);
+
+                const markers = clusteringResults.map((result) => {
+                    if (result.hasOwnProperty("type")) { // cluster
+                        return clusterMarker(result);
+                    } else { // point
+                        return pointMarker(result["properties"]["container"]);
+                    }
+                });
+                setMarkers(markers)
+            });
+            worker.postMessage("work!");
+        }, [zoom]
+    );
 
     useEffect(() => {
         const fetchMyLoc = async () => {
@@ -156,7 +166,7 @@ const PContainersMap = ({pContainers}) => {
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {markers()}
+                {markers}
                 {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>Your location!</p>)}
             </Map>
         </div>
