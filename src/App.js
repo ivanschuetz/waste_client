@@ -19,7 +19,6 @@ const App = () => {
     const [showProgressBar, setShowProgressBar] = useState(false);
 
     const handleSuggestions = suggestions => {
-        console.log('suggestions: ' + JSON.stringify(suggestions));
         setShowingSuggestions(true);
         setSuggestions(suggestions);
         // Hide the suggestions box when there are no results, otherwise the border will show below the search box
