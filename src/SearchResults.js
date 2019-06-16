@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import './App.css';
-import {sleep} from "./Utils";
 const axios = require('axios');
 
 const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {

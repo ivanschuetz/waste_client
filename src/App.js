@@ -32,6 +32,7 @@ const App = () => {
         setSearchText(suggestion.name);
         setShowingSuggestions(false);
         setShowProgressBar(true);
+        setShowMap(false);
     };
 
     const handleResults = results => {
