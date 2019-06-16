@@ -10,11 +10,13 @@ const OpeningHours = ({openingHoursList}) => <div>
 </div>;
 
 const OpeningHoursTable = ({openingHoursList}) => <table className="opening-times-table">
-    {openingHoursList.map((openingHours) => OpeningHoursRow(openingHours))}
+    <tbody>
+        {openingHoursList.map((openingHours) => OpeningHoursRow(openingHours))}
+    </tbody>
 </table>;
 
 const OpeningHoursRow = (openingHours) =>
-    <tr className={rowClassName(openingHours["start"], openingHours["end"])}>
+    <tr className={rowClassName(openingHours["start"], openingHours["end"])} key={openingHours["weekday"]}>
         <td>{formatWeekdayStr(openingHours["weekday"])}</td>
         <td>{formatTime(openingHours["start"])} - {formatTime(openingHours["end"])}</td>
     </tr>;

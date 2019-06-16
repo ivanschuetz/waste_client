@@ -51,7 +51,7 @@ const PContainersMap = ({pContainers}) => {
     });
 
     const marker = (lat, lon, markerIcon, children) =>
-        <Marker position={[lat, lon]} icon={markerIcon}>
+        <Marker position={[lat, lon]} icon={markerIcon} key={`${lat}${lon}`}>
             <Popup>
                 {children}
             </Popup>
@@ -63,8 +63,9 @@ const PContainersMap = ({pContainers}) => {
     };
 
     const transportImg = (src, alt, link) =>
-        <a href={link} target="_blank"><img src={src} alt={alt} style={{width: 20, height: 20, marginRight: 20}}/></a>;
-
+        <a href={link} target="_blank" rel="noopener noreferrer" key={alt}>
+            <img src={src} alt={alt} style={{width: 20, height: 20, marginRight: 20}}/>
+        </a>;
 
     const points = pContainers.map((container) => {
             return {
@@ -120,7 +121,7 @@ const PContainersMap = ({pContainers}) => {
         const phone = container["phone"];
 
         return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>
-            <a className="p-container-popup-title" href={container["url"]} target="_blank">
+            <a className="p-container-popup-title" href={container["url"]} target="_blank" rel="noopener noreferrer">
                 {container["name"]}
             </a><br/>
             {container["address"]}<br/>

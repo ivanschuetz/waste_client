@@ -148,6 +148,8 @@
 
 .suggestion {
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .result-header {

@@ -19,14 +19,15 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
             const company = companyResult["company"];
             return <li key={'p' + company.id}>
-                <a className='pickup-company-name' href={companyResult["website"] || company["website"]} target='_blank'>
+                <a className='pickup-company-name' href={companyResult["website"] || company["website"]} target='_blank'
+                   rel='noopener noreferrer'>
                     <span style={{ verticalAlign: 'middle'}}>{company.name}</span>
                 </a>
                 <a className='company-data-link' href={"tel:" + company.phone}>
                     {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                     <span style={{ verticalAlign: 'middle'}}>{company.phone}</span>
                 </a>
-                <a className='company-data-link' href={"mailto:" + company.email} target='_blank'>
+                <a className='company-data-link' href={"mailto:" + company.email} target='_blank' rel='noopener noreferrer'>
                     {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                     <span style={{ verticalAlign: 'middle'}}>{company.email}</span>
                 </a>
@@ -41,12 +42,12 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             if (showPContainersButton)  {
                 pContainersListItems.push(
                     <li key='pcont' className='result-header-p-containers'>
-                        <a className='p-containers-link' onClick={onPContainersClick}>
+                        <div className='p-containers-link' onClick={onPContainersClick}>
                             <div className='p-containers-span'>
                                 <img src={require('./map.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>
                                 <span style={{ verticalAlign: 'middle'}}>Public containers({pContainers.length})</span>
                             </div>
-                        </a>
+                        </div>
                     </li>
                 )
             } else {

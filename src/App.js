@@ -18,8 +18,6 @@ const App = () => {
     const [searchText, setSearchText] = useState("");
     const [showProgressBar, setShowProgressBar] = useState(false);
 
-    const searchBoxRef = React.createRef();
-
     const handleSuggestions = suggestions => {
         console.log('suggestions: ' + JSON.stringify(suggestions));
         setShowingSuggestions(true);
@@ -58,7 +56,7 @@ const App = () => {
             {showProgressBar && <ProgressBar/>}
             <div className="top">
                 <div className="page-title">Wohin damit?</div>
-                <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput} ref={searchBoxRef}
+                <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput}
                            searchText={searchText}/>
             </div>
             {showingSuggestions && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
@@ -70,8 +68,8 @@ const App = () => {
                 {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
             </div>
             <div className="footer">
-                <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank">Feedback</a> |&nbsp;
-                <a className="about-link" onClick={() => setShowAboutModal(!showAboutModal)}>Impressum</a>
+                <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank" rel="noopener noreferrer">Feedback</a> |&nbsp;
+                <span className="about-link" onClick={() => setShowAboutModal(!showAboutModal)} rel="noopener noreferrer">Impressum</span>
             </div>
             {showAboutModal &&
             <Modal onCloseClick={() => setShowAboutModal(false)}>

@@ -7,7 +7,7 @@ const ItemSuggestions = ({suggestions, onClick}) => {
         console.log('generating listitems suggestions: ' + JSON.stringify(suggestions));
         return suggestions.map(suggestion =>
             <li key={suggestion.id} className="suggestion-item">
-                <a className="suggestion" onClick={() => onClick(suggestion)}>{suggestion.name}</a>
+                <div className="suggestion" onClick={() => onClick(suggestion)}>{suggestion.name}</div>
             </li>
         );
     };
