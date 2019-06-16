@@ -27,10 +27,12 @@ const App = () => {
     };
 
     const onSuggestionClick = suggestion => {
-        console.log('clicked suggestion: ' + JSON.stringify(suggestion));
-        setSelectedSuggestion(suggestion);
         setSearchText(suggestion.name);
         setShowingSuggestions(false);
+        if (selectedSuggestion && suggestion["id"] === selectedSuggestion["id"]) {
+            return;
+        }
+        setSelectedSuggestion(suggestion);
         setShowProgressBar(true);
         setShowMap(false);
     };
