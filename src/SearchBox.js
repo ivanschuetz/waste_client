@@ -24,7 +24,11 @@ const SearchBox = ({onResults, onInput, searchText}) => {
 
     const onSearchInput = (text) => {
         onInput(text);
-        search(text);
+        if (text.length > 2) {
+            search(text);
+        } else {
+            onResults([]);
+        }
     };
 
     return (
