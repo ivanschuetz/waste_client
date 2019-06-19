@@ -145,7 +145,7 @@
     list-style: none;
     padding: 0;
     position: absolute;
-    z-index: 50;
+    z-index: 1200;
     background: white;
     margin: -2px 0 0 0;
     border: 2px solid #ccc;
