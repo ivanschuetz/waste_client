@@ -332,6 +332,14 @@
 .opening-hours-row-default {
 }
 
+.lang-link {
+    cursor: pointer;
+}
+
+.lang {
+    cursor: pointer;
+}
+
 /* Progress bar https://stackoverflow.com/a/34773398/930450 */
 
 .slider {

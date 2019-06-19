@@ -1,7 +1,10 @@
 import React from "react";
 import './App.css';
+import {useTranslation} from "react-i18next";
 
 const SearchBox = ({onResults, onInput, searchText}) => {
+    const { t } = useTranslation();
+
     const search = (text) => {
         if (!text) {
             onResults([]);
@@ -35,6 +38,7 @@ const SearchBox = ({onResults, onInput, searchText}) => {
         <input
             className="searchbox"
             type="text"
+            placeholder={t('search_box_placeholder')}
             value={searchText}
             onChange={event => onSearchInput(event.target.value)}
             autoFocus

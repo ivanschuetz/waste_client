@@ -6,6 +6,8 @@ import ItemSearch from "./SearchResults";
 import PContainersMap from "./PContainersMap";
 import Modal from "./Modal";
 import ProgressBar from "./ProgressBar";
+import {useTranslation} from "react-i18next";
+import i18n from 'i18next';
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 const App = () => {
@@ -15,8 +17,10 @@ const App = () => {
     const [results, setResults] = useState(null);
     const [showMap, setShowMap] = useState(false);
     const [showAboutModal, setShowAboutModal] = useState(false);
+    const [showLangModal, setShowLangModal] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [showProgressBar, setShowProgressBar] = useState(false);
+    const { t } = useTranslation();
 
     const handleSuggestions = suggestions => {
         setShowingSuggestions(true);
@@ -50,11 +54,27 @@ const App = () => {
 
     const onPContainersClick = () => setShowMap(true);
 
+    const setLanguage = async (lang) => {
+        await i18n.changeLanguage(lang, null)
+    };
+
+    const languageName = (code) => {
+        switch (code) {
+            case "de": return "Deutsch";
+            case "en": return "English";
+            default:
+                console.log("Unexpected language code: " + code + ", returning English.");
+                return "English";
+        }
+    };
+
+    const currentLanguageName = () => languageName(i18n.language);
+
     return (
         <div className="App">
             {showProgressBar && <ProgressBar/>}
             <div className="top">
-                <div className="page-title">Wohin damit?</div>
+                <div className="page-title">{t('app_title')}</div>
                 <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput}
                            searchText={searchText}/>
             </div>
@@ -67,8 +87,11 @@ const App = () => {
                 {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
             </div>
             <div className="footer">
-                <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank" rel="noopener noreferrer">Feedback</a> |&nbsp;
-                <span className="about-link" onClick={() => setShowAboutModal(!showAboutModal)} rel="noopener noreferrer">Impressum</span>
+                <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank" rel="noopener noreferrer">{t('link_feedback')}</a> |&nbsp;
+                <span className="about-link" onClick={() => setShowAboutModal(!showAboutModal)} rel="noopener noreferrer">
+                    {t('link_legal')}
+                </span> |&nbsp;
+                <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{currentLanguageName()}</span>
             </div>
             {showAboutModal &&
             <Modal onCloseClick={() => setShowAboutModal(false)}>
@@ -76,6 +99,11 @@ const App = () => {
                 <p>Birkenstraße 15</p>
                 <p>10559 Berlin</p>
                 <p>Deutschland</p>
+            </Modal>}
+            {showLangModal &&
+            <Modal title={t('lang_modal_title')} onCloseClick={() => setShowLangModal(false)}>
+                <p className='lang' onClick={() => setLanguage("de")}>Deutsch</p>
+                <p className='lang' onClick={() => setLanguage("en")}>English</p>
             </Modal>}
         </div>);
 };
