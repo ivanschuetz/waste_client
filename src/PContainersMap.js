@@ -4,7 +4,7 @@ import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
 import Supercluster from 'supercluster';
 import OpeningHours from "./OpeningHours";
-import {nowIsBetween} from "./Time";
+import {currentWeekdayIndex, isOpenNow, nowIsBetween, weekdayIndex} from "./Time";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     iconUrl: path,
@@ -108,7 +108,7 @@ const PContainersMap = ({pContainers}) => {
                 return true;
             case "h":
                 const hours = container["open"]["hours"];
-                return hours.some((hour) => nowIsBetween(hour["start"], hour["end"]));
+                return isOpenNow(hours);
             default:
                 console.log('Unknown openType value: ' + JSON.stringify(container["openType"]));
                 return false;
