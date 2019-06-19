@@ -88,9 +88,7 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
         setResults(null); // When selecting a new suggestion, stop showing current results immediately
 
         const fetchData = async () => {
-            const result = await axios(
-                'http://localhost:8080/options/' + suggestion.id,
-            );
+            const result = await axios('http://localhost:8080/options/' + suggestion.id);
             // await sleep(2000);
 
             const finalResult = result.data.hasOwnProperty("containers") ? result.data : null;
