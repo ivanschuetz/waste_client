@@ -1,10 +1,12 @@
 import React from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
+import i18n from 'i18next';
+
 const axios = require('axios');
 
 const SearchBox = ({onResults, onInput, searchText}) => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const search = async (text) => {
         if (!text) {
@@ -12,7 +14,8 @@ const SearchBox = ({onResults, onInput, searchText}) => {
             return;
         }
 
-        const result = await axios('http://localhost:8080/search/' + text);
+        const lang = i18n.language;
+        const result = await axios('http://localhost:8080/search/' + text, {headers: {"lang": lang}});
         const data = result.data;
         // TODO handle http errors (they are returned here, not in onrejected)
         const array = Array.isArray(data) ? data : [];
