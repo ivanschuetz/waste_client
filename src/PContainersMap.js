@@ -5,6 +5,7 @@ import L from 'leaflet';
 import Supercluster from 'supercluster';
 import OpeningHours from "./OpeningHours";
 import {currentWeekdayIndex, isOpenNow, nowIsBetween, weekdayIndex} from "./Time";
+import {useTranslation} from "react-i18next";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     iconUrl: path,
@@ -41,6 +42,7 @@ const PContainersMap = ({pContainers}) => {
     const [myLoc, setMyLoc] = useState(null);
     const [zoom, setZoom] = useState(11);
     const myRef = useRef(null);
+    const {t} = useTranslation();
 
     // Scroll such that maps becomes fully visible when loading component
     useEffect(() => myRef.current && window.scrollTo(0, myRef.current.offsetTop));
@@ -90,9 +92,9 @@ const PContainersMap = ({pContainers}) => {
     const openElement = (openType, open) => {
         switch (openType) {
             case "a":
-                return <div className="always-open-label">Immer geöffnet!</div>;
+                return <div className="always-open-label">{t('map_open_always')}</div>;
             case "u":
-                return <span/>;
+                return <div className="always-open-label">{t('map_open_unknown')}</div>;
             case "h":
                 return <OpeningHours openingHoursList={open["hours"]}/>;
             default:
@@ -125,7 +127,7 @@ const PContainersMap = ({pContainers}) => {
                 {container["name"]}
             </a><br/>
             {container["address"]}<br/>
-            {phone ? <p>phone</p> : <span/>}
+            {phone ? <span>{container["phone"]}</span> : <span/>}
             {openElement(container["openType"], container["open"])}
             {/*<a className="p-container-popup-company" href={container["url"]} target="_blank">*/}
             {/*    {container["company"]}*/}
