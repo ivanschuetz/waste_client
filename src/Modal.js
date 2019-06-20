@@ -5,7 +5,8 @@ const Modal = ({ title, children, onCloseClick }) => (
     ReactDOM.createPortal(
         <div className="modal">
             <p className="modal-topbar-title">{title}</p>
-            <p className="modal-topbar-x" onClick={() => onCloseClick()}>x</p>
+            <p className="modal-topbar-x" onClick={() => onCloseClick()}>X</p>
+            <div style={{clear: "left"}}/>
             {children}
         </div>,
         document.getElementById('modal-root')

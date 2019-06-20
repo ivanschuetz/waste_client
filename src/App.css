@@ -89,6 +89,9 @@
     transform: translate(-50%, -50%);
     background-color: #fff;
     z-index: 2000;
+    max-width: 300px;
+    min-width: 300px;
+    min-height: 300px;
 }
 
 .modal-topbar-title {
@@ -342,6 +345,11 @@
     cursor: pointer;
 }
 
+.lang-selected {
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .missingItemListItem {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -390,6 +398,21 @@
     animation: decrease 2s 0.5s infinite;
 }
 
+.legal-section-tab {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.legal-section-tab-selected {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.privacy-policy-link {
+    cursor: pointer;
+    text-decoration: none;
+}
 
 @keyframes increase {
     from {
