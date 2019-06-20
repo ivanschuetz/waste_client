@@ -11,7 +11,7 @@ const ItemSuggestions = ({suggestions, onClick}) => {
                 <div className="suggestion" onClick={() => onClick(suggestion)}>{suggestion.name}</div>
             </li>
         ).concat(
-            <li className="missingItemListItem">
+            <li className="missingItemListItem" key='suggestion_not_found'>
                 <a className="missingItemLink" href="mailto:ivanschuetz@gmail.com&su=fooo" target="_blank">{t('suggestion_not_found')}</a>
             </li>
         );
