@@ -173,6 +173,13 @@
     color: inherit;
 }
 
+.suggestion-highlighted {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
 .result-header {
     font-weight: bold;
     margin-top: 5px;
