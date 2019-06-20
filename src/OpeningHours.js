@@ -6,6 +6,8 @@ import {useTranslation} from "react-i18next";
 const OpeningHours = ({openingHoursList}) => {
     const { t } = useTranslation();
 
+    openingHoursList = sortOpeningHours(openingHoursList);
+
     return <div>
         {!isOpenNow(openingHoursList) ?
             <div className="opening-times-status-closed">{t('map_currently_closed')}</div> : <div className="opening-times-status-open">{t('map_currently_open')}</div>}
@@ -13,6 +15,8 @@ const OpeningHours = ({openingHoursList}) => {
         <OpeningHoursTable openingHoursList={openingHoursList}/>
     </div>;
 };
+
+const sortOpeningHours = (openingHoursList) => openingHoursList.sort((a, b) => toInternalIndex(a["weekday"]) - toInternalIndex(b["weekday"]));
 
 const OpeningHoursTable = ({openingHoursList}) => <table className="opening-times-table">
     <tbody>
@@ -54,6 +58,27 @@ const formatWeekdayStr = (weekdayStr) => {
             return "weekday_saturday";
         case "SU":
             return "weekday_sunday";
+        default:
+            console.log("Bad weekday str: " + weekdayStr);
+    }
+};
+
+const toInternalIndex = (weekdayStr) => {
+    switch (weekdayStr) {
+        case "MO":
+            return 0;
+        case "TU":
+            return 1;
+        case "WE":
+            return 2;
+        case "TH":
+            return 3;
+        case "FR":
+            return 4;
+        case "SA":
+            return 5;
+        case "SU":
+            return 6;
         default:
             console.log("Bad weekday str: " + weekdayStr);
     }
