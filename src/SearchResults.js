@@ -15,7 +15,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const containersListItems = containers.map(container => {
             const color = container["color"];
             const dotClass = color === 'FFFFFF' ? 'dot-bordered' : 'dot';
-            return <li key={'c' + container.id}>
+            return <li className='container-list-item' key={'c' + container.id}>
                 <span className={dotClass} style={{backgroundColor: "#" + color, marginRight: 5}}/>
                 {container.name}
             </li>
