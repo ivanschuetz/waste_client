@@ -14,8 +14,7 @@ const currentWeekdayIndex = () => moment().weekday();
 
 const formatTime = (time) => `${time["hours"]}:${time["minutes"]}`;
 
-export const isOpenNow = (hours) =>
-    hours.some((h) => isNowInTimeInterval(h["weekday"], h["start"], h["end"]));
+export const isOpenNow = (hours) => hours.some((h) => isNowInTimeInterval(h["weekday"], h["start"], h["end"]));
 
 export const isNowInTimeInterval = (weekday, start, end) => {
     const weekdayIndex = currentWeekdayIndex();
@@ -26,9 +25,9 @@ export const isNowInTimeInterval = (weekday, start, end) => {
 const toWeekdayApiIndentifier = (weekdayIndex) => {
     switch (weekdayIndex) {
         case 1: return "MO";
-        case 2: return "DI";
+        case 2: return "TU";
         case 3: return "WE";
-        case 4: return "DO";
+        case 4: return "TH";
         case 5: return "FR";
         case 6: return "SA";
         case 7: return "SU";
