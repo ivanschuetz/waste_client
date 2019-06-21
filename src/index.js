@@ -10,7 +10,7 @@ import * as ReactGA from 'react-ga'
 
 // ReactGA.initialize('UA-142482982-1'); // Prod
 ReactGA.initialize('UA-142477399-1', {
-    debug: true
+    // debug: true
 }); // Test
 
 const modalRoot = document.createElement('div');
