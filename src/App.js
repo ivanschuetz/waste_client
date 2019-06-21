@@ -90,40 +90,45 @@ const App = () => {
     return (
         <div className="App">
             {showProgressBar && <ProgressBar/>}
-            <div className="top">
-                <div className="page-title">{t('app_title')}</div>
-                <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput}
-                           searchText={searchText}/>
-            </div>
-            {showingSuggestions && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
-            <div className="all-results">
-                {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
-                                                   onPContainersClick={onPContainersClick}
-                                                   showPContainersButton={!showMap}
-                />}
-                {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
-            </div>
-            <div className="footer">
-                <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank" rel="noopener noreferrer">
-                    {t('link_feedback')}
-                </a> |&nbsp;
-                <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
+            <div className="Wrapper">
+
+
+                <div className="top">
+                    <div className="page-title">{t('app_title')}</div>
+                    <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput}
+                               searchText={searchText}/>
+                </div>
+                {showingSuggestions && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
+                <div className="all-results">
+                    {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
+                                                       onPContainersClick={onPContainersClick}
+                                                       showPContainersButton={!showMap}
+                    />}
+                    {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
+                </div>
+                <div className="footer">
+                    <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank" rel="noopener noreferrer">
+                        {t('link_feedback')}
+                    </a> |&nbsp;
+                    <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
                     {t('link_legal')}
                 </span> |&nbsp;
-                <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}</span>
+                    <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}</span>
+                </div>
+                {showAboutModal &&
+                <Modal onCloseClick={() => setShowAboutModal(false)}>
+                </Modal>}
+                {showLegalModal &&
+                <Modal title={t('legal_modal_title')} onCloseClick={() => setShowLegalModal(false)}>
+                    <Legal/>
+                </Modal>}
+                {showLangModal &&
+                <Modal title={t('lang_modal_title')} onCloseClick={() => setShowLangModal(false)}>
+                    <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("de")}>Deutsch</p>
+                    <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("en")}>English</p>
+                </Modal>}
+
             </div>
-            {showAboutModal &&
-            <Modal onCloseClick={() => setShowAboutModal(false)}>
-            </Modal>}
-            {showLegalModal &&
-            <Modal title={t('legal_modal_title')} onCloseClick={() => setShowLegalModal(false)}>
-                <Legal/>
-            </Modal>}
-            {showLangModal &&
-            <Modal title={t('lang_modal_title')} onCloseClick={() => setShowLangModal(false)}>
-                <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("de")}>Deutsch</p>
-                <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("en")}>English</p>
-            </Modal>}
         </div>);
 };
 
