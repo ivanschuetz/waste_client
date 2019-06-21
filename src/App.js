@@ -9,6 +9,7 @@ import ProgressBar from "./ProgressBar";
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
 import Legal from "./Legal";
+import * as ReactGA from 'react-ga'
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 const App = () => {
@@ -42,6 +43,8 @@ const App = () => {
         setSelectedSuggestion(suggestion);
         setShowProgressBar(true);
         setShowMap(false);
+
+        ReactGA.event({ category: 'Search', action: 'Clicked suggestion', label: suggestion.name });
     };
 
     const handleResults = results => {
@@ -54,10 +57,14 @@ const App = () => {
         setSearchText(text);
     };
 
-    const onPContainersClick = () => setShowMap(true);
+    const onPContainersClick = () => {
+        setShowMap(true);
+        ReactGA.event({ category: 'Navigation', action: 'Opened public containers' });
+    };
 
     const setLanguage = async (lang) => {
-        await i18n.changeLanguage(lang, null)
+        await i18n.changeLanguage(lang, null);
+        ReactGA.event({ category: 'Settings', action: 'Changed language', label: lang });
     };
 
     const languageName = (code) => {
@@ -71,6 +78,14 @@ const App = () => {
     };
 
     const currentLanguageName = () => languageName(i18n.language);
+
+    const toggleLegalModal = () => {
+        const newShow = !showLegalModal;
+        setShowLegalModal(newShow);
+        if (newShow) {
+            ReactGA.event({ category: 'Navigation', action: 'Opened legal modal' });
+        }
+    };
 
     return (
         <div className="App">
@@ -92,7 +107,7 @@ const App = () => {
                 <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank" rel="noopener noreferrer">
                     {t('link_feedback')}
                 </a> |&nbsp;
-                <span className="about-link" onClick={() => setShowLegalModal(!showLegalModal)} rel="noopener noreferrer">
+                <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
                     {t('link_legal')}
                 </span> |&nbsp;
                 <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}</span>

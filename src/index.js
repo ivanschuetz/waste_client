@@ -6,6 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import {I18nextProvider} from "react-i18next";
 // import { BrowserRouter } from 'react-router-dom';
 import i18n from './i18n';
+import * as ReactGA from 'react-ga'
+
+// ReactGA.initialize('UA-142482982-1'); // Prod
+ReactGA.initialize('UA-142477399-1', {
+    debug: true
+}); // Test
 
 const modalRoot = document.createElement('div');
 modalRoot.setAttribute('id', 'modal-root');
