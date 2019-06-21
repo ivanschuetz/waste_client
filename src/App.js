@@ -107,7 +107,7 @@ const App = () => {
                     {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
                 </div>
                 <div className="footer">
-                    <a className="feedback-link" href="mailto:ivanschuetz@gmail.com" target="_blank" rel="noopener noreferrer">
+                    <a className="feedback-link" href="mailto:contact@woentsorgen.de" target="_blank" rel="noopener noreferrer">
                         {t('link_feedback')}
                     </a> |&nbsp;
                     <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">

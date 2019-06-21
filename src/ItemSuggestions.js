@@ -41,7 +41,7 @@ const ItemSuggestions = ({suggestions, onClick}) => {
             </li>
         ).concat(
             <li className="missingItemListItem" key='suggestion_not_found'>
-                <a className="missingItemLink" href="mailto:ivanschuetz@gmail.com&su=fooo" target="_blank">{t('suggestion_not_found')}</a>
+                <a className="missingItemLink" href="mailto:contact@woentsorgen.de&su=fooo" target="_blank">{t('suggestion_not_found')}</a>
             </li>
         );
     };
