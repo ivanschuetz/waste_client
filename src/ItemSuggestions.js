@@ -24,7 +24,7 @@ const ItemSuggestions = ({suggestions, onClick}) => {
         return () => {
             window.removeEventListener('keydown', keyDownListener);
         };
-    }, [highlightedIndex]); // Empty array ensures that effect is only run on mount and unmount
+    }, [highlightedIndex, suggestions]); // Empty array ensures that effect is only run on mount and unmount
 
     const suggestionClassName = (index) => {
         if (index === highlightedIndex) {
