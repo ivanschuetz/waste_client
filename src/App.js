@@ -81,8 +81,6 @@ const App = () => {
         }
     };
 
-    const currentLanguageName = () => languageName(i18n.language);
-
     const toggleLegalModal = () => {
         const newShow = !showLegalModal;
         setShowLegalModal(newShow);
@@ -95,7 +93,6 @@ const App = () => {
         <div className="App">
             {showProgressBar && <ProgressBar/>}
             <div className="Wrapper">
-
 
                 <div className="top">
                     <div className="page-title">{t('app_title')}</div>
