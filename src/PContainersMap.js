@@ -45,7 +45,7 @@ const PContainersMap = ({pContainers}) => {
     const {t} = useTranslation();
 
     // Scroll such that maps becomes fully visible when loading component
-    useEffect(() => myRef.current && window.scrollTo(0, myRef.current.offsetTop));
+    useEffect(() => myRef.current && window.scrollTo(0, myRef.current.offsetTop), []);
 
     const index = new Supercluster({
         radius: 40,
