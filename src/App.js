@@ -47,6 +47,10 @@ const App = () => {
         ReactGA.event({ category: 'Search', action: 'Clicked suggestion', label: suggestion.name });
     };
 
+    const onSuggestionEscape = suggestion => {
+        setShowingSuggestions(false);
+    };
+
     const handleResults = results => {
         setResults(results);
         setShowProgressBar(false);
@@ -98,7 +102,9 @@ const App = () => {
                     <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput}
                                searchText={searchText}/>
                 </div>
-                {showingSuggestions && <ItemSuggestions suggestions={suggestions} onClick={onSuggestionClick}/>}
+                {showingSuggestions && <ItemSuggestions suggestions={suggestions}
+                                                        onClick={onSuggestionClick}
+                                                        onEscape={onSuggestionEscape}/>}
                 <div className="all-results">
                     {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
                                                        onPContainersClick={onPContainersClick}

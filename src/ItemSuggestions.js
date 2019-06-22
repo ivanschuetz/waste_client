@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 
-const ItemSuggestions = ({suggestions, onClick}) => {
+const ItemSuggestions = ({suggestions, onClick, onEscape}) => {
     const { t } = useTranslation();
     const [highlightedIndex, setHighlightedIndex] = useState(0);
 
@@ -16,6 +16,8 @@ const ItemSuggestions = ({suggestions, onClick}) => {
                 setHighlightedIndex(keepInBounds(highlightedIndex - 1));
             } else if (key === "Enter") {
                 onClick(suggestions[highlightedIndex])
+            } else if (key === "Escape") {
+                onEscape()
             }
         };
 
