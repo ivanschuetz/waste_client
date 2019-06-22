@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 
 const ItemSuggestions = ({suggestions, onClick}) => {
     const { t } = useTranslation();
-    const [highlightedIndex, setHighlightedIndex] = useState(-1);
+    const [highlightedIndex, setHighlightedIndex] = useState(0);
 
     const keepInBounds = (newIndex) => Math.max(Math.min(newIndex, suggestions.length - 1), 0);
 
