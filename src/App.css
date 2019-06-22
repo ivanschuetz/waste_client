@@ -116,12 +116,17 @@
 }
 
 .searchbox {
+    /* Remove top shadow on iOS */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
     height: 40px;
     width: 100%;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    border: solid 2px #cccccc;
+    border: solid 1px #cccccc;
     padding: 10px;
     font-size: 18px;
     outline: 0;
@@ -154,8 +159,8 @@
     position: absolute;
     z-index: 1200;
     background: white;
-    margin: -2px 0 0 0;
-    border: 2px solid #ccc;
+    margin: -1px 0 0 0;
+    border: 1px solid #ccc;
     right: 36px;
     left: 36px;
     -moz-border-radius-bottomleft: 20px;
