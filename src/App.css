@@ -1,6 +1,11 @@
 @import url('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css');
 @import url('~react-leaflet-markercluster/dist/styles.min.css');
 
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
 #root {
     text-align: center;
 }
@@ -43,6 +48,7 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -83,6 +89,15 @@
 }
 
 .modal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,.2);
+}
+
+.modal-content {
     padding: 20px 20px 20px 20px;
     border: 1px solid grey;
     position: absolute;
@@ -169,6 +184,9 @@
     -moz-border-radius-bottomright: 20px;
     -webkit-border-bottom-right-radius: 20px;
     border-bottom-right-radius: 20px;
+
+    /* Fixes the z-index issue */
+    -webkit-transform:translate3d(0,0,0);
 }
 
 .suggestion-item {
@@ -349,8 +367,7 @@
     color: #228B22;
 }
 
-.opening-hours-row-default {
-}
+.opening-hours-row-default {}
 
 .lang-link {
     cursor: pointer;
@@ -434,6 +451,7 @@
         left: -5%;
         width: 5%;
     }
+
     to {
         left: 130%;
         width: 100%;
@@ -445,6 +463,7 @@
         left: -80%;
         width: 80%;
     }
+
     to {
         left: 110%;
         width: 10%;
