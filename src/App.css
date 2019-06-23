@@ -97,6 +97,8 @@ body {
 }
 
 .modal-content {
+    box-sizing: border-box;
+
     padding: 20px 20px 20px 20px;
     border: 1px solid grey;
     position: absolute;
