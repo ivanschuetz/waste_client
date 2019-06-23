@@ -136,6 +136,19 @@ body {
     cursor: pointer;
 }
 
+.modal-bottombar {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.modal-bottombar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modal-bottombar::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
 .top {
     padding-top: 150px;
     width: 100%;
