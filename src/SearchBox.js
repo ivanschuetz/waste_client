@@ -15,7 +15,9 @@ const SearchBox = ({onResults, onInput, searchText}) => {
         }
 
         const lang = i18n.language;
-        const result = await axios('http://207.154.219.200:8080/search/' + text, {headers: {"lang": lang}});
+        const result = await axios('http://woentsorgen.de:8080/search/' + text, {headers: {"lang": lang}});
+        // const result = await axios('http://207.154.219.200:8080/search/' + text, {headers: {"lang": lang}});
+        // const result = await axios('http://192.168.0.5:8080/search/' + text, {headers: {"lang": lang}});
         const data = result.data;
         // TODO handle http errors (they are returned here, not in onrejected)
         const array = Array.isArray(data) ? data : [];

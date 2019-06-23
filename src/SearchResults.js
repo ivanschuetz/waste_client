@@ -94,7 +94,9 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
 
         const fetchData = async () => {
             const lang = i18n.language;
-            const result = await axios('http://207.154.219.200:8080/options/' + suggestion.id, {headers: {"lang": lang}});
+            const result = await axios('http://woentsorgen.de:8080/options/' + suggestion.id, {headers: {"lang": lang}});
+            // const result = await axios('http://207.154.219.200:8080/options/' + suggestion.id, {headers: {"lang": lang}});
+            // const result = await axios('http://192.168.0.5:8080/options/' + suggestion.id, {headers: {"lang": lang}});
             // await sleep(2000);
 
             const finalResult = result.data.hasOwnProperty("containers") ? result.data : null;
