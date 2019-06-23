@@ -30,7 +30,7 @@ const toWeekdayApiIndentifier = (weekdayIndex) => {
         case 4: return "TH";
         case 5: return "FR";
         case 6: return "SA";
-        case 7: return "SU";
+        case 0: return "SU";
         default: throw Error(`Invalid weekday index: ${weekdayIndex}`)
     }
 };
