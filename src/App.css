@@ -137,7 +137,7 @@ body {
 }
 
 .modal-bottombar {
-    max-height: 300px;
+    max-height: 220px;
     overflow-y: scroll;
 }
 

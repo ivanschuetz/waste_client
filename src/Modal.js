@@ -1,10 +1,16 @@
 import * as ReactDOM from "react-dom";
 import React from "react";
 
+const Modal = ({ title, children, onCloseClick }) => {
 
-const Modal = ({ title, children, onCloseClick }) => (
-    ReactDOM.createPortal(
-        <div className="modal">
+    const onModalClick = (event) => {
+        if (event.target === document.querySelector(".modal")) {
+            onCloseClick();
+        }
+    };
+
+    return ReactDOM.createPortal(
+        <div className="modal" onClick={onModalClick}>
             <div className="modal-content">
                 <div className="modal-topbar">
                     <h2 className="modal-topbar-title">{title}</h2>
@@ -19,6 +25,6 @@ const Modal = ({ title, children, onCloseClick }) => (
         </div>,
         document.getElementById('modal-root')
     )
-);
+};
 
 export default Modal;
