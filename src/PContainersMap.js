@@ -192,7 +192,7 @@ const PContainersMap = ({pContainers}) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {markers}
-                {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>Your location!</p>)}
+                {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>{t('map_your_location')}</p>)}
             </Map>
         </div>
     );
