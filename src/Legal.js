@@ -10,9 +10,9 @@ const Legal = () => {
         const lang = i18n.language;
         switch (lang) {
             case "en":
-                return "https://www.iubenda.com/privacy-policy/98976623";
+                return "https://www.iubenda.com/privacy-policy/33176315";
             case "de":
-                return "https://www.iubenda.com/privacy-policy/58762046";
+                return "https://www.iubenda.com/privacy-policy/77955732";
             default:
                 console.log("Invalid lang: " + lang);
                 return "#";
