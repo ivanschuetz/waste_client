@@ -13,7 +13,7 @@ const Modal = ({ title, children, onCloseClick }) => {
         <div className="modal" onClick={onModalClick}>
             <div className="modal-content">
                 <div className="modal-topbar">
-                    <h2 className="modal-topbar-title">{title}</h2>
+                    <h3 className="modal-topbar-title">{title}</h3>
                     <p className="modal-topbar-x" onClick={() => onCloseClick()}>X</p>
                 </div>
                 <div className="modal-bottombar">
