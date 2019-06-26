@@ -325,6 +325,7 @@ body {
 
 .feedback-link {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .about-link {
