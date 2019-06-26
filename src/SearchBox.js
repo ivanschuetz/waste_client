@@ -2,7 +2,6 @@ import React from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
-import https from 'https';
 
 const axios = require('axios');
 
@@ -23,12 +22,9 @@ const SearchBox = ({onResults, onInput, searchText, onRequest}) => {
         delayTimer = setTimeout(async function() {
             onRequest();
 
-            // const result = await axios('https://woentsorgen.de:8443/search/' + text, {
-            const result = await axios('https://localhost:8443/search/' + text, {
-                headers: {"lang": lang},
-                httpsAgent: new https.Agent({
-                    rejectUnauthorized: false
-                })
+            const result = await axios('https://woentsorgen.de:8443/search/' + text, {
+            // const result = await axios('https://localhost:8443/search/' + text, {
+                headers: {"lang": lang}
             });
             // await sleep(2000);
 

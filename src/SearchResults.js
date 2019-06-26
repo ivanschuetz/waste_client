@@ -94,12 +94,9 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
 
         const fetchData = async () => {
             const lang = i18n.language;
-            // const result = await axios('https://woentsorgen.de:8443/options/' + suggestion.id, {
-            const result = await axios('https://localhost:8443/options/' + suggestion.id, {
+            const result = await axios('https://woentsorgen.de:8443/options/' + suggestion.id, {
+                // const result = await axios('https://localhost:8443/options/' + suggestion.id, {
                 headers: {"lang": lang},
-                httpsAgent: new https.Agent({
-                    rejectUnauthorized: false
-                })
             });
             // await sleep(2000);
 
