@@ -2,8 +2,8 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
-
 const axios = require('axios');
+const https = require('https');
 
 const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {
     const {t} = useTranslation();
@@ -94,9 +94,13 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
 
         const fetchData = async () => {
             const lang = i18n.language;
-            const result = await axios('http://woentsorgen.de:8080/options/' + suggestion.id, {headers: {"lang": lang}});
-            // const result = await axios('http://207.154.219.200:8080/options/' + suggestion.id, {headers: {"lang": lang}});
-            // const result = await axios('http://192.168.0.5:8080/options/' + suggestion.id, {headers: {"lang": lang}});
+            // const result = await axios('https://woentsorgen.de:8443/options/' + suggestion.id, {
+            const result = await axios('https://localhost:8443/options/' + suggestion.id, {
+                headers: {"lang": lang},
+                httpsAgent: new https.Agent({
+                    rejectUnauthorized: false
+                })
+            });
             // await sleep(2000);
 
             const finalResult = result.data.hasOwnProperty("containers") ? result.data : null;

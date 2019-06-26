@@ -26,6 +26,7 @@ const App = () => {
     const { t } = useTranslation();
 
     const handleSuggestions = suggestions => {
+        setShowProgressBar(false);
         setShowingSuggestions(true);
         setSuggestions(suggestions);
         // Hide the suggestions box when there are no results, otherwise the border will show below the search box
@@ -59,6 +60,10 @@ const App = () => {
     const handleSearchBoxInput = text => {
         // Note that the search is performed inside the search box bomponent. Probably this should be restructured.
         setSearchText(text);
+    };
+
+    const handleSuggestionsRequest = () => {
+        setShowProgressBar(true);
     };
 
     const onPContainersClick = () => {
@@ -97,7 +102,7 @@ const App = () => {
                 <div className="top">
                     <div className="page-title">{t('app_title')}</div>
                     <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput}
-                               searchText={searchText}/>
+                               searchText={searchText} onRequest={handleSuggestionsRequest}/>
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
                                                         onClick={onSuggestionClick}
