@@ -9,6 +9,8 @@ i18n
             en: {
                 translations: {
                     "app_title": "Where with it?",
+                    "email_missing_item_subject": "Missing item: ",
+                    "email_missing_item_body": "Describe item if needed",
                     "lang_modal_title": "Lang",
                     "legal_modal_title": "Legal",
                     "legal_tab_about": "About",
@@ -42,6 +44,8 @@ i18n
             de: {
                 translations: {
                     "app_title": "Wohin damit?",
+                    "email_missing_item_subject": "Item fehlt: ",
+                    "email_missing_item_body": "Beschreibung, falls nötig",
                     "lang_modal_title": "Sprache",
                     "legal_modal_title": "Rechtliches",
                     "legal_tab_about": "Impressum",

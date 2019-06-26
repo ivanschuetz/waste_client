@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 
-const ItemSuggestions = ({suggestions, onClick, onEscape}) => {
+const ItemSuggestions = ({suggestions, searchText, onClick, onEscape}) => {
     const { t } = useTranslation();
     const [highlightedIndex, setHighlightedIndex] = useState(0);
 
@@ -43,7 +43,13 @@ const ItemSuggestions = ({suggestions, onClick, onEscape}) => {
             </li>
         ).concat(
             <li className="missingItemListItem" key='suggestion_not_found'>
-                <a className="missingItemLink" href="mailto:contact@woentsorgen.de&su=fooo" target="_blank">{t('suggestion_not_found')}</a>
+                <a className="missingItemLink" href= {
+                    // "mailto:contact@woentsorgen.de?subject=" + searchText + "&body=" + searchText
+                    "mailto:contact@woentsorgen.de?subject="
+                    + t('email_missing_item_subject') + searchText + "&body="
+                    + t('email_missing_item_body')
+                }
+                   target="_blank">{t('suggestion_not_found')}</a>
             </li>
         );
     };

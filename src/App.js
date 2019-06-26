@@ -105,6 +105,7 @@ const App = () => {
                                searchText={searchText} onRequest={handleSuggestionsRequest}/>
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
+                                                        searchText={searchText}
                                                         onClick={onSuggestionClick}
                                                         onEscape={onSuggestionEscape}/>}
                 <div className="all-results">
