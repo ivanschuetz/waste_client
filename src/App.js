@@ -20,6 +20,7 @@ const App = () => {
     const [showMap, setShowMap] = useState(false);
     const [showAboutModal, setShowAboutModal] = useState(false);
     const [showLangModal, setShowLangModal] = useState(false);
+    const [showSocialModal, setShowSocialModal] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [showProgressBar, setShowProgressBar] = useState(false);
     const [showLegalModal, setShowLegalModal] = useState(false);
@@ -94,6 +95,9 @@ const App = () => {
         }
     };
 
+    {/*<a className="social-option" href="https://twitter.com/intent/tweet?text=Hello%20world">*/}
+    const shareOnTwitterHref = () => 'https://twitter.com/intent/tweet?text=' + t('social_share_subject');
+
     return (
         <div className="App">
             {showProgressBar && <ProgressBar/>}
@@ -122,7 +126,10 @@ const App = () => {
                     <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
                     {t('link_legal')}
                 </span> |&nbsp;
-                    <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}</span>
+                    <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}
+                </span> |&nbsp;
+                <span className="social-link" onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
+                    </span>
                 </div>
                 {showAboutModal &&
                 <Modal onCloseClick={() => setShowAboutModal(false)}>
@@ -136,7 +143,21 @@ const App = () => {
                     <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("de")}>Deutsch</p>
                     <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("en")}>English</p>
                 </Modal>}
-
+                {showSocialModal &&
+                <Modal title={t('social_modal_title')} onCloseClick={() => setShowSocialModal(false)}>
+                    {/*<p>{t('social_share_with_facebook')}</p>*/}
+                    {/*<p>{t('social_follow_in_facebook')}</p>*/}
+                    <p>
+                        <a className="social-option" href={shareOnTwitterHref()} target="_blank" rel="noopener noreferrer">
+                            {t('social_share_with_twitter')}
+                        </a>
+                    </p>
+                    <p>
+                        <a className="social-option" href="https://twitter.com/i_schuetz" target="_blank" rel="noopener noreferrer">
+                            {t('social_follow_on_twitter')}
+                        </a>
+                    </p>
+                </Modal>}
             </div>
         </div>);
 };

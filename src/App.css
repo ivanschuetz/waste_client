@@ -398,6 +398,14 @@ body {
     cursor: pointer;
 }
 
+.social-link {
+    cursor: pointer;
+}
+
+.social-option {
+    text-decoration: none;
+}
+
 .lang {
     cursor: pointer;
 }
