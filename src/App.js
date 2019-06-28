@@ -116,10 +116,10 @@ const App = () => {
                     <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
                     {t('link_legal')}
                 </span> |&nbsp;
-                    <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}
+                    <span className="social-link" onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
                 </span> |&nbsp;
-                <span className="social-link" onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
-                    </span>
+                    <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}
+                </span>
                 </div>
                 {showAboutModal &&
                 <Modal onCloseClick={() => setShowAboutModal(false)}>
