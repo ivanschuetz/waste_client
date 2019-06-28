@@ -11,7 +11,7 @@ i18n
                     "app_title": "Where to dispose?",
                     "email_missing_item_subject": "Missing item: ",
                     "email_missing_item_body": "Describe item if needed",
-                    "lang_modal_title": "Lang",
+                    "lang_modal_title": "Language",
                     "legal_modal_title": "Legal",
                     "legal_tab_about": "About",
                     "legal_tab_terms": "Terms",
