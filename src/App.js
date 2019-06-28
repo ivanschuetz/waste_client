@@ -77,16 +77,6 @@ const App = () => {
         ReactGA.event({ category: 'Settings', action: 'Changed language', label: lang });
     };
 
-    const languageName = (code) => {
-        switch (code) {
-            case "de": return "Deutsch";
-            case "en": return "English";
-            default:
-                console.log("Unexpected language code: " + code + ", returning English.");
-                return "English";
-        }
-    };
-
     const toggleLegalModal = () => {
         const newShow = !showLegalModal;
         setShowLegalModal(newShow);
@@ -95,7 +85,7 @@ const App = () => {
         }
     };
 
-    {/*<a className="social-option" href="https://twitter.com/intent/tweet?text=Hello%20world">*/}
+    /*<a className="social-option" href="https://twitter.com/intent/tweet?text=Hello%20world">*/
     const shareOnTwitterHref = () => 'https://twitter.com/intent/tweet?text=' + t('social_share_subject');
 
     return (

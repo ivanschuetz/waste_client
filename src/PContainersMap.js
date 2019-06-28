@@ -4,7 +4,7 @@ import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from 'leaflet';
 import Supercluster from 'supercluster';
 import OpeningHours from "./OpeningHours";
-import {currentWeekdayIndex, isOpenNow, nowIsBetween, weekdayIndex} from "./Time";
+import {isOpenNow} from "./Time";
 import {useTranslation} from "react-i18next";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
