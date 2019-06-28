@@ -12,10 +12,29 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const pContainers = results['pcontainers'];
         const pickupCompanies = results['companies'];
         const containersListItems = containers.map(container => {
-            const color = container["color"];
-            const dotClass = color === 'FFFFFF' ? 'dot-bordered' : 'dot';
+            const colorsStr = container["color"];
+            const colors = colorsStr.split(",");
+
+            let background= "";
+            let dotClass = "dot";
+            switch (colors.length) {
+                case 1:
+                    const color = colors[0];
+                    background = "#" + colors;
+                    if (color === 'FFFFFF')  {
+                        dotClass = 'dot-bordered';
+                    }
+                    dotClass = color === 'FFFFFF' ? 'dot-bordered' : 'dot';
+                    break;
+                case 2:
+                    const color1 = colors[0];
+                    const color2 = colors[1];
+                    background = "linear-gradient( -45deg, #" + color1 + ", #" + color1 + " 49%, white 49%, white 51%, #" + color2 + " 51% )";
+                    break;
+                default: console.log(`Invalid color string: ${colorsStr}`)
+            }
             return <li className='container-list-item' key={'c' + container.id}>
-                <span className={dotClass} style={{backgroundColor: "#" + color, marginRight: 5}}/>
+                <span className={dotClass} style={{background: background, marginRight: 5}}/>
                 {container.name}
             </li>
         });
