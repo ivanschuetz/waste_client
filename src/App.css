@@ -139,6 +139,7 @@ body {
 .modal-bottombar {
     max-height: 220px;
     overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .modal-bottombar::-webkit-scrollbar {
