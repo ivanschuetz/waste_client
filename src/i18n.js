@@ -23,7 +23,7 @@ i18n
                     "link_feedback": "Contact",
                     "link_legal": "Legal",
                     "link_lang": "Language",
-                    "link_social": "Soziales",
+                    "link_social": "Social",
                     "map_open_always": "Always open",
                     "map_open_unknown": "Unknown opening times",
                     "map_currently_closed": "Closed!",
