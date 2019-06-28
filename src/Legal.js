@@ -29,7 +29,7 @@ const Legal = () => {
                       className={tabNameClassName(selectedTab, "terms")}>{t('legal_tab_terms')}</span> |&nbsp;
                 <a href={privacyPolicyLink()} target="_blank"
                    className="privacy-policy-link"
-                   title="Privacy Policy ">Privacy Policy</a>
+                   title={t('legal_tab_privacy')}>{t('legal_tab_privacy')}</a>
                 {/*<span onClick={() => setSeletedTab("privacy")}*/}
                 {/*      className={tabNameClassName(selectedTab, "privacy")}>{t('legal_tab_privacy')}</span>*/}
             </div>
