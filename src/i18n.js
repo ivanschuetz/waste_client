@@ -8,7 +8,7 @@ i18n
         resources: {
             en: {
                 translations: {
-                    "app_title": "Where with it?",
+                    "app_title": "Where to dispose?",
                     "email_missing_item_subject": "Missing item: ",
                     "email_missing_item_body": "Describe item if needed",
                     "lang_modal_title": "Lang",
@@ -50,7 +50,7 @@ i18n
             },
             de: {
                 translations: {
-                    "app_title": "Wohin damit?",
+                    "app_title": "Wo entsorgen?",
                     "email_missing_item_subject": "Item fehlt: ",
                     "email_missing_item_body": "Beschreibung, falls nötig",
                     "lang_modal_title": "Sprache",
