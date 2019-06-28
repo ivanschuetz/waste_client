@@ -3,7 +3,6 @@ import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
 const axios = require('axios');
-const https = require('https');
 
 const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {
     const {t} = useTranslation();
@@ -23,24 +22,29 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
             const company = companyResult["company"];
-            return <li key={'p' + company.id}>
-                <a className='pickup-company-name' href={companyResult["website"] || company["website"]} target='_blank'
-                   rel='noopener noreferrer'>
-                    <span style={{verticalAlign: 'middle'}}>{company.name}</span>
-                </a>
-                <a className='company-data-link' href={"tel:" + company.phone}>
-                    {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
-                    <span style={{verticalAlign: 'middle'}}>{company.phone}</span>
-                </a>
-                <a className='company-data-link' href={"mailto:" + company.email} target='_blank'
-                   rel='noopener noreferrer'>
-                    {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
-                    <span style={{verticalAlign: 'middle'}}>{company.email}</span>
-                </a>
-                <br/>
+            return <tr key={'p' + company.id} className="p-company-row">
+                <td>
+                    <a className='pickup-company-name' href={companyResult["website"] || company["website"]} target='_blank'
+                       rel='noopener noreferrer'>
+                        <span style={{verticalAlign: 'middle'}}>{company.name}</span>
+                    </a>
+                </td>
+                <td>
+                    <a className='company-data-link' href={"tel:" + company.phone}>
+                        {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
+                        <span style={{verticalAlign: 'middle'}}>{company.phone}</span>
+                    </a>
+                </td>
+                <td>
+                    <a className='company-data-link' href={"mailto:" + company.email} target='_blank'
+                       rel='noopener noreferrer'>
+                        {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
+                        <span style={{verticalAlign: 'middle'}}>Email</span>
+                    </a>
+                </td>
                 {/*{company.address}*/}
                 {/*{companyResult["min_weight"] || ""}<br/>*/}
-            </li>;
+            </tr>;
         });
 
         const pContainersListItems = [];
@@ -67,6 +71,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             }
         }
 
+        const pickupCompaniesListItem = <li><table className="p-company-table"><tbody>{ pickupCompaniesListItems }</tbody></table></li>;
+
         const containersHeader = <li key='cheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pheader' className='result-header'>{t('results_header_pickup')}</li>;
         const containersHeaderList = containersListItems.length > 0 ? [containersHeader] : [];
@@ -75,7 +81,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         return containersHeaderList
             .concat(containersListItems)
             .concat(pickupCompaniesHeaderList)
-            .concat(pickupCompaniesListItems)
+            .concat(pickupCompaniesListItem)
             .concat(pContainersListItems)
     };
 

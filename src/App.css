@@ -136,6 +136,13 @@ body {
     cursor: pointer;
 }
 
+.p-company-table {}
+
+.p-company-row {
+    text-align: left;
+    height: 40px;
+}
+
 .modal-bottombar {
     max-height: 220px;
     overflow-y: scroll;
@@ -234,14 +241,14 @@ body {
 .result-header {
     font-weight: bold;
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-bottom: solid 1px #666;
     padding-bottom: 10px;
 }
 
 .result-header-p-containers {
     border-top: solid 1px #666;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .p-containers-link {
