@@ -1,32 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 
-const ItemSuggestions = ({suggestions, searchText, onClick, onEscape}) => {
+const ItemSuggestions = ({suggestions, searchText, onClick, highlightedIndex}) => {
     const { t } = useTranslation();
-    const [highlightedIndex, setHighlightedIndex] = useState(0);
-
-    const keepInBounds = (newIndex) => Math.max(Math.min(newIndex, suggestions.length - 1), 0);
-
-    useEffect(() => {
-        const keyDownListener = ({key}) => {
-            if (key === "ArrowDown") {
-                setHighlightedIndex(keepInBounds(highlightedIndex + 1));
-            } else if (key === "ArrowUp") {
-                setHighlightedIndex(keepInBounds(highlightedIndex - 1));
-            } else if (key === "Enter") {
-                onClick(suggestions[highlightedIndex])
-            } else if (key === "Escape") {
-                onEscape()
-            }
-        };
-
-        window.addEventListener('keydown', keyDownListener);
-        // Remove event listeners on cleanup
-        return () => {
-            window.removeEventListener('keydown', keyDownListener);
-        };
-    }, [highlightedIndex, suggestions]); // Empty array ensures that effect is only run on mount and unmount
 
     const suggestionClassName = (index) => {
         if (index === highlightedIndex) {

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './App.css';
 import SearchBox from "./SearchBox";
 import ItemSuggestions from "./ItemSuggestions";
@@ -12,21 +12,81 @@ import Legal from "./Legal";
 import * as ReactGA from 'react-ga'
 require('react-leaflet-markercluster/dist/styles.min.css');
 
+const axios = require('axios');
+
+let cancelSuggestionResponseProcessing = false; // This doesn't work well as hook so here
+
 const App = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [selectedSuggestion, setSelectedSuggestion] = useState(null);
     const [showingSuggestions, setShowingSuggestions] = useState(false);
     const [results, setResults] = useState(null);
     const [showMap, setShowMap] = useState(false);
+    const [showNoResults, setShowNoResults] = useState(false);
     const [showAboutModal, setShowAboutModal] = useState(false);
     const [showLangModal, setShowLangModal] = useState(false);
     const [showSocialModal, setShowSocialModal] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [showProgressBar, setShowProgressBar] = useState(false);
     const [showLegalModal, setShowLegalModal] = useState(false);
+    const [lastSearchText, setLastSearchText] = useState("");
+
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
+    const keepInBounds = (newIndex) => Math.max(Math.min(newIndex, suggestions.length - 1), 0);
+
     const { t } = useTranslation();
 
+    useEffect(() => {
+        const keyDownListener = ({key}) => {
+            if (key === "ArrowDown") {
+                setHighlightedIndex(keepInBounds(highlightedIndex + 1));
+            } else if (key === "ArrowUp") {
+                setHighlightedIndex(keepInBounds(highlightedIndex - 1));
+            } else if (key === "Enter") {
+                if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
+                    onSuggestionClick(suggestions[highlightedIndex]);
+                } else {
+                    search(searchText)
+                }
+            } else if (key === "Escape") {
+                onSuggestionEscape();
+            }
+        };
+
+        window.addEventListener('keydown', keyDownListener);
+        // Remove event listeners on cleanup
+        return () => {
+            window.removeEventListener('keydown', keyDownListener);
+        };
+    }, [highlightedIndex, suggestions, searchText, selectedSuggestion]); // Empty array ensures that effect is only run on mount and unmount
+
+    const search = async (text) => {
+        setShowingSuggestions(false);
+
+        if (!text || (selectedSuggestion && text.toLowerCase() === selectedSuggestion.name.toLowerCase())) {
+            return;
+        }
+
+        setLastSearchText(text);
+
+        const lang = i18n.language;
+
+        handleSearchRequest();
+
+        // const result = await axios('https://woentsorgen.de:8443/search/' + text, {
+        const result = await axios('https://localhost:8443/search/' + text, {
+            headers: {"lang": lang}
+        });
+        // await sleep(2000);
+
+        const data = result.data;
+        // TODO handle http errors (they are returned here, not in onrejected)
+        handleSearchResult(data);
+    };
+
     const handleSuggestions = suggestions => {
+        if (cancelSuggestionResponseProcessing) return;
+
         setShowProgressBar(false);
         setShowingSuggestions(true);
         setSuggestions(suggestions);
@@ -39,6 +99,7 @@ const App = () => {
     const onSuggestionClick = suggestion => {
         setSearchText(suggestion.name);
         setShowingSuggestions(false);
+        setHighlightedIndex(-1);
         if (selectedSuggestion && suggestion["id"] === selectedSuggestion["id"]) {
             return;
         }
@@ -49,11 +110,33 @@ const App = () => {
         ReactGA.event({ category: 'Search', action: 'Clicked suggestion', label: suggestion.name });
     };
 
+    const handleSearchResult = result => {
+        if (result) {
+            setShowNoResults(false);
+            // The search result has the same shape as a suggestion, so just pass it through
+            onSuggestionClick(result);
+        } else {
+            setShowingSuggestions(false);
+            setHighlightedIndex(-1);
+            setShowProgressBar(false);
+            setShowNoResults(true);
+            clearResults();
+        }
+    };
+
     const onSuggestionEscape = suggestion => {
         setShowingSuggestions(false);
+        setHighlightedIndex(-1);
+    };
+
+    const clearResults = () => {
+        setSelectedSuggestion(null);
+        setResults(null);
+        setShowMap(false);
     };
 
     const handleResults = results => {
+        setShowNoResults(false);
         setResults(results);
         setShowProgressBar(false);
     };
@@ -61,10 +144,22 @@ const App = () => {
     const handleSearchBoxInput = text => {
         // Note that the search is performed inside the search box bomponent. Probably this should be restructured.
         setSearchText(text);
+        // Always when there's a key stroke, allow processing the suggestions (to exit possible cancelled state set by search)
+        cancelSuggestionResponseProcessing = false;
     };
 
     const handleSuggestionsRequest = () => {
+        if (!cancelSuggestionResponseProcessing) {
+            // console.log('suggestions request: showing pr');
+            setShowProgressBar(true);
+        }
+
+    };
+
+    const handleSearchRequest = () => {
         setShowProgressBar(true);
+        // Don't process results of a possible suggestions request
+        cancelSuggestionResponseProcessing = true;
     };
 
     const onPContainersClick = () => {
@@ -95,13 +190,16 @@ const App = () => {
 
                 <div className="top">
                     <div className="page-title">{t('app_title')}</div>
-                    <SearchBox onResults={handleSuggestions} onInput={handleSearchBoxInput}
-                               searchText={searchText} onRequest={handleSuggestionsRequest}/>
+                    <SearchBox onSuggestions={handleSuggestions}
+                               onInput={handleSearchBoxInput}
+                               searchText={searchText}
+                               onSuggestionsRequest={handleSuggestionsRequest}
+                    />
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
                                                         searchText={searchText}
                                                         onClick={onSuggestionClick}
-                                                        onEscape={onSuggestionEscape}/>}
+                                                        highlightedIndex={highlightedIndex}/>}
                 <div className="all-results">
                     {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
                                                        onPContainersClick={onPContainersClick}
@@ -109,6 +207,19 @@ const App = () => {
                     />}
                     {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
                 </div>
+                {showNoResults &&
+                <div>{t('search_no_results')}
+                <div className="no-results-search-text">{lastSearchText}</div>
+                    <a className="request-item-link" href= {
+                        // "mailto:contact@woentsorgen.de?subject=" + searchText + "&body=" + searchText
+                        "mailto:contact@woentsorgen.de?subject="
+                        + t('email_missing_item_subject') + searchText + "&body="
+                        + t('email_missing_item_body')
+                    }
+                       target="_blank">{t('search_empty_result_request_item')}</a>
+                    {/*<a className="feedback-link" href="mailto:contact@woentsorgen.de" target="_blank" rel="noopener noreferrer">Request</a>*/}
+                </div>
+                }
                 <div className="footer">
                     <a className="feedback-link" href="mailto:contact@woentsorgen.de" target="_blank" rel="noopener noreferrer">
                         {t('link_feedback')}

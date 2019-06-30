@@ -90,7 +90,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             }
         }
 
-        const pickupCompaniesListItem = <li><table className="p-company-table"><tbody>{ pickupCompaniesListItems }</tbody></table></li>;
+        const pickupCompaniesListItem = <li key='p-companies'><table className="p-company-table"><tbody>{ pickupCompaniesListItems }</tbody></table></li>;
 
         const containersHeader = <li key='cheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pheader' className='result-header'>{t('results_header_pickup')}</li>;

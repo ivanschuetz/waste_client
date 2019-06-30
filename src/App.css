@@ -436,6 +436,18 @@ body {
     color: #999;
 }
 
+.request-item-link {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.no-results-search-text {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 .container-list-item {
     margin-top: 20px;
 }

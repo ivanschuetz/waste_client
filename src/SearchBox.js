@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
@@ -7,12 +7,12 @@ const axios = require('axios');
 
 let delayTimer;
 
-const SearchBox = ({onResults, onInput, searchText, onRequest}) => {
+const SearchBox = ({onSuggestions, onInput, searchText, onSuggestionsRequest}) => {
     const {t} = useTranslation();
 
-    const search = async (text) => {
+    const suggestions = async (text) => {
         if (!text) {
-            onResults([]);
+            onSuggestions([]);
             return;
         }
 
@@ -20,7 +20,7 @@ const SearchBox = ({onResults, onInput, searchText, onRequest}) => {
 
         clearTimeout(delayTimer);
         delayTimer = setTimeout(async function() {
-            onRequest();
+            onSuggestionsRequest();
 
             const result = await axios('https://woentsorgen.de:8443/search/' + text, {
             // const result = await axios('https://localhost:8443/search/' + text, {
@@ -31,17 +31,16 @@ const SearchBox = ({onResults, onInput, searchText, onRequest}) => {
             const data = result.data;
             // TODO handle http errors (they are returned here, not in onrejected)
             const array = Array.isArray(data) ? data : [];
-            onResults(array);
-
+            onSuggestions(array);
         }, 300); // Delay a little, to not send a request on each keystroke
     };
 
     const onSearchInput = (text) => {
         onInput(text);
         if (text.length > 2) {
-            search(text);
+            suggestions(text);
         } else {
-            onResults([]);
+            onSuggestions([]);
         }
     };
 
