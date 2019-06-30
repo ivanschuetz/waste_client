@@ -73,8 +73,8 @@ const App = () => {
 
         handleSearchRequest();
 
-        // const result = await axios('https://woentsorgen.de:8443/search/' + text, {
-        const result = await axios('https://localhost:8443/search/' + text, {
+        const result = await axios('https://woentsorgen.de:8443/search/' + text, {
+        // const result = await axios('https://localhost:8443/search/' + text, {
             headers: {"lang": lang}
         });
         // await sleep(2000);
