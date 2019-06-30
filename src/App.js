@@ -197,7 +197,6 @@ const App = () => {
                     />
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
-                                                        searchText={searchText}
                                                         onClick={onSuggestionClick}
                                                         highlightedIndex={highlightedIndex}/>}
                 <div className="all-results">
