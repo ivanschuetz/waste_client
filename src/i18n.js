@@ -8,7 +8,7 @@ i18n
         resources: {
             en: {
                 translations: {
-                    "app_title": "Where to dispose?",
+                    "app_title": "Where with?",
                     "email_missing_item_subject": "Missing item: ",
                     "email_missing_item_body": "Describe item if needed",
                     "lang_modal_title": "Language",
@@ -19,7 +19,7 @@ i18n
                     "legal_general_1": "The owner of this site doesn't take any legal responsibility for the authenticity or validity of its contents.",
                     "legal_general_2_contact_link_text": "contact",
                     "legal_general_2_part_1": "Please ",
-                    "legal_general_2_part_2": " me if something is wrong. I'll investigate ASAP!",
+                    "legal_general_2_part_2": " me if something is wrong. We'll investigate ASAP!",
                     "link_feedback": "Contact",
                     "link_legal": "Legal",
                     "link_lang": "Language",
@@ -37,7 +37,7 @@ i18n
                     "search_empty_result_request_item": "Request item",
                     "social_modal_title": "Social",
                     "search_no_results": "No results for",
-                    "social_share_subject": "Find how to properly dispose all your items in Berlin with http://woentsorgen.de",
+                    "social_share_subject": "Find how to dispose waste and things you don't need in Berlin http://woentsorgen.de",
                     "social_share_with_twitter": "Share on Twitter",
                     "social_follow_on_twitter": "Follow on Twitter",
                     "suggestion_not_found": "Item missing?",
@@ -52,7 +52,7 @@ i18n
             },
             de: {
                 translations: {
-                    "app_title": "Wo entsorgen?",
+                    "app_title": "Wohin mit?",
                     "email_missing_item_subject": "Item fehlt: ",
                     "email_missing_item_body": "Beschreibung, falls nötig",
                     "lang_modal_title": "Sprache",
@@ -63,7 +63,7 @@ i18n
                     "legal_general_1": "Der Betreiber dieser Seite übernimmt keine rechtliche Verantwortung für die Richtigkeit oder Gültigkeit der angegebenen Daten!",
                     "legal_general_2_contact_link_text": "Verbindung",
                     "legal_general_2_part_1": "Bitte setze Dich in ",
-                    "legal_general_2_part_2": " wenn etwas falsch ist. Ich werde es umgehend überprüfen!",
+                    "legal_general_2_part_2": " wenn etwas falsch ist. Wir werden es umgehend überprüfen!",
                     "link_feedback": "Kontakt",
                     "link_legal": "Rechtliches",
                     "link_lang": "Sprache",
