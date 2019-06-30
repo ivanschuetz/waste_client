@@ -8,9 +8,13 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const {t} = useTranslation();
 
     const listItems = () => {
+        const categories = results['categories'];
         const containers = results['containers'];
         const pContainers = results['pcontainers'];
         const pickupCompanies = results['companies'];
+
+        const categoryListItem = <li className="list-item-categories">{categories.map((category) => category.name).join(", ")}</li>;
+
         const containersListItems = containers.map(container => {
             const colorsStr = container["color"];
             const colors = colorsStr.split(",");
@@ -92,12 +96,17 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const pickupCompaniesListItem = <li key='p-companies'><table className="p-company-table"><tbody>{ pickupCompaniesListItems }</tbody></table></li>;
 
+        const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
+        const categoriesHeader = <li key='cheader' className='result-header'>{t(categoriesHeaderTranslationKey)}</li>;
         const containersHeader = <li key='cheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pheader' className='result-header'>{t('results_header_pickup')}</li>;
+        const categoriesHeaderList = [categoriesHeader];
         const containersHeaderList = containersListItems.length > 0 ? [containersHeader] : [];
         const pickupCompaniesHeaderList = pickupCompaniesListItems.length > 0 ? [pickupCompaniesHeader] : [];
 
-        return containersHeaderList
+        return categoriesHeaderList
+            .concat(categoryListItem)
+            .concat(containersHeaderList)
             .concat(containersListItems)
             .concat(pickupCompaniesHeaderList)
             .concat(pickupCompaniesListItem)
