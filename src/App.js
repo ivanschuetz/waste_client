@@ -84,14 +84,14 @@ const App = () => {
         handleSearchResult(data);
     };
 
-    const handleSuggestions = suggestions => {
+    const handleSuggestions = items => {
         if (cancelSuggestionResponseProcessing) return;
 
         setShowProgressBar(false);
         setShowingSuggestions(true);
-        setSuggestions(suggestions);
+        setSuggestions(items);
         // Hide the suggestions box when there are no results, otherwise the border will show below the search box
-        if (suggestions && suggestions.length === 0) {
+        if (items && items.length === 0) {
             setShowingSuggestions(false);
         }
     };
@@ -110,11 +110,10 @@ const App = () => {
         ReactGA.event({ category: 'Search', action: 'Clicked suggestion', label: suggestion.name });
     };
 
-    const handleSearchResult = result => {
-        if (result) {
+    const handleSearchResult = item => {
+        if (item) {
             setShowNoResults(false);
-            // The search result has the same shape as a suggestion, so just pass it through
-            onSuggestionClick(result);
+            onSuggestionClick(item);
         } else {
             setShowingSuggestions(false);
             setHighlightedIndex(-1);
