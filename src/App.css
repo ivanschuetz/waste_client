@@ -294,7 +294,6 @@ body {
     list-style: none;
     width: 100%;
     padding: 0;
-    padding-bottom: 60px;
 }
 
 .map-container {
@@ -318,6 +317,7 @@ body {
 .all-results {
     width: 100%;
     display: inline-block;
+    padding-bottom: 40px;
 }
 
 .p-container-popup-title {
