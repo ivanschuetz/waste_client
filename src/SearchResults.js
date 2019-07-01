@@ -12,6 +12,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const containers = results['containers'];
         const pContainers = results['pcontainers'];
         const pickupCompanies = results['companies'];
+        const tips = results['tips'];
 
         const categoryListItem = <li className="list-item-categories">{categories.map((category) => category.name).join(", ")}</li>;
 
@@ -94,20 +95,31 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             }
         }
 
+        const tipsListItems = tips.map((tip, index) =>
+            <li key={'tip' + index} className="list-item-tip">
+                <img src={require('./check.svg')} style={{verticalAlign: 'middle', marginRight: 5}} alt='map'/>
+                <span>{tip["text"]}</span>
+            </li>
+        );
+
         const pickupCompaniesListItem = <li key='p-companies'><table className="p-company-table"><tbody>{ pickupCompaniesListItems }</tbody></table></li>;
 
         const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
-        const categoriesHeader = <li key='cheader' className='result-header'>{t(categoriesHeaderTranslationKey)}</li>;
+        const categoriesHeader = <li key='cheader' className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
         const containersHeader = <li key='cheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pheader' className='result-header'>{t('results_header_pickup')}</li>;
+        const tipsHeader = <li key='pheader' className='result-header'>{t('results_header_tips')}</li>;
         const categoriesHeaderList = [categoriesHeader];
         const containersHeaderList = containersListItems.length > 0 ? [containersHeader] : [];
         const pickupCompaniesHeaderList = pickupCompaniesListItems.length > 0 ? [pickupCompaniesHeader] : [];
+        const tipsHeaderList = tipsListItems.length > 0 ? [tipsHeader] : [];
 
         return categoriesHeaderList
             .concat(categoryListItem)
             .concat(containersHeaderList)
             .concat(containersListItems)
+            .concat(tipsHeaderList)
+            .concat(tipsListItems)
             .concat(pickupCompaniesHeaderList)
             .concat(pickupCompaniesListItem)
             .concat(pContainersListItems)
