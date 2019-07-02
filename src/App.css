@@ -260,6 +260,11 @@ body {
     padding-top: 6px;
 }
 
+.list-item-default {
+    margin-bottom: 20px;
+    padding-top: 6px;
+}
+
 .list-item-tip {
     margin-bottom: 7px;
     padding-top: 6px;

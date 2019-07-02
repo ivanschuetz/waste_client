@@ -16,7 +16,11 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const groupedRecipients = groupBy(recipients, 'type');
 
-        const pContainers = (groupedRecipients[0] || []).filter((pc) => pc["lat"] && pc["lon"]);
+        const disposalPlaces = (groupedRecipients[0] || []).filter((place) => place["hasInPlace"]).slice(0, 3);
+        const donationPlaces = (groupedRecipients[1] || []).slice(0, 3);
+        const secondHandPlaces = (groupedRecipients[2] || []).slice(0, 3);
+
+        const recipientsWithGeoLocation = recipients.filter((pc) => pc["lat"] && pc["lon"]);
 
         const pickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
 
@@ -50,21 +54,20 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             </li>
         });
 
-        const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
-            const company = companyResult["company"];
+        const recipientsTableRows = (recipients) => recipients.map(recipient => {
             const phoneElement = () => {
-                if (company["phone"]) {
-                    return <a className='company-data-link' href={"tel:" + company["phone"]}>
+                if (recipient["phone"]) {
+                    return <a className='company-data-link' href={"tel:" + recipient["phone"]}>
                         {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
-                        <span style={{verticalAlign: 'middle'}}>{company["phone"]}</span>
+                        <span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>
                     </a>
                 } else {
                     return <span/>
                 }
             };
             const emailElement = () => {
-                if (company["email"]) {
-                    return <a className='company-data-link' href={"mailto:" + company["email"]} target='_blank'
+                if (recipient["email"]) {
+                    return <a className='company-data-link' href={"mailto:" + recipient["email"]} target='_blank'
                        rel='noopener noreferrer'>
                         {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>Email</span>
@@ -74,41 +77,41 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 }
             };
 
-            return <tr key={'p' + company["id"]} className="p-company-row">
+            console.log('id: ' + recipient["id"]);
+
+            return <tr key={'p' + recipient["id"]} className="p-company-row">
                 <td>
-                    <a className='pickup-company-name' href={companyResult["website"] || company["website"]} target='_blank'
+                    <a className='pickup-company-name' href={recipient["website"]} target='_blank'
                        rel='noopener noreferrer'>
-                        <span style={{verticalAlign: 'middle'}}>{company["name"]}</span>
+                        <span style={{verticalAlign: 'middle'}}>{recipient["name"]}</span>
                     </a>
                 </td>
                 <td> { phoneElement() } </td>
                 <td> { emailElement() } </td>
                 {/*{company.address}*/}
-                {/*{companyResult["min_weight"] || ""}<br/>*/}
             </tr>;
         });
 
-        const pContainersListItems = [];
-        if (pContainers.length > 0) {
+        let recipientsWithGeolocationHeader;
+        if (recipientsWithGeoLocation.length > 0) {
             if (showPContainersButton) {
-                pContainersListItems.push(
+                recipientsWithGeolocationHeader =
                     <li key='pcont' className='result-header-p-containers'>
                         <div className='p-containers-link' onClick={onPContainersClick}>
                             <div className='p-containers-span'>
                                 <img src={require('./map.svg')} style={{verticalAlign: 'middle', marginRight: 5}}
                                      alt='map'/>
                                 <span
-                                    style={{verticalAlign: 'middle'}}>{t('results_header_public_containers')} ({pContainers.length})</span>
+                                    style={{verticalAlign: 'middle'}}>{t('results_header_public_containers')} ({recipientsWithGeoLocation.length})</span>
                             </div>
                         </div>
                     </li>
-                )
+
             } else {
-                pContainersListItems.push(
+                recipientsWithGeolocationHeader =
                     <li key='pcontcheader' className='result-header-p-containers'>
                         <div style={{marginTop: 20, fontWeight: 'bold'}}>{t('results_header_public_containers')}</div>
-                    </li>
-                );
+                    </li>;
             }
         }
 
@@ -119,16 +122,26 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             </li>
         );
 
-        const pickupCompaniesListItem = <li key='p-companies'><table className="p-company-table"><tbody>{ pickupCompaniesListItems }</tbody></table></li>;
+        const pickupCompaniesListItem = <li key='p-companies'><table className="p-company-table"><tbody>{ recipientsTableRows(pickupCompanies) }</tbody></table></li>;
+        const donationsPlacesListItem = <li key='donation-places'><table className="p-company-table"><tbody>{ recipientsTableRows(donationPlaces) }</tbody></table></li>;
+        const trashPlacesListItem = <li key='trash-places'><table className="p-company-table"><tbody>{ recipientsTableRows(disposalPlaces) }</tbody></table></li>;
+        const secondHandPlacesListItem = <li key='second-hand-places'><table className="p-company-table"><tbody>{ recipientsTableRows(secondHandPlaces) }</tbody></table></li>;
 
         const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
         const categoriesHeader = <li key='catheader' className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>{t('results_header_pickup')}</li>;
+        const donationPlacesHeader = <li key='donationheader' className='result-header'>{t('results_header_donations')}</li>;
+        const trashPlacesHeader = <li key='trashplacesheader' className='result-header'>{t('results_header_trash_places')}</li>;
+        const secondHandPlacesHeader = <li key='secondhandplacesheader' className='result-header'>{t('results_header_second_hand')}</li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
+
         const categoriesHeaderList = [categoriesHeader];
         const containersHeaderList = containersListItems.length > 0 ? [containersHeader] : [];
-        const pickupCompaniesHeaderList = pickupCompaniesListItems.length > 0 ? [pickupCompaniesHeader] : [];
+        const pickupCompaniesHeaderList = pickupCompanies.length > 0 ? [pickupCompaniesHeader] : [];
+        const donationPlacesHeaderList = donationPlaces.length > 0 ? [donationPlacesHeader] : [];
+        const trashPlacesHeaderList = disposalPlaces.length > 0 ? [trashPlacesHeader] : [];
+        const secondHandPlacesHeaderList = secondHandPlaces.length > 0 ? [secondHandPlacesHeader] : [];
         const tipsHeaderList = tipsListItems.length > 0 ? [tipsHeader] : [];
 
         return categoriesHeaderList
@@ -137,9 +150,15 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             .concat(containersListItems)
             .concat(tipsHeaderList)
             .concat(tipsListItems)
+            .concat(donationPlacesHeaderList)
+            .concat(donationsPlacesListItem)
+            .concat(secondHandPlacesHeaderList)
+            .concat(secondHandPlacesListItem)
             .concat(pickupCompaniesHeaderList)
             .concat(pickupCompaniesListItem)
-            .concat(pContainersListItems)
+            .concat(trashPlacesHeaderList)
+            .concat(trashPlacesListItem)
+            .concat(recipientsWithGeolocationHeader)
     };
 
     return (
