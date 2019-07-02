@@ -207,7 +207,7 @@ const App = () => {
                                                        onPContainersClick={onPContainersClick}
                                                        showPContainersButton={!showMap}
                     />}
-                    {results && showMap && <PContainersMap pContainers={results["pcontainers"]}/>}
+                    {results && showMap && <PContainersMap pContainers={results["recipients"].filter((r) => r["lat"] && r["lon"]) }/>}
                 </div>
                 {showNoResults &&
                 <div>{t('search_no_results')}

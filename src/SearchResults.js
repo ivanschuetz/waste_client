@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
+import {groupBy} from "./Utils";
 const axios = require('axios');
 
 const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {
@@ -10,11 +11,16 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const listItems = () => {
         const categories = results['categories'];
         const containers = results['containers'];
-        const pContainers = results['pcontainers'];
-        const pickupCompanies = results['companies'];
+        const recipients = results['recipients'];
         const tips = results['tips'];
 
-        const categoryListItem = <li className="list-item-categories">{categories.map((category) => category.name).join(", ")}</li>;
+        const groupedRecipients = groupBy(recipients, 'type');
+
+        const pContainers = (groupedRecipients[0] || []).filter((pc) => pc["lat"] && pc["lon"]);
+
+        const pickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
+
+        const categoryListItem = <li key='category' className="list-item-categories">{categories.map((category) => category.name).join(", ")}</li>;
 
         const containersListItems = containers.map(container => {
             const colorsStr = container["color"];
@@ -46,26 +52,37 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const pickupCompaniesListItems = pickupCompanies.map(companyResult => {
             const company = companyResult["company"];
-            return <tr key={'p' + company.id} className="p-company-row">
-                <td>
-                    <a className='pickup-company-name' href={companyResult["website"] || company["website"]} target='_blank'
-                       rel='noopener noreferrer'>
-                        <span style={{verticalAlign: 'middle'}}>{company.name}</span>
-                    </a>
-                </td>
-                <td>
-                    <a className='company-data-link' href={"tel:" + company.phone}>
+            const phoneElement = () => {
+                if (company["phone"]) {
+                    return <a className='company-data-link' href={"tel:" + company["phone"]}>
                         {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
-                        <span style={{verticalAlign: 'middle'}}>{company.phone}</span>
+                        <span style={{verticalAlign: 'middle'}}>{company["phone"]}</span>
                     </a>
-                </td>
-                <td>
-                    <a className='company-data-link' href={"mailto:" + company.email} target='_blank'
+                } else {
+                    return <span/>
+                }
+            };
+            const emailElement = () => {
+                if (company["email"]) {
+                    return <a className='company-data-link' href={"mailto:" + company["email"]} target='_blank'
                        rel='noopener noreferrer'>
                         {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>Email</span>
                     </a>
+                } else {
+                    return <span/>
+                }
+            };
+
+            return <tr key={'p' + company["id"]} className="p-company-row">
+                <td>
+                    <a className='pickup-company-name' href={companyResult["website"] || company["website"]} target='_blank'
+                       rel='noopener noreferrer'>
+                        <span style={{verticalAlign: 'middle'}}>{company["name"]}</span>
+                    </a>
                 </td>
+                <td> { phoneElement() } </td>
+                <td> { emailElement() } </td>
                 {/*{company.address}*/}
                 {/*{companyResult["min_weight"] || ""}<br/>*/}
             </tr>;
@@ -88,7 +105,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 )
             } else {
                 pContainersListItems.push(
-                    <li key='pcheader' className='result-header-p-containers'>
+                    <li key='pcontcheader' className='result-header-p-containers'>
                         <div style={{marginTop: 20, fontWeight: 'bold'}}>{t('results_header_public_containers')}</div>
                     </li>
                 );
@@ -105,10 +122,10 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const pickupCompaniesListItem = <li key='p-companies'><table className="p-company-table"><tbody>{ pickupCompaniesListItems }</tbody></table></li>;
 
         const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
-        const categoriesHeader = <li key='cheader' className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
-        const containersHeader = <li key='cheader' className='result-header'>{t('results_header_containers')}</li>;
-        const pickupCompaniesHeader = <li key='pheader' className='result-header'>{t('results_header_pickup')}</li>;
-        const tipsHeader = <li key='pheader' className='result-header'>{t('results_header_tips')}</li>;
+        const categoriesHeader = <li key='catheader' className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
+        const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
+        const pickupCompaniesHeader = <li key='pickheader' className='result-header'>{t('results_header_pickup')}</li>;
+        const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
         const categoriesHeaderList = [categoriesHeader];
         const containersHeaderList = containersListItems.length > 0 ? [containersHeader] : [];
         const pickupCompaniesHeaderList = pickupCompaniesListItems.length > 0 ? [pickupCompaniesHeader] : [];
