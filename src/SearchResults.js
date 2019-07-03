@@ -57,7 +57,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const recipientsTableRows = (recipients) => recipients.map(recipient => {
             const phoneElement = () => {
                 if (recipient["phone"]) {
-                    return <a className='company-data-link' href={"tel:" + recipient["phone"]}>
+                    return <a className='recipient-data-link' href={"tel:" + recipient["phone"]}>
                         {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>
                     </a>
@@ -67,8 +67,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             };
             const emailElement = () => {
                 if (recipient["email"]) {
-                    return <a className='company-data-link' href={"mailto:" + recipient["email"]} target='_blank'
-                       rel='noopener noreferrer'>
+                    return <a className='recipient-data-link' href={"mailto:" + recipient["email"]} target='_blank'
+                              rel='noopener noreferrer'>
                         {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>Email</span>
                     </a>
@@ -77,15 +77,19 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 }
             };
 
-            console.log('id: ' + recipient["id"]);
-
-            return <tr key={'p' + recipient["id"]} className="p-company-row">
-                <td>
-                    <a className='pickup-company-name' href={recipient["website"]} target='_blank'
-                       rel='noopener noreferrer'>
+            const nameElement = () => {
+                if (recipient["url"]) {
+                    return <a className='recipient-name' href={recipient["url"]} target='_blank'
+                              rel='noopener noreferrer'>
                         <span style={{verticalAlign: 'middle'}}>{recipient["name"]}</span>
                     </a>
-                </td>
+                } else {
+                    return <span style={{verticalAlign: 'middle'}}>{recipient["name"]}</span>
+                }
+            };
+
+            return <tr key={'p' + recipient["id"]} className="recipient-row">
+                <td> { nameElement() } </td>
                 <td> { phoneElement() } </td>
                 <td> { emailElement() } </td>
                 {/*{company.address}*/}
@@ -122,10 +126,10 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             </li>
         );
 
-        const pickupCompaniesListItem = <li key='p-companies'><table className="p-company-table"><tbody>{ recipientsTableRows(pickupCompanies) }</tbody></table></li>;
-        const donationsPlacesListItem = <li key='donation-places'><table className="p-company-table"><tbody>{ recipientsTableRows(donationPlaces) }</tbody></table></li>;
-        const trashPlacesListItem = <li key='trash-places'><table className="p-company-table"><tbody>{ recipientsTableRows(disposalPlaces) }</tbody></table></li>;
-        const secondHandPlacesListItem = <li key='second-hand-places'><table className="p-company-table"><tbody>{ recipientsTableRows(secondHandPlaces) }</tbody></table></li>;
+        const pickupCompaniesListItem = <li key='p-companies'><table className="p-recipients-table"><tbody>{ recipientsTableRows(pickupCompanies) }</tbody></table></li>;
+        const donationsPlacesListItem = <li key='donation-places'><table className="p-recipients-table"><tbody>{ recipientsTableRows(donationPlaces) }</tbody></table></li>;
+        const trashPlacesListItem = <li key='trash-places'><table className="p-recipients-table"><tbody>{ recipientsTableRows(disposalPlaces) }</tbody></table></li>;
+        const secondHandPlacesListItem = <li key='second-hand-places'><table className="p-recipients-table"><tbody>{ recipientsTableRows(secondHandPlaces) }</tbody></table></li>;
 
         const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
         const categoriesHeader = <li key='catheader' className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;

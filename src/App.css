@@ -136,9 +136,9 @@ body {
     cursor: pointer;
 }
 
-.p-company-table {}
+.p-recipients-table {}
 
-.p-company-row {
+.recipient-row {
     text-align: left;
     height: 40px;
 }
@@ -307,13 +307,13 @@ body {
     margin-top: 20px;
 }
 
-.pickup-company-name {
+.recipient-name {
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
 }
 
-.company-data-link {
+.recipient-data-link {
     cursor: pointer;
     margin-left: 30px;
     text-decoration: none;
