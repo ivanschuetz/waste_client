@@ -38,9 +38,19 @@ const createClusterIcon = (count) => {
 
 // https://developers.google.com/maps/documentation/urls/guide
 
-const PContainersMap = ({pContainers}) => {
+const RecipientsMap = ({recipients}) => {
     const [myLoc, setMyLoc] = useState(null);
     const [zoom, setZoom] = useState(11);
+    const [filteredRecipients, setFilteredRecipients] = useState(recipients);
+
+    const [filterOptions, setFilterOptions] = useState({
+        showDisposalPlaces: true,
+        showDonationPlaces: true,
+        showSecondHandPlaces: true,
+        showHasPickup: false,
+        showHasInPlace: true
+    });
+
     const myRef = useRef(null);
     const {t} = useTranslation();
 
@@ -69,7 +79,7 @@ const PContainersMap = ({pContainers}) => {
             <img src={src} alt={alt} style={{width: 20, height: 20, marginRight: 20}}/>
         </a>;
 
-    const points = pContainers.map((container) => {
+    const points = filteredRecipients.map((container) => {
             return {
                 properties: {
                     container: container
@@ -184,18 +194,101 @@ const PContainersMap = ({pContainers}) => {
         fetchMyLoc();
     }, []);
 
+    const toNewOptions = (currentOptions, event) => {
+        let clone = JSON.parse(JSON.stringify(currentOptions));
+        clone[event.target.name] = event.target["checked"];
+        return clone;
+    };
+
+    const validateOptions = (options) => {
+        // For now commented. This is to force to always have a box checked in type/delivery type to prevent confusion
+        // if one of the groups has no selection but the other has (in which case there will be no points on the map)
+        // UX is slighly annoying with this, when trying to uncheck last box before checking another, so commented.
+        // if (!options.showDisposalPlaces && !options.showDonationPlaces && !options.showSecondHandPlaces) {
+        //     return false;
+        // }
+        // if (!options.showHasPickup && !options.showHasInPlace) {
+        //     return false;
+        // }
+        return true;
+    };
+
+    const updateFilterOptions = (event) => {
+        const newOptions = toNewOptions(filterOptions, event);
+        if (validateOptions(newOptions)) {
+            const filteredRecipients = recipients.filter((recipient) => {
+                const type = recipient["type"];
+                const hasActiveType = newOptions.showDisposalPlaces && type === 0
+                    || newOptions.showDonationPlaces && type === 1
+                    || newOptions.showSecondHandPlaces && type === 2;
+                const hasActiveDeliveryType = newOptions.showHasPickup && recipient["hasPickup"]
+                    || newOptions.showHasInPlace && recipient["hasInPlace"];
+                return hasActiveType && hasActiveDeliveryType
+            });
+            setFilteredRecipients(filteredRecipients);
+            setFilterOptions(newOptions)
+        } else {
+            // Do nothing
+        }
+    };
+
     return (
-        <div className='map-container' ref={myRef}>
-            <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{height: 380}}
-                 onZoomend={onZoomEvent}>
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {markers}
-                {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>{t('map_your_location')}</p>)}
-            </Map>
+        <div className='map-with-filters-container'>
+            <div className='map-filters'>
+                <label className='map-filter'>
+                    {t('map_filter_disposal_places')}
+                    <input
+                        name="showDisposalPlaces"
+                        type="checkbox"
+                        checked={filterOptions.showDisposalPlaces}
+                        onChange={updateFilterOptions}/>
+                </label>
+                <label className='map-filter'>
+                    {t('map_filter_donation_places')}
+                    <input
+                        name="showDonationPlaces"
+                        type="checkbox"
+                        checked={filterOptions.showDonationPlaces}
+                        onChange={updateFilterOptions}/>
+                </label>
+                <label className='map-filter'>
+                    {t('map_filter_2hand_places')}
+                    <input
+                        name="showSecondHandPlaces"
+                        type="checkbox"
+                        checked={filterOptions.showSecondHandPlaces}
+                        onChange={updateFilterOptions}/>
+                </label> |&nbsp;
+                <label className='map-filter' style={{marginLeft: 10}}>
+                    {t('map_filter_has_pickup')}
+                    <input
+                        name="showHasPickup"
+                        type="checkbox"
+                        checked={filterOptions.showHasPickup}
+                        onChange={updateFilterOptions}/>
+                </label>
+                <label className='map-filter'>
+                    {t('map_filter_has_in_place')}
+                    <input
+                        name="showHasInPlace"
+                        type="checkbox"
+                        checked={filterOptions.showHasInPlace}
+                        onChange={updateFilterOptions}/>
+                </label>
+            </div>
+
+            <div className='map-container' ref={myRef}>
+                <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{height: 380}}
+                     onZoomend={onZoomEvent}>
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {markers}
+                    {myLoc && marker(myLoc.latitude, myLoc.longitude, myLocMarkerIcon, <p>{t('map_your_location')}</p>)}
+                </Map>
+            </div>
         </div>
     );
 };
 
-export default PContainersMap;
+export default RecipientsMap;

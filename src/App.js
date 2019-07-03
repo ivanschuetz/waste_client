@@ -3,7 +3,7 @@ import './App.css';
 import SearchBox from "./SearchBox";
 import ItemSuggestions from "./ItemSuggestions";
 import ItemSearch from "./SearchResults";
-import PContainersMap from "./PContainersMap";
+import RecipientsMap from "./RecipientsMap";
 import Modal from "./Modal";
 import ProgressBar from "./ProgressBar";
 import {useTranslation} from "react-i18next";
@@ -207,7 +207,7 @@ const App = () => {
                                                        onPContainersClick={onPContainersClick}
                                                        showPContainersButton={!showMap}
                     />}
-                    {results && showMap && <PContainersMap pContainers={results["recipients"].filter((r) => r["lat"] && r["lon"]) }/>}
+                    {results && showMap && <RecipientsMap recipients={results["recipients"].filter((r) => r["lat"] && r["lon"]) }/>}
                 </div>
                 {showNoResults &&
                 <div>{t('search_no_results')}

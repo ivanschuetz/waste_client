@@ -301,10 +301,21 @@ body {
     padding: 0;
 }
 
-.map-container {
+.map-with-filters-container {
     width: 100%;
     margin-bottom: 100px;
     margin-top: 20px;
+}
+
+.map-container {
+}
+
+.map-filters {
+    height: 50px;
+}
+
+.map-filter {
+    margin-right: 10px;
 }
 
 .recipient-name {
