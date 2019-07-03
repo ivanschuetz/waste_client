@@ -416,7 +416,6 @@ body {
 .opening-times-status-open {
     margin-top: 5px;
     font-weight: bold;
-    color: #228B22;
 }
 
 .opening-times-status-closed {
@@ -435,7 +434,6 @@ body {
 
 .opening-hours-row-now {
     font-weight: bold;
-    color: #228B22;
 }
 
 .opening-hours-row-default {}
