@@ -6,6 +6,7 @@ import Supercluster from 'supercluster';
 import OpeningHours from "./OpeningHours";
 import {isOpenNow} from "./Time";
 import {useTranslation} from "react-i18next";
+import {routeLink} from "./Utils";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     iconUrl: path,
@@ -72,11 +73,6 @@ const RecipientsMap = ({recipients}) => {
                 {children}
             </Popup>
         </Marker>;
-
-    const routeLink = (myLoc, dstLat, dstLon, travelmode) => {
-        const origin = myLoc == null ? "" : `&origin=${myLoc.latitude},${myLoc.longitude}`;
-        return `https://www.google.com/maps/dir/?api=1${origin}&destination=${dstLat},${dstLon}&travelmode=${travelmode}`;
-    };
 
     const transportImg = (src, alt, link) =>
         <a href={link} target="_blank" rel="noopener noreferrer" key={alt}>

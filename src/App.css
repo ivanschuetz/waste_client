@@ -452,6 +452,12 @@ body {
     cursor: pointer;
 }
 
+.results-distance-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+}
+
 .social-link {
     cursor: pointer;
 }

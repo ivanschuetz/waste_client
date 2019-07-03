@@ -13,3 +13,12 @@ export const groupBy = function (arr, criteria) {
 
     }, {});
 };
+
+//////////////////////////////////////////////
+// Shared by several files. Too specific for utils but for now here.
+//////////////////////////////////////////////
+
+export const routeLink = (myLoc, dstLat, dstLon, travelmode) => {
+    const origin = myLoc == null ? "" : `&origin=${myLoc.latitude},${myLoc.longitude}`;
+    return `https://www.google.com/maps/dir/?api=1${origin}&destination=${dstLat},${dstLon}&travelmode=${travelmode}`;
+};

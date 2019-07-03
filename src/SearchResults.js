@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
-import {groupBy} from "./Utils";
+import {groupBy, routeLink} from "./Utils";
 const axios = require('axios');
 
 const deg2rad = (deg) => {
@@ -154,7 +154,14 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
                 const lng = recipient["lon"];
                 if (lat && lng) {
                     const distance = getCrowDistanceFromLatLonInKm(myLoc.latitude, myLoc.longitude, lat, lng);
-                    return <span  title={t('result_distance_linear_tooltip')}>{distance.toFixed(1)} km</span>
+                    return <a
+                        title={t('result_distance_linear_tooltip')}
+                        href={routeLink(myLoc, lat, lng, "driving")}
+                        target='_blank'
+                        className='results-distance-link'
+                        rel='noopener noreferrer'>
+                        {distance.toFixed(1)} {t('result_distance_km')}
+                    </a>
                 }
             };
 
