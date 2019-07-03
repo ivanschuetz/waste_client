@@ -19,9 +19,13 @@ const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     className: 'leaflet-div-icon'
 });
 
-const markerClosedIcon = makeIcon(require('./marker_closed.svg'), [15, 27], new L.Point(30, 30), [0, -30]);
-const markerOpenIcon = makeIcon(require('./marker_open.svg'), [15, 27], new L.Point(30, 30), [0, -30]);
 const myLocMarkerIcon = makeIcon(require('./my_loc.svg'), null, new L.Point(20, 20), [0, -15]);
+const disposalPlaceOpenMarkerIcon = makeIcon(require('./trash.svg'), null, new L.Point(20, 20), [0, -15]);
+const disposalPlaceClosedMarkerIcon = makeIcon(require('./trash_closed.svg'), null, new L.Point(20, 20), [0, -15]);
+const donationsPlaceOpenMarkerIcon = makeIcon(require('./heart.svg'), null, new L.Point(20, 20), [0, -15]);
+const donationsPlaceClosedMarkerIcon = makeIcon(require('./heart_closed.svg'), null, new L.Point(20, 20), [0, -15]);
+const secondHandPlaceOpenMarkerIcon = makeIcon(require('./money.svg'), null, new L.Point(20, 20), [0, -15]);
+const secondHandPlaceClosedMarkerIcon = makeIcon(require('./money_closed.svg'), null, new L.Point(20, 20), [0, -15]);
 
 const createClusterIcon = (count) => {
     return new L.DivIcon({
@@ -127,12 +131,23 @@ const RecipientsMap = ({recipients}) => {
         }
     };
 
+    const icon = (recipientType, isOpen, hasPickup) => {
+        // For now ignoring hasPickup
+        switch (recipientType) {
+            case 0: return isOpen ? disposalPlaceOpenMarkerIcon : disposalPlaceClosedMarkerIcon;
+            case 1: return isOpen ? secondHandPlaceOpenMarkerIcon : secondHandPlaceOpenMarkerIcon;
+            case 2: return isOpen ? secondHandPlaceOpenMarkerIcon : secondHandPlaceOpenMarkerIcon;
+            default: console.log("Invalid recipient type: " + recipientType)
+        }
+    };
+
     const pointMarker = (container) => {
         const lat = container["lat"];
         const lon = container["lon"];
         const phone = container["phone"];
 
-        return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>
+        return marker(lat, lon, icon(container["type"], isOpen(container), container["hasPickup"]), <div style={{minWidth: 200}}>
+        {/*return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>*/}
             <a className="p-container-popup-title" href={container["url"]} target="_blank" rel="noopener noreferrer">
                 {container["name"]}
             </a><br/>
