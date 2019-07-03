@@ -5,38 +5,97 @@ import i18n from 'i18next';
 import {groupBy} from "./Utils";
 const axios = require('axios');
 
-const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {
+const deg2rad = (deg) => {
+    return deg * (Math.PI / 180)
+};
+
+const getCrowDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2 - lat1);  // deg2rad below
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c; // Distance in km
+    return d;
+};
+
+const SearchResults = ({results, onPContainersClick, showPContainersButton, myLocation}) => {
     const {t} = useTranslation();
+    const [myLoc, setMyLoc] = useState(null);
+
+    const categories = results['categories'];
+    const containers = results['containers'];
+    const recipients = results['recipients'];
+
+    // Adds distance to recipients if myLoc is set
+    if (myLoc) {
+        recipients.forEach((recipient) => {
+            const recipientLat = recipient["lat"];
+            const recipientLon = recipient["lon"];
+            if (recipientLat && recipientLon) {
+                recipient["distance"] = getCrowDistanceFromLatLonInKm(myLoc.latitude, myLoc.longitude, recipientLat, recipientLon)
+            }
+        });
+    }
+
+    const tips = results['tips'];
+
+    const groupedRecipients = groupBy(recipients, 'type');
+
+    const allUnsortedDisposalPlaces = (groupedRecipients[0] || []).filter((place) => place["hasInPlace"]);
+    const allUnsortedDonationPlaces = (groupedRecipients[1] || []);
+    const allUnsortedSecondHandPlaces = (groupedRecipients[2] || []);
+    const allUnsortedPickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
+
+    const sortByDistance = (recipients) => recipients.sort((a, b) => {
+        if (a.hasOwnProperty('distance') && b.hasOwnProperty('distance')) {
+            return a['distance'] - b['distance']
+        } else if (!a.hasOwnProperty('distance') && !b.hasOwnProperty('distance')) {
+            return 0;
+        } else {
+            throw Error("Invalid state: Either all objects have distance or none");
+        }
+    });
+
+    const disposalPlaces = sortByDistance(allUnsortedDisposalPlaces).slice(0, 3);
+    const donationPlaces = sortByDistance(allUnsortedDonationPlaces).slice(0, 3);
+    const secondHandPlaces = sortByDistance(allUnsortedSecondHandPlaces).slice(0, 3);
+    const pickupCompanies = sortByDistance(allUnsortedPickupCompanies).slice(0, 3);
+
+    const recipientsWithGeoLocation = recipients.filter((pc) => pc["lat"] && pc["lon"]);
+
+    const displayLocationInfo = (position) => setMyLoc(position.coords);
+
+    useEffect(() => {
+        const fetchMyLoc = async () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(displayLocationInfo);
+            } else {
+                // no can do
+                console.log('No geolocation available');
+            }
+        };
+        fetchMyLoc();
+    }, []);
 
     const listItems = () => {
-        const categories = results['categories'];
-        const containers = results['containers'];
-        const recipients = results['recipients'];
-        const tips = results['tips'];
-
-        const groupedRecipients = groupBy(recipients, 'type');
-
-        const disposalPlaces = (groupedRecipients[0] || []).filter((place) => place["hasInPlace"]).slice(0, 3);
-        const donationPlaces = (groupedRecipients[1] || []).slice(0, 3);
-        const secondHandPlaces = (groupedRecipients[2] || []).slice(0, 3);
-
-        const recipientsWithGeoLocation = recipients.filter((pc) => pc["lat"] && pc["lon"]);
-
-        const pickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
-
-        const categoryListItem = <li key='category' className="list-item-categories">{categories.map((category) => category.name).join(", ")}</li>;
+        const categoryListItem = <li key='category'
+                                     className="list-item-categories">{categories.map((category) => category.name).join(", ")}</li>;
 
         const containersListItems = containers.map(container => {
             const colorsStr = container["color"];
             const colors = colorsStr.split(",");
 
-            let background= "";
+            let background = "";
             let dotClass = "dot";
             switch (colors.length) {
                 case 1:
                     const color = colors[0];
                     background = "#" + colors;
-                    if (color === 'FFFFFF')  {
+                    if (color === 'FFFFFF') {
                         dotClass = 'dot-bordered';
                     }
                     dotClass = color === 'FFFFFF' ? 'dot-bordered' : 'dot';
@@ -46,7 +105,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     const color2 = colors[1];
                     background = "linear-gradient( -45deg, #" + color1 + ", #" + color1 + " 49%, white 49%, white 51%, #" + color2 + " 51% )";
                     break;
-                default: console.log(`Invalid color string: ${colorsStr}`)
+                default:
+                    console.log(`Invalid color string: ${colorsStr}`)
             }
             return <li className='container-list-item' key={'c' + container.id}>
                 <span className={dotClass} style={{background: background, marginRight: 5}}/>
@@ -88,10 +148,21 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 }
             };
 
+            const distanceElement = () => {
+                if (!myLoc) return <span/>;
+                const lat = recipient["lat"];
+                const lng = recipient["lon"];
+                if (lat && lng) {
+                    const distance = getCrowDistanceFromLatLonInKm(myLoc.latitude, myLoc.longitude, lat, lng);
+                    return <span  title={t('result_distance_linear_tooltip')}>{distance.toFixed(1)} km</span>
+                }
+            };
+
             return <tr key={'p' + recipient["id"]} className="recipient-row">
-                <td> { nameElement() } </td>
-                <td> { phoneElement() } </td>
-                <td> { emailElement() } </td>
+                <td> {nameElement()} </td>
+                <td> {phoneElement()} </td>
+                <td> {emailElement()} </td>
+                <td> {distanceElement()} </td>
                 {/*{company.address}*/}
             </tr>;
         });
@@ -126,18 +197,38 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             </li>
         );
 
-        const pickupCompaniesListItem = <li key='p-companies'><table className="p-recipients-table"><tbody>{ recipientsTableRows(pickupCompanies) }</tbody></table></li>;
-        const donationsPlacesListItem = <li key='donation-places'><table className="p-recipients-table"><tbody>{ recipientsTableRows(donationPlaces) }</tbody></table></li>;
-        const trashPlacesListItem = <li key='trash-places'><table className="p-recipients-table"><tbody>{ recipientsTableRows(disposalPlaces) }</tbody></table></li>;
-        const secondHandPlacesListItem = <li key='second-hand-places'><table className="p-recipients-table"><tbody>{ recipientsTableRows(secondHandPlaces) }</tbody></table></li>;
+        const pickupCompaniesListItem = <li key='p-companies'>
+            <table className="p-recipients-table">
+                <tbody>{recipientsTableRows(pickupCompanies)}</tbody>
+            </table>
+        </li>;
+        const donationsPlacesListItem = <li key='donation-places'>
+            <table className="p-recipients-table">
+                <tbody>{recipientsTableRows(donationPlaces)}</tbody>
+            </table>
+        </li>;
+        const trashPlacesListItem = <li key='trash-places'>
+            <table className="p-recipients-table">
+                <tbody>{recipientsTableRows(disposalPlaces)}</tbody>
+            </table>
+        </li>;
+        const secondHandPlacesListItem = <li key='second-hand-places'>
+            <table className="p-recipients-table">
+                <tbody>{recipientsTableRows(secondHandPlaces)}</tbody>
+            </table>
+        </li>;
 
         const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
-        const categoriesHeader = <li key='catheader' className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
+        const categoriesHeader = <li key='catheader'
+                                     className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>{t('results_header_pickup')}</li>;
-        const donationPlacesHeader = <li key='donationheader' className='result-header'>{t('results_header_donations')}</li>;
-        const trashPlacesHeader = <li key='trashplacesheader' className='result-header'>{t('results_header_trash_places')}</li>;
-        const secondHandPlacesHeader = <li key='secondhandplacesheader' className='result-header'>{t('results_header_second_hand')}</li>;
+        const donationPlacesHeader = <li key='donationheader'
+                                         className='result-header'>{t('results_header_donations')}</li>;
+        const trashPlacesHeader = <li key='trashplacesheader'
+                                      className='result-header'>{t('results_header_trash_places')}</li>;
+        const secondHandPlacesHeader = <li key='secondhandplacesheader'
+                                           className='result-header'>{t('results_header_second_hand')}</li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
 
         const categoriesHeaderList = [categoriesHeader];
@@ -172,7 +263,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     );
 };
 
-const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersButton}) => {
+const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersButton, myLocation}) => {
     const [results, setResults] = useState(null);
 
     useEffect(() => {
@@ -195,7 +286,8 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
 
     return results && <SearchResults results={results}
                                      onPContainersClick={onPContainersClick}
-                                     showPContainersButton={showPContainersButton}/>
+                                     showPContainersButton={showPContainersButton}
+                                     myLocation={myLocation}/>
 };
 
 export default ItemSearch;

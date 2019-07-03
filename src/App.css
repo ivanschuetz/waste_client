@@ -143,6 +143,16 @@ body {
     height: 40px;
 }
 
+.recipient-row td {
+    white-space: nowrap;
+}
+
+.recipient-row td:last-child {
+    width: 100%;
+    text-align: right;
+    color: #999;
+}
+
 .modal-bottombar {
     max-height: 220px;
     overflow-y: scroll;
