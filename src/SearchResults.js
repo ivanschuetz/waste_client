@@ -148,7 +148,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
             };
 
             const nameElement = () => {
-                const nameElement = <span style={{verticalAlign: 'middle'}}>{recipient["name"].trunc(40)}</span>;
+                const nameElement = <span style={{verticalAlign: 'middle'}} title={recipient["address"]}>{recipient["name"].trunc(40)}</span>;
                 if (recipient["url"]) {
                     return <a className='recipient-name' href={recipient["url"]} target='_blank'
                               rel='noopener noreferrer'>
