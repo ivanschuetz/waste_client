@@ -282,7 +282,7 @@ body {
 }
 
 .result-header-p-containers {
-    /*border-top: solid 1px #666;*/
+    border-top: solid 1px #666;
     margin-top: 10px;
 }
 
