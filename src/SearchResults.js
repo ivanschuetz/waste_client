@@ -229,13 +229,31 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
         const categoriesHeader = <li key='catheader'
                                      className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
-        const pickupCompaniesHeader = <li key='pickheader' className='result-header'>{t('results_header_pickup')}</li>;
+        const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
+            <img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
+            <span> {t('results_header_pickup')} </span>
+        </li>;
         const donationPlacesHeader = <li key='donationheader'
-                                         className='result-header'>{t('results_header_donations')}</li>;
+                                         className='result-header'>
+            <img src={require('./heart.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
+            <span> {t('results_header_donations')} </span>
+        </li>;
         const trashPlacesHeader = <li key='trashplacesheader'
-                                      className='result-header'>{t('results_header_trash_places')}</li>;
+                                      className='result-header'>
+            <div>
+                <img src={require('./trash.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                     alt='map'/>
+                <span> {t('results_header_trash_places')} </span>
+            </div>
+        </li>;
         const secondHandPlacesHeader = <li key='secondhandplacesheader'
-                                           className='result-header'>{t('results_header_second_hand')}</li>;
+                                           className='result-header'>
+            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
+            <span> {t('results_header_second_hand')} </span>
+        </li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
 
         const categoriesHeaderList = [categoriesHeader];
