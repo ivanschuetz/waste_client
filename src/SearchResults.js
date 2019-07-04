@@ -3,6 +3,7 @@ import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
 import {groupBy, routeLink} from "./Utils";
+
 const axios = require('axios');
 
 const deg2rad = (deg) => {
@@ -25,6 +26,10 @@ const getCrowDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
 const SearchResults = ({results, onPContainersClick, showPContainersButton, myLocation}) => {
     const {t} = useTranslation();
     const [myLoc, setMyLoc] = useState(null);
+    const [maxPickupCompaniesLength, setMaxPickupCompaniesLength] = useState(3);
+    const [maxDisposalPlacesLength, setMaxDisposalPlacesLength] = useState(3);
+    const [maxDonationPlacesLength, setMaxDonationPlacesLength] = useState(3);
+    const [maxSecondHandPlacesLength, setMaxSecondHandPlacesLength] = useState(3);
 
     const categories = results['categories'];
     const containers = results['containers'];
@@ -60,10 +65,10 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
         }
     });
 
-    const disposalPlaces = sortByDistance(allUnsortedDisposalPlaces).slice(0, 3);
-    const donationPlaces = sortByDistance(allUnsortedDonationPlaces).slice(0, 3);
-    const secondHandPlaces = sortByDistance(allUnsortedSecondHandPlaces).slice(0, 3);
-    const pickupCompanies = sortByDistance(allUnsortedPickupCompanies).slice(0, 3);
+    const disposalPlaces = sortByDistance(allUnsortedDisposalPlaces).slice(0, maxDisposalPlacesLength);
+    const donationPlaces = sortByDistance(allUnsortedDonationPlaces).slice(0, maxDonationPlacesLength);
+    const secondHandPlaces = sortByDistance(allUnsortedSecondHandPlaces).slice(0, maxSecondHandPlacesLength);
+    const pickupCompanies = sortByDistance(allUnsortedPickupCompanies).slice(0, maxPickupCompaniesLength);
 
     const recipientsWithGeoLocation = recipients.filter((pc) => pc["lat"] && pc["lon"]);
 
@@ -204,26 +209,34 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
             </li>
         );
 
-        const pickupCompaniesListItem = <li key='p-companies'>
-            <table className="p-recipients-table">
-                <tbody>{recipientsTableRows(pickupCompanies)}</tbody>
-            </table>
-        </li>;
-        const donationsPlacesListItem = <li key='donation-places'>
-            <table className="p-recipients-table">
-                <tbody>{recipientsTableRows(donationPlaces)}</tbody>
-            </table>
-        </li>;
-        const trashPlacesListItem = <li key='trash-places'>
-            <table className="p-recipients-table">
-                <tbody>{recipientsTableRows(disposalPlaces)}</tbody>
-            </table>
-        </li>;
-        const secondHandPlacesListItem = <li key='second-hand-places'>
-            <table className="p-recipients-table">
-                <tbody>{recipientsTableRows(secondHandPlaces)}</tbody>
-            </table>
-        </li>;
+        const recipentsSection = (key, recipients, allRecipients, maxRecipientsLength, setMaxRecipientsLength) => {
+            return <li key={key}>
+                <table className="p-recipients-table">
+                    <tbody>{recipientsTableRows(recipients)}</tbody>
+                </table>
+                { allRecipients.length > maxRecipientsLength ?
+                    <div>
+                        <div className='show-more' onClick={() => {
+                            setMaxRecipientsLength(allRecipients.length)
+                        }}>
+                            <span>{t('results_recipients_show_more')}</span>
+                        </div>
+                    </div> : <span/>
+                }
+            </li>
+        };
+
+        const pickupCompaniesListItem = recipentsSection('pickup-companies', pickupCompanies, allUnsortedPickupCompanies,
+            maxPickupCompaniesLength, setMaxPickupCompaniesLength);
+
+        const donationsPlacesListItem = recipentsSection('donation-places', donationPlaces, allUnsortedDonationPlaces,
+            maxDonationPlacesLength, setMaxDonationPlacesLength);
+
+        const trashPlacesListItem = recipentsSection('trash-places', disposalPlaces, allUnsortedDisposalPlaces,
+            maxDisposalPlacesLength, setMaxDisposalPlacesLength);
+
+        const secondHandPlacesListItem = recipentsSection('second-hand-places', secondHandPlaces, allUnsortedSecondHandPlaces,
+            maxSecondHandPlacesLength, setMaxSecondHandPlacesLength);
 
         const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
         const categoriesHeader = <li key='catheader'

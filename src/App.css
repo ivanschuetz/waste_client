@@ -305,6 +305,21 @@ body {
     display: inline-block;
 }
 
+.show-more {
+    padding: 5px 8px 5px 8px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    border-color: #999;
+    border-width: 1px;
+    border-style: solid;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #999;
+    cursor: pointer;
+}
+
 .results-list {
     list-style: none;
     width: 100%;
