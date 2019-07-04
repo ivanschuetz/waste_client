@@ -23,6 +23,11 @@ const getCrowDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     return d;
 };
 
+String.prototype.trunc = String.prototype.trunc ||
+    function(n){
+        return (this.length > n) ? this.substr(0, n-1) + '...' : this;
+    };
+
 const SearchResults = ({results, onPContainersClick, showPContainersButton, myLocation}) => {
     const {t} = useTranslation();
     const [myLoc, setMyLoc] = useState(null);
@@ -143,13 +148,14 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
             };
 
             const nameElement = () => {
+                const nameElement = <span style={{verticalAlign: 'middle'}}>{recipient["name"].trunc(40)}</span>;
                 if (recipient["url"]) {
                     return <a className='recipient-name' href={recipient["url"]} target='_blank'
                               rel='noopener noreferrer'>
-                        <span style={{verticalAlign: 'middle'}}>{recipient["name"]}</span>
+                        { nameElement }
                     </a>
                 } else {
-                    return <span style={{verticalAlign: 'middle'}}>{recipient["name"]}</span>
+                    return nameElement;
                 }
             };
 
