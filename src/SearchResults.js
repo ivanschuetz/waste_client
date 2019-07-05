@@ -116,8 +116,14 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     }, []);
 
     const listItems = () => {
-        const categoryListItem = <li key='category'
-                                     className="list-item-categories">{categories.map((category) => category.name).join(", ")}</li>;
+        const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
+        const categoryListItem =
+            <li key='category' className="list-item-categories">
+                <span className="categories-tag">
+                    {t(categoriesHeaderTranslationKey)}:&nbsp;
+                    <span className="categories-string">{categories.map((category) => category.name).join(", ")}</span>
+                </span>
+            </li>;
 
         const containersListItems = containers.map(container => {
             const colorsStr = container["color"];
@@ -291,9 +297,6 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const secondHandPlacesListItem = recipentsSection('second-hand-places', secondHandPlaces, allUnsortedSecondHandPlaces,
             maxSecondHandPlacesLength, setMaxSecondHandPlacesLength);
 
-        const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
-        const categoriesHeader = <li key='catheader'
-                                     className='result-header-first'>{t(categoriesHeaderTranslationKey)}</li>;
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
             <img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
@@ -322,7 +325,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         </li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
 
-        const categoriesHeaderList = [categoriesHeader];
+        const categorylistItemList = [categoryListItem];
         const containersHeaderList = containersListItems.length > 0 ? [containersHeader] : [];
         const pickupCompaniesHeaderList = pickupCompanies.length > 0 ? [pickupCompaniesHeader] : [];
         const donationPlacesHeaderList = donationPlaces.length > 0 ? [donationPlacesHeader] : [];
@@ -330,8 +333,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const secondHandPlacesHeaderList = secondHandPlaces.length > 0 ? [secondHandPlacesHeader] : [];
         const tipsHeaderList = tipsListItems.length > 0 ? [tipsHeader] : [];
 
-        return categoriesHeaderList
-            .concat(categoryListItem)
+        return categorylistItemList
             .concat(containersHeaderList)
             .concat(containersListItems)
             .concat(tipsHeaderList)
