@@ -22,7 +22,7 @@ const SearchBox = ({onSuggestions, onInput, searchText, onSuggestionsRequest}) =
         delayTimer = setTimeout(async function() {
             onSuggestionsRequest();
 
-            const result = await axios('https://woentsorgen.de:8443/suggestions/' + text, {
+            const result = await axios('https://wohin-mit.de:8443/suggestions/' + text, {
             // const result = await axios('https://localhost:8443/suggestions/' + text, {
                 headers: {"lang": lang}
             });
