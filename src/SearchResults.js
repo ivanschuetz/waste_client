@@ -3,6 +3,8 @@ import './App.css';
 import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
 import {groupBy, routeLink} from "./Utils";
+import {isOpenNow} from "./Time";
+import OpeningHours from "./OpeningHours";
 
 const axios = require('axios');
 
@@ -40,7 +42,21 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
     const containers = results['containers'];
     const recipients = results['recipients'];
 
-    // Adds distance to recipients if myLoc is set
+    const recipientsByIdMap = Object.assign({}, ...recipients.map(r => ({[r["id"]]: false})));
+    const [expandedRecipientsState, setExpandedRecipientsState] = useState(recipientsByIdMap);
+
+    // Add open field to recipients for quick access when sorting
+    recipients.forEach((recipient) => {
+        const open = recipient["open"];
+        if (open) {
+            const hours = open["hours"];
+            if (hours) {
+                recipient["isOpen"] = isOpenNow(hours);
+            }
+        }
+    });
+
+    // Adds distance to recipients if myLoc is set (for quick access when sorting)
     if (myLoc) {
         recipients.forEach((recipient) => {
             const recipientLat = recipient["lat"];
@@ -61,7 +77,12 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
     const allUnsortedPickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
 
     const sortByDistance = (recipients) => recipients.sort((a, b) => {
-        if (a.hasOwnProperty('distance') && b.hasOwnProperty('distance')) {
+        const aIsOpenInt = a['isOpen'] ? 1 : 0;
+        const bIsOpenInt = b['isOpen'] ? 1 : 0;
+        const isOpenRes = aIsOpenInt - bIsOpenInt;
+        if (isOpenRes !== 0)   {
+            return isOpenRes;
+        } else if (a.hasOwnProperty('distance') && b.hasOwnProperty('distance')) {
             return a['distance'] - b['distance']
         } else if (!a.hasOwnProperty('distance') && !b.hasOwnProperty('distance')) {
             return 0;
@@ -124,10 +145,12 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
             </li>
         });
 
-        const recipientsTableRows = (recipients) => recipients.map(recipient => {
+        const recipientsTableRows = (recipients) => recipients.flatMap(recipient => {
+            const isOpen = recipient["isOpen"];
+
             const phoneElement = () => {
                 if (recipient["phone"]) {
-                    return <a className='recipient-data-link' href={"tel:" + recipient["phone"]}>
+                    return <a className={isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"tel:" + recipient["phone"]}>
                         {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>
                     </a>
@@ -137,7 +160,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
             };
             const emailElement = () => {
                 if (recipient["email"]) {
-                    return <a className='recipient-data-link' href={"mailto:" + recipient["email"]} target='_blank'
+                    return <a className={isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"mailto:" + recipient["email"]} target='_blank'
                               rel='noopener noreferrer'>
                         {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>Email</span>
@@ -150,9 +173,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
             const nameElement = () => {
                 const nameElement = <span style={{verticalAlign: 'middle'}} title={recipient["address"]}>{recipient["name"].trunc(40)}</span>;
                 if (recipient["url"]) {
-                    return <a className='recipient-name' href={recipient["url"]} target='_blank'
+                    return <a className={isOpen ? 'recipient-name' : 'recipient-name-closed'} href={recipient["url"]} target='_blank'
                               rel='noopener noreferrer'>
-                        { nameElement }
+                        { nameElement } ({t('results_recipient_closed')})
                     </a>
                 } else {
                     return nameElement;
@@ -169,20 +192,39 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
                         title={t('result_distance_linear_tooltip')}
                         href={routeLink(myLoc, lat, lng, "driving")}
                         target='_blank'
-                        className='results-distance-link'
+                        className={isOpen ? 'results-distance-link' : 'results-distance-link-closed'}
                         rel='noopener noreferrer'>
                         {distance.toFixed(1)} {t('result_distance_km')}
                     </a>
                 }
             };
 
-            return <tr key={'p' + recipient["id"]} className="recipient-row">
-                <td> {nameElement()} </td>
-                <td> {phoneElement()} </td>
-                <td> {emailElement()} </td>
-                <td> {distanceElement()} </td>
-                {/*{company.address}*/}
-            </tr>;
+            const recipientRowClicked = () => {
+                const expandedState = JSON.parse(JSON.stringify(expandedRecipientsState));
+                expandedState[recipient["id"]] = !expandedState[recipient["id"]];
+                setExpandedRecipientsState(expandedState);
+            };
+
+            const rows = [
+                <tr key={'p' + recipient["id"]} className="recipient-row" onClick={() => recipientRowClicked()}>
+                    <td> {nameElement()} </td>
+                    <td> {phoneElement()} </td>
+                    <td> {emailElement()} </td>
+                    <td> {distanceElement()} </td>
+                    {/*{company.address}*/}
+                </tr>
+            ];
+            if (recipient["open"] && recipient["open"]["hours"]) {
+                const className = (expandedRecipientsState[recipient["id"]] ? "results-details-row-expanded" : "results-details-row-collapsed");
+                rows.push(<tr key={'pdetails' + recipient['id']}>
+                    <td colSpan={4}>
+                        <div className={className}>
+                            <OpeningHours openingHoursList={recipient["open"]["hours"]}/>
+                        </div>
+                    </td>
+                </tr>);
+            }
+            return rows;
         });
 
         let recipientsWithGeolocationHeader;

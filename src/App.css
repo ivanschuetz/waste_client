@@ -94,7 +94,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0,0,0,.2);
+    background: rgba(0, 0, 0, .2);
     z-index: 1001;
 }
 
@@ -127,7 +127,7 @@ body {
 
 .modal-topbar-title {
     /*font-weight: bold;*/
-    margin:0;
+    margin: 0;
 }
 
 .modal-topbar-x {
@@ -136,7 +136,8 @@ body {
     cursor: pointer;
 }
 
-.p-recipients-table {}
+.p-recipients-table {
+}
 
 .recipient-row {
     text-align: left;
@@ -160,11 +161,11 @@ body {
 }
 
 .modal-bottombar::-webkit-scrollbar {
-  width: 4px;
+    width: 4px;
 }
 
 .modal-bottombar::-webkit-scrollbar-thumb {
-  background: #888; 
+    background: #888;
 }
 
 .top {
@@ -228,7 +229,7 @@ body {
     border-bottom-right-radius: 20px;
 
     /* Fixes the z-index issue */
-    -webkit-transform:translate3d(0,0,0);
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .suggestion-item {
@@ -349,10 +350,24 @@ body {
     text-decoration: none;
 }
 
+.recipient-name-closed {
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: #999;
+}
+
 .recipient-data-link {
     cursor: pointer;
     margin-left: 30px;
     text-decoration: none;
+}
+
+.recipient-data-link-closed {
+    cursor: pointer;
+    margin-left: 30px;
+    text-decoration: none;
+    color: #999;
 }
 
 .all-results {
@@ -455,13 +470,40 @@ body {
 
 .opening-times-table td {
     padding-right: 10px;
+    text-align: left;
+}
+
+.results-details-row-expanded {
+    /*overflow: hidden;*/
+    /*transition: max-height 0.3s ease-out;*/
+    /*/ / note that we 're transitioning max-height, not height! height: auto;*/
+    /*max-height: 600px;*/
+    /*/ / still have to hard-code a value !;*/
+
+    -webkit-transition: max-height 0.5s ease;
+    -moz-transition: max-height 0.5s ease;
+    transition: max-height 0.5s ease;
+
+    max-height: 400px;
+}
+
+.results-details-row-collapsed {
+    max-height: 0;
+    /*line-height: 0;*/
+    /*opacity: 0;*/
+    overflow: hidden;
+
+    -webkit-transition: max-height 0.5s ease;
+    -moz-transition: max-height 0.5s ease;
+    transition: max-height 0.5s ease;
 }
 
 .opening-hours-row-now {
     font-weight: bold;
 }
 
-.opening-hours-row-default {}
+.opening-hours-row-default {
+}
 
 .lang-link {
     cursor: pointer;
@@ -471,6 +513,12 @@ body {
     text-decoration: none;
     cursor: pointer;
     color: inherit;
+}
+
+.results-distance-link-closed {
+    text-decoration: none;
+    cursor: pointer;
+    color: #999;
 }
 
 .social-link {

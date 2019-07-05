@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './App.css';
 import SearchBox from "./SearchBox";
 import ItemSuggestions from "./ItemSuggestions";
@@ -35,7 +35,7 @@ const App = () => {
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const keepInBounds = (newIndex) => Math.max(Math.min(newIndex, suggestions.length - 1), 0);
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     useEffect(() => {
         const keyDownListener = ({key}) => {
@@ -108,7 +108,7 @@ const App = () => {
         setShowProgressBar(true);
         setShowMap(false);
 
-        ReactGA.event({ category: 'Search', action: 'Clicked suggestion', label: suggestion.name });
+        ReactGA.event({category: 'Search', action: 'Clicked suggestion', label: suggestion.name});
     };
 
     const handleSearchResult = item => {
@@ -164,19 +164,19 @@ const App = () => {
 
     const onPContainersClick = () => {
         setShowMap(true);
-        ReactGA.event({ category: 'Navigation', action: 'Opened public containers' });
+        ReactGA.event({category: 'Navigation', action: 'Opened public containers'});
     };
 
     const setLanguage = async (lang) => {
         await i18n.changeLanguage(lang, null);
-        ReactGA.event({ category: 'Settings', action: 'Changed language', label: lang });
+        ReactGA.event({category: 'Settings', action: 'Changed language', label: lang});
     };
 
     const toggleLegalModal = () => {
         const newShow = !showLegalModal;
         setShowLegalModal(newShow);
         if (newShow) {
-            ReactGA.event({ category: 'Navigation', action: 'Opened legal modal' });
+            ReactGA.event({category: 'Navigation', action: 'Opened legal modal'});
         }
     };
 
@@ -207,7 +207,8 @@ const App = () => {
                                                        onPContainersClick={onPContainersClick}
                                                        showPContainersButton={!showMap}
                     />}
-                    {results && showMap && <RecipientsMap recipients={results["recipients"].filter((r) => r["lat"] && r["lon"]) }/>}
+                    {results && showMap &&
+                    <RecipientsMap recipients={results["recipients"].filter((r) => r["lat"] && r["lon"])}/>}
                 </div>
                 {showNoResults &&
                 <div>{t('search_no_results')}
@@ -227,12 +228,13 @@ const App = () => {
                         {t('link_feedback')}
                     </a> |&nbsp;
                     <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
-                    {t('link_legal')}
-                </span> |&nbsp;
-                    <span className="social-link" onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
-                </span> |&nbsp;
+                {t('link_legal')}
+            </span> |&nbsp;
+                    <span className="social-link"
+                          onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
+            </span> |&nbsp;
                     <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}
-                </span>
+            </span>
                 </div>
                 {showAboutModal &&
                 <Modal onCloseClick={() => setShowAboutModal(false)}>
@@ -243,15 +245,18 @@ const App = () => {
                 </Modal>}
                 {showLangModal &&
                 <Modal title={t('lang_modal_title')} onCloseClick={() => setShowLangModal(false)}>
-                    <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("de")}>Deutsch</p>
-                    <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'} onClick={() => setLanguage("en")}>English</p>
+                    <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'}
+                       onClick={() => setLanguage("de")}>Deutsch</p>
+                    <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'}
+                       onClick={() => setLanguage("en")}>English</p>
                 </Modal>}
                 {showSocialModal &&
                 <Modal title={t('social_modal_title')} onCloseClick={() => setShowSocialModal(false)}>
                     {/*<p>{t('social_share_with_facebook')}</p>*/}
                     {/*<p>{t('social_follow_in_facebook')}</p>*/}
                     <p>
-                        <a className="social-option" href={shareOnTwitterHref()} target="_blank" rel="noopener noreferrer">
+                        <a className="social-option" href={shareOnTwitterHref()} target="_blank"
+                           rel="noopener noreferrer">
                             {t('social_share_with_twitter')}
                         </a>
                     </p>
