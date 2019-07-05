@@ -171,14 +171,16 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
             };
 
             const nameElement = () => {
-                const nameElement = <span style={{verticalAlign: 'middle'}} title={recipient["address"]}>{recipient["name"].trunc(40)}</span>;
+                const nameToShow = recipient["name"].trunc(40);
+                const fullText = isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
+                const fullTextElement = <span style={{verticalAlign: 'middle'}} title={recipient["address"]}>{fullText}</span>;
                 if (recipient["url"]) {
                     return <a className={isOpen ? 'recipient-name' : 'recipient-name-closed'} href={recipient["url"]} target='_blank'
                               rel='noopener noreferrer'>
-                        { nameElement } ({t('results_recipient_closed')})
+                        { fullTextElement }
                     </a>
                 } else {
-                    return nameElement;
+                    return fullTextElement;
                 }
             };
 
