@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import i18n from 'i18next';
 import Legal from "./Legal";
 import * as ReactGA from 'react-ga'
+import Helmet from "react-helmet/es/Helmet";
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 const axios = require('axios');
@@ -184,6 +185,9 @@ const App = () => {
 
     return (
         <div className="App">
+            <Helmet>
+                <title>{t('meta_page_title')}</title>
+            </Helmet>
             {showProgressBar && <ProgressBar/>}
             <div className="Wrapper">
 
