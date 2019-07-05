@@ -30,7 +30,7 @@ String.prototype.trunc = String.prototype.trunc ||
         return (this.length > n) ? this.substr(0, n-1) + '...' : this;
     };
 
-const SearchResults = ({results, onPContainersClick, showPContainersButton, myLocation}) => {
+const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {
     const {t} = useTranslation();
     const [myLoc, setMyLoc] = useState(null);
     const [maxPickupCompaniesLength, setMaxPickupCompaniesLength] = useState(3);
@@ -354,7 +354,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
     );
 };
 
-const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersButton, myLocation}) => {
+const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersButton}) => {
     const [results, setResults] = useState(null);
 
     useEffect(() => {
@@ -378,7 +378,7 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
     return results && <SearchResults results={results}
                                      onPContainersClick={onPContainersClick}
                                      showPContainersButton={showPContainersButton}
-                                     myLocation={myLocation}/>
+                                     />
 };
 
 export default ItemSearch;
