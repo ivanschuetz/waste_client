@@ -47,6 +47,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, myLo
 
     // Add open field to recipients for quick access when sorting
     recipients.forEach((recipient) => {
+        // We show open status only when closed. So we use "open" as default - which means we have to mark "unknown" as "open"
+        // Note that ideally there should be no unknowns. We should ensure that the db has the opening times of everything.
+        recipient["isOpen"] = recipient["openType"] === "u";
         const open = recipient["open"];
         if (open) {
             const hours = open["hours"];
