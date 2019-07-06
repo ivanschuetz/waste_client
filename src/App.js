@@ -256,7 +256,7 @@ const App = () => {
                         </a>
                     </p>
                     <p>
-                        <a className="social-option" href="https://twitter.com/i_schuetz" target="_blank" rel="noopener noreferrer">
+                        <a className="social-option" href="https://twitter.com/wohinmit" target="_blank" rel="noopener noreferrer">
                             {t('social_follow_on_twitter')}
                         </a>
                     </p>
