@@ -69,7 +69,7 @@ const TermsTab = () => {
         <br/>
         {t('legal_general_1')} <br/><br/>
         {t('legal_general_2_part_1')}
-        <a className="feedback-link" href="mailto:contact@woentsorgen.de" target="_blank" rel="noopener noreferrer">
+        <a className="feedback-link" href="mailto:contact@wohin-mit.de" target="_blank" rel="noopener noreferrer">
             {t('legal_general_2_contact_link_text')}
         </a>
         {t('legal_general_2_part_2')}

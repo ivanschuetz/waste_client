@@ -211,19 +211,19 @@ const App = () => {
                 </div>
                 {showNoResults &&
                 <div>{t('search_no_results')}
-                <div className="no-results-search-text">{lastSearchText}</div>
-                    <a className="request-item-link" href= {
-                        // "mailto:contact@woentsorgen.de?subject=" + searchText + "&body=" + searchText
-                        "mailto:contact@woentsorgen.de?subject="
+                    <div className="no-results-search-text">{lastSearchText}</div>
+                    <a className="request-item-link" href={
+                        // "mailto:contact@wohin-mit.de?subject=" + searchText + "&body=" + searchText
+                        "mailto:contact@wohin-mit.de?subject="
                         + t('email_missing_item_subject') + searchText + "&body="
                         + t('email_missing_item_body')
                     }
                        target="_blank">{t('search_empty_result_request_item')}</a>
-                    {/*<a className="feedback-link" href="mailto:contact@woentsorgen.de" target="_blank" rel="noopener noreferrer">Request</a>*/}
+                    {/*<a className="feedback-link" href="mailto:contact@wohin-mit.de" target="_blank" rel="noopener noreferrer">Request</a>*/}
                 </div>
                 }
                 <div className="footer">
-                    <a className="feedback-link" href="mailto:contact@woentsorgen.de" target="_blank" rel="noopener noreferrer">
+                    <a className="feedback-link" href="mailto:contact@wohin-mit.de" target="_blank" rel="noopener noreferrer">
                         {t('link_feedback')}
                     </a> |&nbsp;
                     <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
