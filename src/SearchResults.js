@@ -70,7 +70,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         });
     }
 
-    const tips = results['tips'];
+    const itemTips = results['itemTips'];
+    const categoryTips = results['categoryTips'];
+    const tips = itemTips.concat(categoryTips);
 
     const groupedRecipients = groupBy(recipients, 'type');
 
