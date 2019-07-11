@@ -276,7 +276,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const tipsListItems = tips.map((tip, index) =>
             <li key={'tip' + index} className="list-item-tip">
                 <img src={require('./check.svg')} style={{verticalAlign: 'middle', marginRight: 5}} alt='map'/>
-                <span>{tip["text"]}</span>
+                <span dangerouslySetInnerHTML={{__html: tip["text"]}}/>
             </li>
         );
 
