@@ -208,7 +208,9 @@ const App = () => {
                                                        showPContainersButton={!showMap}
                     />}
                     {results && showMap &&
-                    <RecipientsMap recipients={results["recipients"].filter((r) => r["lat"] && r["lon"])}/>}
+                    <RecipientsMap recipients={(results['itemRecipients'].concat(results['categoryRecipients'])).filter((r) =>
+                        r["lat"] && r["lon"])
+                    }/>}
                 </div>
                 {showNoResults &&
                 <div>{t('search_no_results')}

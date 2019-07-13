@@ -40,7 +40,10 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
     const categories = results['categories'];
     const containers = results['containers'];
-    const recipients = results['recipients'];
+    const itemRecipients = results['itemRecipients'];
+    const categoryRecipients = results['categoryRecipients'];
+
+    const recipients = itemRecipients.concat(categoryRecipients);
 
     const recipientsByIdMap = Object.assign({}, ...recipients.map(r => ({[r["id"]]: false})));
     const [expandedRecipientsState, setExpandedRecipientsState] = useState(recipientsByIdMap);
