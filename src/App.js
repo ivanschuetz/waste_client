@@ -189,10 +189,13 @@ const App = () => {
                 <title>{t('meta_page_title')}</title>
             </Helmet>
             {showProgressBar && <ProgressBar/>}
+            <img style={{float: "right", marginRight: 10, marginTop: 10}} width={50} src={require('./beta_badge.png')} alt='beta' />
             <div className="Wrapper">
 
                 <div className="top">
-                    <div className="page-title">{t('app_title')}</div>
+                    <div className="page-title">
+                        <img width={300} src={require('./logo.png')} alt={t('app_title')} />
+                    </div>
                     <SearchBox onSuggestions={handleSuggestions}
                                onInput={handleSearchBoxInput}
                                searchText={searchText}
