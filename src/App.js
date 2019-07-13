@@ -189,7 +189,7 @@ const App = () => {
                 <title>{t('meta_page_title')}</title>
             </Helmet>
             {showProgressBar && <ProgressBar/>}
-            <img style={{float: "right", marginRight: 10, marginTop: 10}} width={50} src={require('./beta_badge.png')} alt='beta' />
+            <img style={{position: "absolute", right: 10, top: 10}} width={50} src={require('./beta_badge.png')} alt='beta' />
             <div className="Wrapper">
 
                 <div className="top">

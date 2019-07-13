@@ -150,7 +150,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 case 1:
                     const color = colors[0];
                     background = "#" + colors;
-                    if (color === 'FFFFFF') {
+                    if (color === 'FFFFFF') { // hack... need to check bright colors instead
                         dotClass = 'dot-bordered';
                     }
                     dotClass = color === 'FFFFFF' ? 'dot-bordered' : 'dot';
@@ -158,14 +158,17 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 case 2:
                     const color1 = colors[0];
                     const color2 = colors[1];
+                    if (color1 === 'FFA500' && color2 === 'FFFF00') { // hack... need to check bright colors instead
+                        dotClass = 'dot-bordered';
+                    }
                     background = "linear-gradient( -45deg, #" + color1 + ", #" + color1 + " 49%, white 49%, white 51%, #" + color2 + " 51% )";
                     break;
                 default:
                     console.log(`Invalid color string: ${colorsStr}`)
             }
             return <li className='container-list-item' key={'c' + container.id}>
-                <span className={dotClass} style={{background: background, marginRight: 5}}/>
-                {container.name}
+                <span className={dotClass} style={{background: background, marginRight: 12, verticalAlign: "middle"}}/>
+                <span style={{verticalAlign: "middle"}}>{container.name}</span>
             </li>
         });
 
@@ -271,14 +274,14 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             } else {
                 recipientsWithGeolocationHeader =
                     <li key='pcontcheader' className='result-header-p-containers'>
-                        <div style={{marginTop: 20, fontWeight: 'bold'}}>{t('results_header_public_containers')}</div>
+                        {/*<div style={{marginTop: 20, fontWeight: 'bold', fontSize: 20}}>{t('results_header_public_containers')}</div>*/}
                     </li>;
             }
         }
 
         const tipsListItems = tips.map((tip, index) =>
             <li key={'tip' + index} className="list-item-tip">
-                <img src={require('./check.svg')} style={{verticalAlign: 'middle', marginRight: 5}} alt='map'/>
+                {/*<img src={require('./check.svg')} style={{verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                 <span dangerouslySetInnerHTML={{__html: tip["text"]}}/>
             </li>
         );
@@ -314,28 +317,28 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
-            <img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            {/*<img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
+            {/*     alt='map'/>*/}
             <span> {t('results_header_pickup')} </span>
         </li>;
         const donationPlacesHeader = <li key='donationheader'
                                          className='result-header'>
-            <img src={require('./heart.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            {/*<img src={require('./heart.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
+            {/*     alt='map'/>*/}
             <span> {t('results_header_donations')} </span>
         </li>;
         const trashPlacesHeader = <li key='trashplacesheader'
                                       className='result-header'>
             <div>
-                <img src={require('./trash.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                     alt='map'/>
+                {/*<img src={require('./trash.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
+                {/*     alt='map'/>*/}
                 <span> {t('results_header_trash_places')} </span>
             </div>
         </li>;
         const secondHandPlacesHeader = <li key='secondhandplacesheader'
                                            className='result-header'>
-            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            {/*<img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
+            {/*     alt='map'/>*/}
             <span> {t('results_header_second_hand')} </span>
         </li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;

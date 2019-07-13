@@ -66,7 +66,7 @@ body {
     width: 10px;
     border-radius: 50%;
     display: inline-block;
-    border: 1px solid #000;
+    border: 0.5px solid #ccc;
 }
 
 /*TODO Read docs and maybe remove this. Leaflet css has a whitebg and border for .leaflet-div-icon, which we override here*/
@@ -184,7 +184,7 @@ body {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    border: solid 1px #cccccc;
+    border: solid 1px #D8E1EA;
     padding: 10px;
     font-size: 18px;
     outline: 0;
@@ -253,16 +253,18 @@ body {
     font-weight: bold;
     margin-top: 5px;
     margin-bottom: 10px;
-    border-bottom: solid 1px #666;
-    padding-bottom: 14px;
+    border-bottom: solid 1px #1f4cd2;
+    padding-bottom: 15px;
 }
 
 .result-header {
+    color: #1f4cd2;
     font-weight: bold;
+    font-size: 20px;
     margin-bottom: 10px;
-    border-bottom: solid 1px #666;
-    padding-bottom: 14px;
-    padding-top: 20px;
+    border-bottom: solid 1px #1f4cd2;
+    padding-bottom: 15px;
+    padding-top: 35px;
 }
 
 .list-item-categories {
@@ -275,7 +277,7 @@ body {
 }
 
 .categories-tag {
-    background-color: #DAF2FF;
+    background-color: #D8E1EA;
     padding: 5px 10px 5px 10px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -289,8 +291,11 @@ body {
 
 .list-item-tip {
     margin-bottom: 7px;
-    padding-top: 6px;
     text-align: left;
+    background-color: #D8E1EA;
+    padding: 10px 15px 10px 15px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .result-header-p-containers {
@@ -311,10 +316,11 @@ body {
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
-    border-color: #000000;
+    border-color: #000;
     border-width: 1px;
     border-style: solid;
     display: inline-block;
+    color: #000;
 }
 
 .show-more {
@@ -349,20 +355,20 @@ body {
 
 .map-filters {
     height: 50px;
+    margin-top: 50px;
 }
 
 .map-filter {
     margin-right: 10px;
 }
-
+/*204BD0*/
 .recipient-name {
-    font-weight: bold;
     cursor: pointer;
     text-decoration: none;
+    color: #000;
 }
 
 .recipient-name-closed {
-    font-weight: bold;
     cursor: pointer;
     text-decoration: none;
     color: #999;
@@ -372,6 +378,7 @@ body {
     cursor: pointer;
     margin-left: 30px;
     text-decoration: none;
+    color: #000;
 }
 
 .recipient-data-link-closed {
@@ -575,7 +582,7 @@ body {
 }
 
 .container-list-item {
-    margin-top: 17px;
+    margin-top: 20px;
 }
 
 /* Progress bar https://stackoverflow.com/a/34773398/930450 */
