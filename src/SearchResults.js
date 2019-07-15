@@ -87,15 +87,17 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const sortByDistance = (recipients) => recipients.sort((a, b) => {
         const aIsOpenInt = a['isOpen'] ? 1 : 0;
         const bIsOpenInt = b['isOpen'] ? 1 : 0;
-        const isOpenRes = aIsOpenInt - bIsOpenInt;
-        if (isOpenRes !== 0)   {
+        const isOpenRes = bIsOpenInt - aIsOpenInt;
+        if (isOpenRes !== 0) { // open shops go before not open shops
             return isOpenRes;
-        } else if (a.hasOwnProperty('distance') && b.hasOwnProperty('distance')) {
+        } else if (a.hasOwnProperty('distance') && b.hasOwnProperty('distance')) { // Shorter distance first
             return a['distance'] - b['distance']
-        } else if (!a.hasOwnProperty('distance') && !b.hasOwnProperty('distance')) {
-            return 0;
+        } else if (a.hasOwnProperty('distance') && !b.hasOwnProperty('distance')) { // Dinstance before no distance
+            return -1;
+        } else if (!a.hasOwnProperty('distance') && b.hasOwnProperty('distance')) { // Dinstance before no distance
+            return 1;
         } else {
-            throw Error("Invalid state: Either all objects have distance or none");
+            return 0;
         }
     });
 
