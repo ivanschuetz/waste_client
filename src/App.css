@@ -527,16 +527,32 @@ body {
     cursor: pointer;
 }
 
+.recipient-row td:last-child {
+}
+
 .results-distance-link {
     text-decoration: none;
     cursor: pointer;
     color: inherit;
 }
 
+.result-distance-number {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: -2px;
+    text-align: center;
+}
+
+.result-distance-unit {
+    text-align: center;
+    font-size: 12px;
+}
+
 .results-distance-link-closed {
     text-decoration: none;
     cursor: pointer;
     color: #999;
+    font-size: 12px;
 }
 
 .social-link {

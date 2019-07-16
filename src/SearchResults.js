@@ -236,7 +236,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                         target='_blank'
                         className={isOpen ? 'results-distance-link' : 'results-distance-link-closed'}
                         rel='noopener noreferrer'>
-                        {distance.toFixed(1)} {t('result_distance_km')}
+                        <div className='result-distance-number'>{distance.toFixed(1)}</div>
+                        <div className='result-distance-unit'>{t('result_distance_km')}</div>
                     </a>
                 }
             };
