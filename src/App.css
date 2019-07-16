@@ -537,9 +537,7 @@ body {
 }
 
 .result-distance-number {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: -2px;
+    font-size: 14px;
     text-align: center;
 }
 
@@ -552,7 +550,6 @@ body {
     text-decoration: none;
     cursor: pointer;
     color: #999;
-    font-size: 12px;
 }
 
 .social-link {
