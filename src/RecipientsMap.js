@@ -27,6 +27,8 @@ const donationsPlaceOpenMarkerIcon = makeIcon(require('./heart.svg'), null, new 
 const donationsPlaceClosedMarkerIcon = makeIcon(require('./heart_closed.svg'), null, new L.Point(20, 20), [0, -15]);
 const secondHandPlaceOpenMarkerIcon = makeIcon(require('./money.svg'), null, new L.Point(20, 20), [0, -15]);
 const secondHandPlaceClosedMarkerIcon = makeIcon(require('./money_closed.svg'), null, new L.Point(20, 20), [0, -15]);
+const retailerOpenMarkerIcon = makeIcon(require('./money.svg'), null, new L.Point(20, 20), [0, -15]);
+const retailerClosedMarkerIcon = makeIcon(require('./money_closed.svg'), null, new L.Point(20, 20), [0, -15]);
 
 const createClusterIcon = (count) => {
     return new L.DivIcon({
@@ -52,6 +54,7 @@ const RecipientsMap = ({recipients}) => {
         showDisposalPlaces: true,
         showDonationPlaces: true,
         showSecondHandPlaces: true,
+        showRetailers: true,
         showHasPickup: false,
         showHasInPlace: true
     });
@@ -131,8 +134,9 @@ const RecipientsMap = ({recipients}) => {
         // For now ignoring hasPickup
         switch (recipientType) {
             case 0: return isOpen ? disposalPlaceOpenMarkerIcon : disposalPlaceClosedMarkerIcon;
-            case 1: return isOpen ? secondHandPlaceOpenMarkerIcon : secondHandPlaceOpenMarkerIcon;
-            case 2: return isOpen ? secondHandPlaceOpenMarkerIcon : secondHandPlaceOpenMarkerIcon;
+            case 1: return isOpen ? donationsPlaceOpenMarkerIcon : donationsPlaceClosedMarkerIcon;
+            case 2: return isOpen ? secondHandPlaceOpenMarkerIcon : secondHandPlaceClosedMarkerIcon;
+            case 4: return isOpen ? retailerOpenMarkerIcon : retailerClosedMarkerIcon;
             default: console.log("Invalid recipient type: " + recipientType)
         }
     };
@@ -231,7 +235,8 @@ const RecipientsMap = ({recipients}) => {
                 const type = recipient["type"];
                 const hasActiveType = newOptions.showDisposalPlaces && type === 0
                     || newOptions.showDonationPlaces && type === 1
-                    || newOptions.showSecondHandPlaces && type === 2;
+                    || newOptions.showSecondHandPlaces && type === 2
+                    || newOptions.showRetailers && type === 4;
                 const hasActiveDeliveryType = newOptions.showHasPickup && recipient["hasPickup"]
                     || newOptions.showHasInPlace && recipient["hasInPlace"];
                 return hasActiveType && hasActiveDeliveryType
@@ -246,46 +251,59 @@ const RecipientsMap = ({recipients}) => {
     return (
         <div className='map-with-filters-container'>
             <div className='map-filters'>
-                <label className='map-filter'>
-                    {t('map_filter_disposal_places')}
-                    <input
-                        name="showDisposalPlaces"
-                        type="checkbox"
-                        checked={filterOptions.showDisposalPlaces}
-                        onChange={updateFilterOptions}/>
-                </label>
-                <label className='map-filter'>
-                    {t('map_filter_donation_places')}
-                    <input
-                        name="showDonationPlaces"
-                        type="checkbox"
-                        checked={filterOptions.showDonationPlaces}
-                        onChange={updateFilterOptions}/>
-                </label>
-                <label className='map-filter'>
-                    {t('map_filter_2hand_places')}
-                    <input
-                        name="showSecondHandPlaces"
-                        type="checkbox"
-                        checked={filterOptions.showSecondHandPlaces}
-                        onChange={updateFilterOptions}/>
-                </label> |&nbsp;
-                <label className='map-filter' style={{marginLeft: 10}}>
-                    {t('map_filter_has_pickup')}
-                    <input
-                        name="showHasPickup"
-                        type="checkbox"
-                        checked={filterOptions.showHasPickup}
-                        onChange={updateFilterOptions}/>
-                </label>
-                <label className='map-filter'>
-                    {t('map_filter_has_in_place')}
-                    <input
-                        name="showHasInPlace"
-                        type="checkbox"
-                        checked={filterOptions.showHasInPlace}
-                        onChange={updateFilterOptions}/>
-                </label>
+                <div>
+                    <label className='map-filter'>
+                        {t('map_filter_disposal_places')}
+                        <input
+                            name="showDisposalPlaces"
+                            type="checkbox"
+                            checked={filterOptions.showDisposalPlaces}
+                            onChange={updateFilterOptions}/>
+                    </label>
+                    <label className='map-filter'>
+                        {t('map_filter_donation_places')}
+                        <input
+                            name="showDonationPlaces"
+                            type="checkbox"
+                            checked={filterOptions.showDonationPlaces}
+                            onChange={updateFilterOptions}/>
+                    </label>
+                    <label className='map-filter'>
+                        {t('map_filter_2hand_places')}
+                        <input
+                            name="showSecondHandPlaces"
+                            type="checkbox"
+                            checked={filterOptions.showSecondHandPlaces}
+                            onChange={updateFilterOptions}/>
+                    </label>
+                    <label className='map-filter'>
+                        {t('map_filter_retailers')}
+                        <input
+                            name="showRetailers"
+                            type="checkbox"
+                            checked={filterOptions.showRetailers}
+                            onChange={updateFilterOptions}/>
+                    </label>
+                </div>
+                <div  style={{marginTop: 10}}>
+                    <label className='map-filter' style={{marginLeft: 10}}>
+                        {t('map_filter_has_pickup')}
+                        <input
+                            name="showHasPickup"
+                            type="checkbox"
+                            checked={filterOptions.showHasPickup}
+                            onChange={updateFilterOptions}/>
+                    </label>
+                    <label className='map-filter'>
+                        {t('map_filter_has_in_place')}
+                        <input
+                            name="showHasInPlace"
+                            type="checkbox"
+                            checked={filterOptions.showHasInPlace}
+                            onChange={updateFilterOptions}/>
+                    </label>
+
+                </div>
             </div>
 
             <div className='map-container' ref={myRef}>

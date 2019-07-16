@@ -38,7 +38,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const [maxDonationPlacesLength, setMaxDonationPlacesLength] = useState(3);
     const [maxSecondHandPlacesLength, setMaxSecondHandPlacesLength] = useState(3);
     const [maxOnlineShopsLength, setMaxOnlineShopsLength] = useState(3);
-
+    const [maxRetailersLength, setMaxRetailersLength] = useState(3);
 
     const categories = results['categories'];
     const containers = results['containers'];
@@ -85,6 +85,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const allUnsortedDonationPlaces = (groupedRecipients[1] || []);
     const allUnsortedSecondHandPlaces = (groupedRecipients[2] || []);
     const allUnsortedOnlineShops = (groupedRecipients[3] || []);
+    const allUnsortedRetailers = (groupedRecipients[4] || []);
     const allUnsortedPickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
 
     const sortByDistance = (recipients) => recipients.sort((a, b) => {
@@ -109,6 +110,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const secondHandPlaces = sortByDistance(allUnsortedSecondHandPlaces).slice(0, maxSecondHandPlacesLength);
     const onlineShops = sortByDistance(allUnsortedOnlineShops).slice(0, maxOnlineShopsLength);
     const pickupCompanies = sortByDistance(allUnsortedPickupCompanies).slice(0, maxPickupCompaniesLength);
+    const retailers = sortByDistance(allUnsortedRetailers).slice(0, maxRetailersLength);
 
     const recipientsWithGeoLocation = recipients.filter((pc) => pc["lat"] && pc["lon"]);
 
@@ -204,7 +206,12 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             };
 
             const nameElement = () => {
-                const nameToShow = recipient["name"].trunc(40);
+                const name = recipient["name"];
+                // This is a little hack to translate a recipient name. Names are not translatable.
+                // But in this case, we use the name as a message: "where you bought it".
+                // We translate this special case client side instead of changing the backend structure.
+                const actualName = name === "seller_translate_clientside" ? t('retailer_name_where_you_bought_it') : name;
+                const nameToShow = actualName.trunc(40);
                 const fullText = isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
                 const fullTextElement = <span style={{verticalAlign: 'middle'}} title={recipient["address"]}>{fullText}</span>;
                 if (recipient["url"]) {
@@ -324,6 +331,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const onlineShopsListItem = recipentsSection('online-shops', onlineShops, allUnsortedOnlineShops,
             maxOnlineShopsLength, setMaxOnlineShopsLength);
 
+        const retailersListItem = recipentsSection('retailers', retailers, allUnsortedRetailers,
+            maxRetailersLength, setMaxRetailersLength);
+
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
             {/*<img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
@@ -356,6 +366,12 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             {/*     alt='map'/>*/}
             <span> {t('results_header_online_shops')} </span>
         </li>;
+        const retailersHeader = <li key='retailersshopsheader'
+                                      className='result-header'>
+            {/*<img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
+            {/*     alt='map'/>*/}
+            <span> {t('results_header_retailers')} </span>
+        </li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
 
         const categorylistItemList = [categoryListItem];
@@ -365,6 +381,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const trashPlacesHeaderList = disposalPlaces.length > 0 ? [trashPlacesHeader] : [];
         const secondHandPlacesHeaderList = secondHandPlaces.length > 0 ? [secondHandPlacesHeader] : [];
         const onlineShopsHeaderList = onlineShops.length > 0 ? [onlineShopsHeader] : [];
+        const retailersHeaderList = retailers.length > 0 ? [retailersHeader] : [];
         const tipsHeaderList = tipsListItems.length > 0 ? [tipsHeader] : [];
 
         return categorylistItemList
@@ -376,6 +393,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             .concat(donationsPlacesListItem)
             .concat(secondHandPlacesHeaderList)
             .concat(secondHandPlacesListItem)
+            .concat(retailersHeaderList)
+            .concat(retailersListItem)
             .concat(pickupCompaniesHeaderList)
             .concat(pickupCompaniesListItem)
             .concat(trashPlacesHeaderList)
