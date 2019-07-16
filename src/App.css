@@ -537,13 +537,13 @@ body {
 }
 
 .result-distance-number {
-    font-size: 14px;
-    text-align: center;
+    /*font-size: 14px;*/
+    /*text-align: center;*/
 }
 
 .result-distance-unit {
-    text-align: center;
-    font-size: 12px;
+    /*text-align: center;*/
+    /*font-size: 12px;*/
 }
 
 .results-distance-link-closed {
