@@ -37,6 +37,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const [maxDisposalPlacesLength, setMaxDisposalPlacesLength] = useState(3);
     const [maxDonationPlacesLength, setMaxDonationPlacesLength] = useState(3);
     const [maxSecondHandPlacesLength, setMaxSecondHandPlacesLength] = useState(3);
+    const [maxOnlineShopsLength, setMaxOnlineShopsLength] = useState(3);
+
 
     const categories = results['categories'];
     const containers = results['containers'];
@@ -52,7 +54,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     recipients.forEach((recipient) => {
         // We show open status only when closed. So we use "open" as default - which means we have to mark "unknown" as "open"
         // Note that ideally there should be no unknowns. We should ensure that the db has the opening times of everything.
-        recipient["isOpen"] = recipient["openType"] === "u";
+        recipient["isOpen"] = recipient["openType"] === "u" || recipient["openType"] === "a";
         const open = recipient["open"];
         if (open) {
             const hours = open["hours"];
@@ -82,6 +84,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const allUnsortedDisposalPlaces = (groupedRecipients[0] || []).filter((place) => place["hasInPlace"]);
     const allUnsortedDonationPlaces = (groupedRecipients[1] || []);
     const allUnsortedSecondHandPlaces = (groupedRecipients[2] || []);
+    const allUnsortedOnlineShops = (groupedRecipients[3] || []);
     const allUnsortedPickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
 
     const sortByDistance = (recipients) => recipients.sort((a, b) => {
@@ -104,6 +107,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const disposalPlaces = sortByDistance(allUnsortedDisposalPlaces).slice(0, maxDisposalPlacesLength);
     const donationPlaces = sortByDistance(allUnsortedDonationPlaces).slice(0, maxDonationPlacesLength);
     const secondHandPlaces = sortByDistance(allUnsortedSecondHandPlaces).slice(0, maxSecondHandPlacesLength);
+    const onlineShops = sortByDistance(allUnsortedOnlineShops).slice(0, maxOnlineShopsLength);
     const pickupCompanies = sortByDistance(allUnsortedPickupCompanies).slice(0, maxPickupCompaniesLength);
 
     const recipientsWithGeoLocation = recipients.filter((pc) => pc["lat"] && pc["lon"]);
@@ -317,6 +321,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const secondHandPlacesListItem = recipentsSection('second-hand-places', secondHandPlaces, allUnsortedSecondHandPlaces,
             maxSecondHandPlacesLength, setMaxSecondHandPlacesLength);
 
+        const onlineShopsListItem = recipentsSection('online-shops', onlineShops, allUnsortedOnlineShops,
+            maxOnlineShopsLength, setMaxOnlineShopsLength);
+
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
             {/*<img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
@@ -343,6 +350,12 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             {/*     alt='map'/>*/}
             <span> {t('results_header_second_hand')} </span>
         </li>;
+        const onlineShopsHeader = <li key='onlineshopsheader'
+                                           className='result-header'>
+            {/*<img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
+            {/*     alt='map'/>*/}
+            <span> {t('results_header_online_shops')} </span>
+        </li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
 
         const categorylistItemList = [categoryListItem];
@@ -351,6 +364,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const donationPlacesHeaderList = donationPlaces.length > 0 ? [donationPlacesHeader] : [];
         const trashPlacesHeaderList = disposalPlaces.length > 0 ? [trashPlacesHeader] : [];
         const secondHandPlacesHeaderList = secondHandPlaces.length > 0 ? [secondHandPlacesHeader] : [];
+        const onlineShopsHeaderList = onlineShops.length > 0 ? [onlineShopsHeader] : [];
         const tipsHeaderList = tipsListItems.length > 0 ? [tipsHeader] : [];
 
         return categorylistItemList
@@ -366,6 +380,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             .concat(pickupCompaniesListItem)
             .concat(trashPlacesHeaderList)
             .concat(trashPlacesListItem)
+            .concat(onlineShopsHeaderList)
+            .concat(onlineShopsListItem)
             .concat(recipientsWithGeolocationHeader)
     };
 
