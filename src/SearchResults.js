@@ -241,6 +241,35 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 }
             };
 
+            const recipientTypeImagePath = (type) => {
+                switch (type) {
+                    case 0: return require('./trash.svg');
+                    case 1: return require('./heart.svg');
+                    case 2: return require('./money.svg');
+                    case 4: return require('./money.svg');
+                    default: return null;
+                }
+            };
+
+            const recipientTypeElement = () => {
+                const type = recipient["type"];
+                const imagePath = recipientTypeImagePath(type);
+                if (imagePath) {
+                    return <img src={imagePath} alt={type}/>
+                } else {
+                    return <span />
+                }
+            };
+
+            const hasPickupElement = () => {
+                const hasPickup = recipient["hasPickup"];
+                if (hasPickup) {
+                    return <img src={require('./car.svg')} alt='Pickup'/>
+                } else {
+                    return <span />
+                }
+            };
+
             const recipientRowClicked = () => {
                 const expandedState = JSON.parse(JSON.stringify(expandedRecipientsState));
                 expandedState[recipient["id"]] = !expandedState[recipient["id"]];
@@ -252,7 +281,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     <td> {nameElement()} </td>
                     <td> {phoneElement()} </td>
                     <td> {emailElement()} </td>
-                    <td> {distanceElement()} </td>
+                    <td className="recipient-cell-right"> {hasPickupElement()} </td>
+                    <td className="recipient-cell-right"> {recipientTypeElement()} </td>
+                    <td className="recipient-cell-right"> {distanceElement()} </td>
                     {/*{company.address}*/}
                 </tr>
             ];
@@ -336,40 +367,40 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
-            {/*<img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
-            {/*     alt='map'/>*/}
+            <img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
             <span> {t('results_header_pickup')} </span>
         </li>;
         const donationPlacesHeader = <li key='donationheader'
                                          className='result-header'>
-            {/*<img src={require('./heart.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
-            {/*     alt='map'/>*/}
+            <img src={require('./heart.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
             <span> {t('results_header_donations')} </span>
         </li>;
         const trashPlacesHeader = <li key='trashplacesheader'
                                       className='result-header'>
             <div>
-                {/*<img src={require('./trash.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
-                {/*     alt='map'/>*/}
+                <img src={require('./trash.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                     alt='map'/>
                 <span> {t('results_header_trash_places')} </span>
             </div>
         </li>;
         const secondHandPlacesHeader = <li key='secondhandplacesheader'
                                            className='result-header'>
-            {/*<img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
-            {/*     alt='map'/>*/}
+            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
             <span> {t('results_header_second_hand')} </span>
         </li>;
         const onlineShopsHeader = <li key='onlineshopsheader'
                                            className='result-header'>
-            {/*<img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
-            {/*     alt='map'/>*/}
+            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
             <span> {t('results_header_online_shops')} </span>
         </li>;
         const retailersHeader = <li key='retailersshopsheader'
                                       className='result-header'>
-            {/*<img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}*/}
-            {/*     alt='map'/>*/}
+            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
+                 alt='map'/>
             <span> {t('results_header_retailers')} </span>
         </li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;

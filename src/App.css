@@ -148,7 +148,7 @@ body {
     white-space: nowrap;
 }
 
-.recipient-row td:last-child {
+.recipient-cell-right {
     width: 100%;
     text-align: right;
     color: #999;
