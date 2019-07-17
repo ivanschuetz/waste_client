@@ -118,15 +118,15 @@ const RecipientsMap = ({recipients}) => {
     const isOpen = (container) => {
         switch (container["openType"]) {
             case "a":
-                return true;
+                return { isOpen: true, isHoliday: false };
             case "u":
-                return true;
+                return { isOpen: true, isHoliday: false };
             case "h":
                 const hours = container["open"]["hours"];
                 return isOpenNow(hours);
             default:
                 console.log('Unknown openType value: ' + JSON.stringify(container["openType"]));
-                return false;
+                return { isOpen: false, isHoliday: false };
         }
     };
 
@@ -146,7 +146,7 @@ const RecipientsMap = ({recipients}) => {
         const lon = container["lon"];
         const phone = container["phone"];
 
-        return marker(lat, lon, icon(container["type"], isOpen(container), container["hasPickup"]), <div style={{minWidth: 200}}>
+        return marker(lat, lon, icon(container["type"], isOpen(container).isOpen, container["hasPickup"]), <div style={{minWidth: 200}}>
         {/*return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>*/}
             <a className="p-container-popup-title" href={container["url"]} target="_blank" rel="noopener noreferrer">
                 {container["name"]}

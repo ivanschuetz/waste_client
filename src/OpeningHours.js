@@ -8,9 +8,22 @@ const OpeningHours = ({openingHoursList}) => {
 
     openingHoursList = sortOpeningHours(openingHoursList);
 
+    const isOpen = isOpenNow(openingHoursList);
+
+    const closedText = (isHoliday) => {
+        const currentlyClosed = t('map_currently_closed');
+        if (isHoliday) {
+            return currentlyClosed + ' ' + t('results_recipient_closed_holiday')
+        } else {
+            return currentlyClosed;
+        }
+    };
+
     return <div>
-        {!isOpenNow(openingHoursList) ?
-            <div className="opening-times-status-closed">{t('map_currently_closed')}</div> : <div className="opening-times-status-open">{t('map_currently_open')}</div>}
+        {!isOpen.isOpen ?
+            <div className="opening-times-status-closed">{closedText(isOpen.isHoliday)}</div> :
+            <div className="opening-times-status-open">{t('map_currently_open')}</div>
+        }
         <div className="opening-times-title">{t('map_opening_times')}</div>
         <OpeningHoursTable openingHoursList={openingHoursList}/>
     </div>;
@@ -30,7 +43,7 @@ const OpeningHoursRow = (openingHours) => {
         <td>{t(formatWeekdayStr(openingHours["weekday"]))}</td>
         <td>{formatTime(openingHours["start"])} - {formatTime(openingHours["end"])}</td>
     </tr>;
-}
+};
 
 const rowClassName = (hour) => {
     if (isNowInTimeInterval(hour["weekday"], hour["start"], hour["end"])) {

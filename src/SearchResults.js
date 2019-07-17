@@ -54,7 +54,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     recipients.forEach((recipient) => {
         // We show open status only when closed. So we use "open" as default - which means we have to mark "unknown" as "open"
         // Note that ideally there should be no unknowns. We should ensure that the db has the opening times of everything.
-        recipient["isOpen"] = recipient["openType"] === "u" || recipient["openType"] === "a";
+        recipient["isOpen"] = (recipient["openType"] === "u" || recipient["openType"] === "a") ?
+            { isOpen: true, isHoliday: false } : { isOpen: false, isHoliday: false };
         const open = recipient["open"];
         if (open) {
             const hours = open["hours"];
@@ -89,8 +90,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const allUnsortedPickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
 
     const sortByDistance = (recipients) => recipients.sort((a, b) => {
-        const aIsOpenInt = a['isOpen'] ? 1 : 0;
-        const bIsOpenInt = b['isOpen'] ? 1 : 0;
+        const aIsOpenInt = a['isOpen'].isOpen ? 1 : 0;
+        const bIsOpenInt = b['isOpen'].isOpen  ? 1 : 0;
         const isOpenRes = bIsOpenInt - aIsOpenInt;
         if (isOpenRes !== 0) { // open shops go before not open shops
             return isOpenRes;
@@ -185,7 +186,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
             const phoneElement = () => {
                 if (recipient["phone"]) {
-                    return <a className={isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"tel:" + recipient["phone"]}>
+                    return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"tel:" + recipient["phone"]}>
                         {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>
                     </a>
@@ -195,7 +196,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             };
             const emailElement = () => {
                 if (recipient["email"]) {
-                    return <a className={isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"mailto:" + recipient["email"]} target='_blank'
+                    return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"mailto:" + recipient["email"]} target='_blank'
                               rel='noopener noreferrer'>
                         {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>Email</span>
@@ -212,10 +213,11 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 // We translate this special case client side instead of changing the backend structure.
                 const actualName = name === "seller_translate_clientside" ? t('retailer_name_where_you_bought_it') : name;
                 const nameToShow = actualName.trunc(40);
-                const fullText = isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
-                const fullTextElement = <span style={{verticalAlign: 'middle'}} title={recipient["address"]}>{fullText}</span>;
+                const fullText = isOpen.isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
+                const fullTextWithHoliday = isOpen.isHoliday ? fullText + ' (' + t('results_recipient_closed_holiday') + ')' : fullText;
+                const fullTextElement = <span style={{verticalAlign: 'middle'}} title={recipient["address"]}>{fullTextWithHoliday}</span>;
                 if (recipient["url"]) {
-                    return <a className={isOpen ? 'recipient-name' : 'recipient-name-closed'} href={recipient["url"]} target='_blank'
+                    return <a className={isOpen.isOpen ? 'recipient-name' : 'recipient-name-closed'} href={recipient["url"]} target='_blank'
                               rel='noopener noreferrer'>
                         { fullTextElement }
                     </a>
@@ -234,7 +236,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                         title={t('result_distance_linear_tooltip')}
                         href={routeLink(myLoc, lat, lng, "driving")}
                         target='_blank'
-                        className={isOpen ? 'results-distance-link' : 'results-distance-link-closed'}
+                        className={isOpen.isOpen ? 'results-distance-link' : 'results-distance-link-closed'}
                         rel='noopener noreferrer'>
                         <span className='result-distance-number'>{distance.toFixed(1)}</span>&nbsp;
                         <span className='result-distance-unit'>{t('result_distance_km')}</span>
