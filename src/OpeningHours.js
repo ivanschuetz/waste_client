@@ -3,7 +3,7 @@ import './App.css';
 import {isNowInTimeInterval, isOpenNow} from "./Time";
 import {useTranslation} from "react-i18next";
 
-const OpeningHours = ({openingHoursList}) => {
+const OpeningHours = ({openingHoursList, mode}) => {
     const { t } = useTranslation();
 
     openingHoursList = sortOpeningHours(openingHoursList);
@@ -21,17 +21,17 @@ const OpeningHours = ({openingHoursList}) => {
 
     return <div>
         {!isOpen.isOpen ?
-            <div className="opening-times-status-closed">{closedText(isOpen.isHoliday)}</div> :
-            <div className="opening-times-status-open">{t('map_currently_open')}</div>
+            <div className={mode === "map" ? "opening-times-status-closed" : "opening-times-status-in-list-closed"}>{closedText(isOpen.isHoliday)}</div> :
+            <div className={mode === "map" ? "opening-times-status-open" : "opening-times-status-in-list-open"}>{t('map_currently_open')}</div>
         }
-        <div className="opening-times-title">{t('map_opening_times')}</div>
-        <OpeningHoursTable openingHoursList={openingHoursList}/>
+        <div className={mode === "map" ? "opening-times-title" : "opening-times-title-in-list"}>{t('map_opening_times')}</div>
+        <OpeningHoursTable openingHoursList={openingHoursList} mode={mode}/>
     </div>;
 };
 
 const sortOpeningHours = (openingHoursList) => openingHoursList.sort((a, b) => toInternalIndex(a["weekday"]) - toInternalIndex(b["weekday"]));
 
-const OpeningHoursTable = ({openingHoursList}) => <table className="opening-times-table">
+const OpeningHoursTable = ({openingHoursList, mode}) => <table className={mode === "map" ? "opening-times-table" : "opening-times-table-in-list"}>
     <tbody>
         {openingHoursList.map((openingHours) => OpeningHoursRow(openingHours))}
     </tbody>

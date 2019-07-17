@@ -109,7 +109,7 @@ const RecipientsMap = ({recipients}) => {
             case "u":
                 return <div className="always-open-label">{t('map_open_unknown')}</div>;
             case "h":
-                return <OpeningHours openingHoursList={open["hours"]}/>;
+                return <OpeningHours openingHoursList={open["hours"]} mode="map"/>;
             default:
                 console.log('Unknown openType value: ' + JSON.stringify(openType));
         }

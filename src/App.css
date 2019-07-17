@@ -471,6 +471,14 @@ body {
     padding-top: 5px;
 }
 
+.opening-times-title-in-list {
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-top: 1px solid #000;
+    padding-top: 10px;
+    text-align: left;
+}
+
 .opening-times-status-open {
     margin-top: 5px;
     font-weight: bold;
@@ -482,6 +490,19 @@ body {
     color: #000;
 }
 
+.opening-times-status-in-list-open {
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.opening-times-status-in-list-closed {
+    font-weight: bold;
+    color: #000;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
 .always-open-label {
     font-weight: bold;
 }
@@ -489,6 +510,15 @@ body {
 .opening-times-table td {
     padding-right: 10px;
     text-align: left;
+}
+
+.opening-times-table-in-list td {
+    padding-right: 10px;
+    text-align: left;
+}
+
+.opening-times-table-in-list {
+    margin-bottom: 30px;
 }
 
 .results-details-row-expanded {

@@ -295,7 +295,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 rows.push(<tr key={'pdetails' + recipient['id']}>
                     <td colSpan={4}>
                         <div className={className}>
-                            <OpeningHours openingHoursList={recipient["open"]["hours"]}/>
+                            <OpeningHours openingHoursList={recipient["open"]["hours"]} mode="list"/>
                         </div>
                     </td>
                 </tr>);
