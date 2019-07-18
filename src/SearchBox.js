@@ -1,14 +1,14 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import './App.css';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import i18n from 'i18next';
 
 const axios = require('axios');
 
 let delayTimer;
 
-const SearchBox = ({onSuggestions, onInput, searchText, onSuggestionsRequest}) => {
-    const {t} = useTranslation();
+const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest }) => {
+    const { t } = useTranslation();
 
     const suggestions = async (text) => {
         if (!text) {
@@ -19,12 +19,12 @@ const SearchBox = ({onSuggestions, onInput, searchText, onSuggestionsRequest}) =
         const lang = i18n.language;
 
         clearTimeout(delayTimer);
-        delayTimer = setTimeout(async function() {
+        delayTimer = setTimeout(async function () {
             onSuggestionsRequest();
 
             const result = await axios('https://wohin-mit.de:8443/suggestions/' + text, {
-            // const result = await axios('https://localhost:8443/suggestions/' + text, {
-                headers: {"lang": lang}
+                // const result = await axios('https://localhost:8443/suggestions/' + text, {
+                headers: { "lang": lang }
             });
             // await sleep(2000);
 
@@ -46,7 +46,8 @@ const SearchBox = ({onSuggestions, onInput, searchText, onSuggestionsRequest}) =
 
     return (
         <input
-            className="searchbox"
+            // Add class no-border to remove borders when suggestions box is displayed
+            className="searchbox no-border"
             type="text"
             placeholder={t('search_box_placeholder')}
             value={searchText}

@@ -136,8 +136,7 @@ body {
     cursor: pointer;
 }
 
-.p-recipients-table {
-}
+.p-recipients-table {}
 
 .recipient-row {
     text-align: left;
@@ -195,7 +194,13 @@ body {
 }
 
 .searchbox:focus {
-    /*box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);*/
+    /* box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28); */
+}
+
+.searchbox.no-border {
+    /* Remove borders when suggestions box is displayed */
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /*input.rounded:focus {*/
@@ -214,19 +219,18 @@ body {
 .suggestions {
     list-style: none;
     padding: 0;
-    position: absolute;
+    position: relative;
     z-index: 1200;
     background: white;
     margin: -1px 0 0 0;
     border: 1px solid #ccc;
-    right: 36px;
-    left: 36px;
     -moz-border-radius-bottomleft: 20px;
     -webkit-border-bottom-left-radius: 20px;
     border-bottom-left-radius: 20px;
     -moz-border-radius-bottomright: 20px;
     -webkit-border-bottom-right-radius: 20px;
     border-bottom-right-radius: 20px;
+    border-top: none;
 
     /* Fixes the z-index issue */
     -webkit-transform: translate3d(0, 0, 0);
@@ -350,8 +354,7 @@ body {
     margin-top: 20px;
 }
 
-.map-container {
-}
+.map-container {}
 
 .map-filters {
     height: 70px;
@@ -361,6 +364,7 @@ body {
 .map-filter {
     margin-right: 10px;
 }
+
 /*204BD0*/
 .recipient-name {
     cursor: pointer;
@@ -550,15 +554,13 @@ body {
     font-weight: bold;
 }
 
-.opening-hours-row-default {
-}
+.opening-hours-row-default {}
 
 .lang-link {
     cursor: pointer;
 }
 
-.recipient-row td:last-child {
-}
+.recipient-row td:last-child {}
 
 .results-distance-link {
     text-decoration: none;
