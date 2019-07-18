@@ -184,7 +184,7 @@ body {
     -moz-border-radius: 20px;
     border-radius: 20px;
     border: solid 1px #D8E1EA;
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 18px;
     outline: 0;
     -webkit-box-sizing: border-box;
@@ -230,14 +230,25 @@ body {
     -webkit-border-bottom-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-top: none;
-    padding: 0 0 10px 0;
+    padding: 4px 0 10px 0;
 
     /* Fixes the z-index issue */
     -webkit-transform: translate3d(0, 0, 0);
 }
 
+.suggestions::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    height: 1px;
+    background-color: #e8eaed;
+}
+
 .suggestion-item {
-    padding: 5px;
+    padding: 5px 20px;
 }
 
 .suggestion {
@@ -245,7 +256,6 @@ body {
     text-decoration: none;
     color: inherit;
     text-align: left;
-    margin-left: 5px;
 }
 
 .suggestion-highlighted {
