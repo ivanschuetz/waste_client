@@ -47,7 +47,7 @@ const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest })
     return (
         <input
             // Add class no-border to remove borders when suggestions box is displayed
-            className="searchbox no-border"
+            className="searchbox"
             type="text"
             placeholder={t('search_box_placeholder')}
             value={searchText}
