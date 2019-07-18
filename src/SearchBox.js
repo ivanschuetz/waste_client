@@ -7,7 +7,7 @@ const axios = require('axios');
 
 let delayTimer;
 
-const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest }) => {
+const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, isShowingSuggestions }) => {
     const { t } = useTranslation();
 
     const suggestions = async (text) => {
@@ -44,10 +44,12 @@ const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest })
         }
     };
 
+    const searchboxClass = () => isShowingSuggestions ? "searchbox no-border" : "searchbox";
+
     return (
         <input
             // Add class no-border to remove borders when suggestions box is displayed
-            className="searchbox"
+            className={searchboxClass()}
             type="text"
             placeholder={t('search_box_placeholder')}
             value={searchText}

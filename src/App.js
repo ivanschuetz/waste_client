@@ -200,6 +200,7 @@ const App = () => {
                                onInput={handleSearchBoxInput}
                                searchText={searchText}
                                onSuggestionsRequest={handleSuggestionsRequest}
+                               isShowingSuggestions={showingSuggestions}
                     />
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
