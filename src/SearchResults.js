@@ -130,22 +130,12 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     }, []);
 
     const listItems = () => {
-
-        // If an item has "electro" and "small electro" show only electro. This is just to make the UI less verbose as showing both seems pointless.
-        // This is a hack, though not sure what the proper solution would be. Seems ok for now to solve client side like this.
-        let categoriesToShow = JSON.parse(JSON.stringify(categories));
-        const electroCategoryId = 5; // Backend
-        const smallElectroCategoryId = 100013; // Backend
-        if (categoriesToShow.some((c) => c["id"] === electroCategoryId) && categoriesToShow.some((c) => c["id"] === smallElectroCategoryId)) {
-            categoriesToShow = categoriesToShow.filter ((category) => category["id"] !== smallElectroCategoryId) // Remove small electro
-        }
-
-        const categoriesHeaderTranslationKey = categoriesToShow.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
+        const categoriesHeaderTranslationKey = categories.length > 1 ? 'results_header_categories_plural' : 'results_header_categories_singular';
         const categoryListItem =
             <li key='category' className="list-item-categories">
                 <span className="categories-tag">
                     {t(categoriesHeaderTranslationKey)}:&nbsp;
-                    <span className="categories-string">{categoriesToShow.map((category) => category.name).join(", ")}</span>
+                    <span className="categories-string">{categories.map((category) => category.name).join(", ")}</span>
                 </span>
             </li>;
 
