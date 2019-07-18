@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import './App.css';
 import { useTranslation } from "react-i18next";
 import i18n from 'i18next';
+import {auth} from "./globals";
 
 const axios = require('axios');
 
@@ -23,8 +24,9 @@ const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, i
             onSuggestionsRequest();
 
             const result = await axios('https://wohin-mit.de:8443/suggestions/' + text, {
-                // const result = await axios('https://localhost:8443/suggestions/' + text, {
-                headers: { "lang": lang }
+            // const result = await axios('https://localhost:8443/suggestions/' + text, {
+                headers: {"lang": lang},
+                auth: auth
             });
             // await sleep(2000);
 

@@ -11,6 +11,7 @@ import i18n from 'i18next';
 import Legal from "./Legal";
 import * as ReactGA from 'react-ga'
 import Helmet from "react-helmet/es/Helmet";
+import {auth} from "./globals";
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 const axios = require('axios');
@@ -76,7 +77,8 @@ const App = () => {
 
         const result = await axios('https://wohin-mit.de:8443/search/' + text, {
         // const result = await axios('https://localhost:8443/search/' + text, {
-            headers: {"lang": lang}
+            headers: {"lang": lang},
+            auth: auth
         });
         // await sleep(2000);
 

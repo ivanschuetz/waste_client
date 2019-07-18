@@ -5,6 +5,7 @@ import i18n from 'i18next';
 import {groupBy, routeLink} from "./Utils";
 import {isOpenNow} from "./Time";
 import OpeningHours from "./OpeningHours";
+import {auth} from "./globals";
 
 const axios = require('axios');
 
@@ -446,6 +447,7 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
             const result = await axios('https://wohin-mit.de:8443/options/' + suggestion.id, {
             // const result = await axios('https://localhost:8443/options/' + suggestion.id, {
                 headers: {"lang": lang},
+                auth: auth
             });
             // await sleep(2000);
 
