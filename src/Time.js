@@ -50,7 +50,7 @@ export const isNowInTimeInterval = (weekday, start, end) => isInTimeInterval(now
 
 const currentWeekdayIndex = () => moment().weekday();
 
-const formatTime = (time) => `${time["hours"]}:${time["minutes"]}`;
+const formatTime = (time) => `${time["hours"]}:${time["mins"]}`;
 
 const isInTimeInterval = (time, weekday, start, end) => {
     const weekdayIndex = currentWeekdayIndex();
