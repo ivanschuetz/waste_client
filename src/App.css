@@ -218,7 +218,6 @@ body {
 
 .suggestions {
     list-style: none;
-    padding: 0;
     position: relative;
     z-index: 1200;
     background: white;
@@ -231,6 +230,7 @@ body {
     -webkit-border-bottom-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-top: none;
+    padding: 0 0 10px 0;
 
     /* Fixes the z-index issue */
     -webkit-transform: translate3d(0, 0, 0);
@@ -244,6 +244,8 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: inherit;
+    text-align: left;
+    margin-left: 5px;
 }
 
 .suggestion-highlighted {
@@ -251,6 +253,8 @@ body {
     text-decoration: none;
     color: inherit;
     font-weight: bold;
+    text-align: left;
+    margin-left: 5px;
 }
 
 .result-header-first {
