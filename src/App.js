@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import './App.css';
 import SearchBox from "./SearchBox";
 import ItemSuggestions from "./ItemSuggestions";
@@ -6,12 +6,15 @@ import ItemSearch from "./SearchResults";
 import RecipientsMap from "./RecipientsMap";
 import Modal from "./Modal";
 import ProgressBar from "./ProgressBar";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import i18n from 'i18next';
 import Legal from "./Legal";
 import * as ReactGA from 'react-ga'
 import Helmet from "react-helmet/es/Helmet";
-import {auth} from "./globals";
+import { auth } from "./globals";
+
+import Logo from './logo/Logo';
+
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 const axios = require('axios');
@@ -36,10 +39,10 @@ const App = () => {
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const keepInBounds = (newIndex) => Math.max(Math.min(newIndex, suggestions.length - 1), 0);
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
-        const keyDownListener = ({key}) => {
+        const keyDownListener = ({ key }) => {
             if (key === "ArrowDown") {
                 setHighlightedIndex(keepInBounds(highlightedIndex + 1));
             } else if (key === "ArrowUp") {
@@ -76,8 +79,8 @@ const App = () => {
         handleSearchRequest();
 
         const result = await axios('https://wohin-mit.de:8443/search/' + text, {
-        // const result = await axios('https://localhost:8443/search/' + text, {
-            headers: {"lang": lang},
+            // const result = await axios('https://localhost:8443/search/' + text, {
+            headers: { "lang": lang },
             auth: auth
         });
         // await sleep(2000);
@@ -110,7 +113,7 @@ const App = () => {
         setShowProgressBar(true);
         setShowMap(false);
 
-        ReactGA.event({category: 'Search', action: 'Clicked suggestion', label: suggestion.name});
+        ReactGA.event({ category: 'Search', action: 'Clicked suggestion', label: suggestion.name });
     };
 
     const handleSearchResult = item => {
@@ -166,19 +169,19 @@ const App = () => {
 
     const onPContainersClick = () => {
         setShowMap(true);
-        ReactGA.event({category: 'Navigation', action: 'Opened public containers'});
+        ReactGA.event({ category: 'Navigation', action: 'Opened public containers' });
     };
 
     const setLanguage = async (lang) => {
         await i18n.changeLanguage(lang, null);
-        ReactGA.event({category: 'Settings', action: 'Changed language', label: lang});
+        ReactGA.event({ category: 'Settings', action: 'Changed language', label: lang });
     };
 
     const toggleLegalModal = () => {
         const newShow = !showLegalModal;
         setShowLegalModal(newShow);
         if (newShow) {
-            ReactGA.event({category: 'Navigation', action: 'Opened legal modal'});
+            ReactGA.event({ category: 'Navigation', action: 'Opened legal modal' });
         }
     };
 
@@ -190,90 +193,91 @@ const App = () => {
             <Helmet>
                 <title>{t('meta_page_title')}</title>
             </Helmet>
-            {showProgressBar && <ProgressBar/>}
-            <img style={{position: "absolute", right: 10, top: 10}} width={50} src={require('./beta_badge.png')} alt='beta' />
+            {showProgressBar && <ProgressBar />}
+            <img style={{ position: "absolute", right: 10, top: 10 }} width={50} src={require('./beta_badge.png')} alt='beta' />
             <div className="Wrapper">
 
                 <div className="top">
                     <div className="page-title">
-                        <img width={300} src={require('./logo.png')} alt={t('app_title')} />
+                        {/* <img width={300} src={require('./logo.png')} alt={t('app_title')} /> */}
+                        <Logo name="logo-en" width="300px" />
                     </div>
                     <SearchBox onSuggestions={handleSuggestions}
-                               onInput={handleSearchBoxInput}
-                               searchText={searchText}
-                               onSuggestionsRequest={handleSuggestionsRequest}
-                               isShowingSuggestions={showingSuggestions}
+                        onInput={handleSearchBoxInput}
+                        searchText={searchText}
+                        onSuggestionsRequest={handleSuggestionsRequest}
+                        isShowingSuggestions={showingSuggestions}
                     />
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
-                                                        onClick={onSuggestionClick}
-                                                        highlightedIndex={highlightedIndex}/>}
+                    onClick={onSuggestionClick}
+                    highlightedIndex={highlightedIndex} />}
                 <div className="all-results">
                     {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
-                                                       onPContainersClick={onPContainersClick}
-                                                       showPContainersButton={!showMap}
+                        onPContainersClick={onPContainersClick}
+                        showPContainersButton={!showMap}
                     />}
                     {results && showMap &&
-                    <RecipientsMap recipients={(results['itemRecipients'].concat(results['categoryRecipients'])).filter((r) =>
-                        r["lat"] && r["lon"])
-                    }/>}
+                        <RecipientsMap recipients={(results['itemRecipients'].concat(results['categoryRecipients'])).filter((r) =>
+                            r["lat"] && r["lon"])
+                        } />}
                 </div>
                 {showNoResults &&
-                <div>{t('search_no_results')}
-                    <div className="no-results-search-text">{lastSearchText}</div>
-                    <a className="request-item-link" href={
-                        // "mailto:contact@wohin-mit.de?subject=" + searchText + "&body=" + searchText
-                        "mailto:contact@wohin-mit.de?subject="
-                        + t('email_missing_item_subject') + searchText + "&body="
-                        + t('email_missing_item_body')
-                    }
-                       target="_blank">{t('search_empty_result_request_item')}</a>
-                    {/*<a className="feedback-link" href="mailto:contact@wohin-mit.de" target="_blank" rel="noopener noreferrer">Request</a>*/}
-                </div>
+                    <div>{t('search_no_results')}
+                        <div className="no-results-search-text">{lastSearchText}</div>
+                        <a className="request-item-link" href={
+                            // "mailto:contact@wohin-mit.de?subject=" + searchText + "&body=" + searchText
+                            "mailto:contact@wohin-mit.de?subject="
+                            + t('email_missing_item_subject') + searchText + "&body="
+                            + t('email_missing_item_body')
+                        }
+                            target="_blank">{t('search_empty_result_request_item')}</a>
+                        {/*<a className="feedback-link" href="mailto:contact@wohin-mit.de" target="_blank" rel="noopener noreferrer">Request</a>*/}
+                    </div>
                 }
                 <div className="footer">
                     <a className="feedback-link" href="mailto:contact@wohin-mit.de" target="_blank" rel="noopener noreferrer">
                         {t('link_feedback')}
                     </a> |&nbsp;
                     <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
-                {t('link_legal')}
-            </span> |&nbsp;
+                        {t('link_legal')}
+                    </span> |&nbsp;
                     <span className="social-link"
-                          onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
-            </span> |&nbsp;
+                        onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
+                    </span> |&nbsp;
                     <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}
-            </span>
+                    </span>
                 </div>
                 {showAboutModal &&
-                <Modal onCloseClick={() => setShowAboutModal(false)}>
-                </Modal>}
+                    <Modal onCloseClick={() => setShowAboutModal(false)}>
+                    </Modal>}
                 {showLegalModal &&
-                <Modal title={t('legal_modal_title')} onCloseClick={() => setShowLegalModal(false)}>
-                    <Legal/>
-                </Modal>}
+                    <Modal title={t('legal_modal_title')} onCloseClick={() => setShowLegalModal(false)}>
+                        <Legal />
+                    </Modal>}
                 {showLangModal &&
-                <Modal title={t('lang_modal_title')} onCloseClick={() => setShowLangModal(false)}>
-                    <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'}
-                       onClick={() => setLanguage("de")}>Deutsch</p>
-                    <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'}
-                       onClick={() => setLanguage("en")}>English</p>
-                </Modal>}
+                    <Modal title={t('lang_modal_title')} onCloseClick={() => setShowLangModal(false)}>
+                        <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'}
+                            onClick={() => setLanguage("de")}>Deutsch</p>
+                        <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'}
+                            onClick={() => setLanguage("en")}>English</p>
+                    </Modal>}
                 {showSocialModal &&
-                <Modal title={t('social_modal_title')} onCloseClick={() => setShowSocialModal(false)}>
-                    {/*<p>{t('social_share_with_facebook')}</p>*/}
-                    {/*<p>{t('social_follow_in_facebook')}</p>*/}
-                    <p>
-                        <a className="social-option" href={shareOnTwitterHref()} target="_blank"
-                           rel="noopener noreferrer">
-                            {t('social_share_with_twitter')}
-                        </a>
-                    </p>
-                    <p>
-                        <a className="social-option" href="https://twitter.com/wohinmit" target="_blank" rel="noopener noreferrer">
-                            {t('social_follow_on_twitter')}
-                        </a>
-                    </p>
-                </Modal>}
+                    <Modal title={t('social_modal_title')} onCloseClick={() => setShowSocialModal(false)}>
+                        {/*<p>{t('social_share_with_facebook')}</p>*/}
+                        {/*<p>{t('social_follow_in_facebook')}</p>*/}
+                        <p>
+                            <a className="social-option" href={shareOnTwitterHref()} target="_blank"
+                                rel="noopener noreferrer">
+                                {t('social_share_with_twitter')}
+                            </a>
+                        </p>
+                        <p>
+                            <a className="social-option" href="https://twitter.com/wohinmit" target="_blank" rel="noopener noreferrer">
+                                {t('social_follow_on_twitter')}
+                            </a>
+                        </p>
+                    </Modal>}
             </div>
         </div>);
 };
