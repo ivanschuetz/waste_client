@@ -286,7 +286,7 @@ body {
 .suggestion-highlighted {
     cursor: pointer;
     text-decoration: none;
-    color: inherit;
+    color: #1a47d3;
     font-weight: bold;
     text-align: left;
 }
@@ -403,6 +403,18 @@ body {
     margin-right: 10px;
 }
 
+.map-popup-route-link {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.leaflet-container a {
+    color: #000;
+}
+
 /*204BD0*/
 .recipient-name {
     cursor: pointer;
@@ -442,6 +454,11 @@ body {
 .p-container-popup-title {
     font-weight: bold;
     text-decoration: none;
+    color: #1a47d3;
+}
+
+.p-container-popup-title-span {
+    color: #1a47d3;
 }
 
 .p-container-popup-company {
@@ -631,6 +648,10 @@ a.results-distance-link-closed {
 
 a, a:visited, a:hover, a:active {
     color: inherit;
+}
+
+a:hover {
+    color: #1a47d3;
 }
 
 .social-link {

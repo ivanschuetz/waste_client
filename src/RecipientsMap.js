@@ -149,7 +149,7 @@ const RecipientsMap = ({ recipients }) => {
         return marker(lat, lon, icon(container["type"], isOpen(container).isOpen, container["hasPickup"]), <div style={{ minWidth: 200 }}>
             {/*return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>*/}
             <a className="p-container-popup-title" href={container["url"]} target="_blank" rel="noopener noreferrer">
-                {container["name"]}
+                <span className="p-container-popup-title-span">{container["name"]}</span>
             </a><br />
             {container["address"]}<br />
             {phone ? <span>{container["phone"]}</span> : <span />}
@@ -158,13 +158,17 @@ const RecipientsMap = ({ recipients }) => {
             {/*    {container["company"]}*/}
             {/*</a>*/}
             <div className="p-container-popup-routes" />
-            <span style={{ float: "left", marginRight: 5 }}>Route:</span>
-            {[
-                transportImg(require("./walk.svg"), "Walking", routeLink(myLoc, lat, lon, "walking")),
-                transportImg(require("./bike.svg"), "Bike", routeLink(myLoc, lat, lon, "bicycling")),
-                transportImg(require("./transit.svg"), "Transit", routeLink(myLoc, lat, lon, "transit")),
-                transportImg(require("./car.svg"), "Car", routeLink(myLoc, lat, lon, "driving")),
-            ]}
+            <a className="map-popup-route-link"
+               href={routeLink(myLoc, lat, lon, "driving")}
+               target="_blank"
+               rel="noopener noreferrer"
+            >Route</a>
+            {/*{[*/}
+            {/*    transportImg(require("./walk.svg"), "Walking", routeLink(myLoc, lat, lon, "walking")),*/}
+            {/*    transportImg(require("./bike.svg"), "Bike", routeLink(myLoc, lat, lon, "bicycling")),*/}
+            {/*    transportImg(require("./transit.svg"), "Transit", routeLink(myLoc, lat, lon, "transit")),*/}
+            {/*    transportImg(require("./car.svg"), "Car", routeLink(myLoc, lat, lon, "driving")),*/}
+            {/*]}*/}
         </div>);
     };
 
