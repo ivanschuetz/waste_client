@@ -197,13 +197,24 @@ const App = () => {
         }
     };
 
+    const beta1x = require('./icons/beta1x.png');
+    const beta2x = require('./icons/beta2x.png');
+    const beta4x = require('./icons/beta4x.png');
+    const beta8x = require('./icons/beta8x.png');
+
+    const BetaImage = () => (
+        <img src={beta2x} srcSet={`${beta1x} 1x, ${beta2x} 2x, ${beta4x} 4x, ${beta8x} 8x`} className="beta-icon" />
+    );
+
     return (
         <div className="App">
             <Helmet>
                 <title>{t('meta_page_title')}</title>
             </Helmet>
             {showProgressBar && <ProgressBar />}
-            <SVGIcon name="beta" width="50px" height="25px" className="beta-icon" />
+
+            <BetaImage />
+
             <div className="Wrapper">
 
                 <div className="top">
