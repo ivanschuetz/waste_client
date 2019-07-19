@@ -149,7 +149,7 @@ const RecipientsMap = ({ recipients }) => {
         return marker(lat, lon, icon(container["type"], isOpen(container).isOpen, container["hasPickup"]), <div style={{ minWidth: 200 }}>
             {/*return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>*/}
             <a className="p-container-popup-title" href={container["url"]} target="_blank" rel="noopener noreferrer">
-                {container["name"]}
+                <span className="p-container-popup-title-span">{container["name"]}</span>
             </a><br />
             {container["address"]}<br />
             {phone ? <span>{container["phone"]}</span> : <span />}
