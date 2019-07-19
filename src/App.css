@@ -445,6 +445,10 @@ body {
     color: #828282;
 }
 
+.recipient-name-closed span:hover {
+    color: #1a47d3;
+}
+
 .recipient-data-link {
     cursor: pointer;
     margin-left: 10px;
@@ -660,7 +664,7 @@ a.results-distance-link-closed {
     color: #828282;
 }
 
-a, a:visited, a:hover, a:active {
+a, a:visited, a:active {
     color: inherit;
 }
 
