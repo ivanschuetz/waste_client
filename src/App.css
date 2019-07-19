@@ -383,6 +383,13 @@ body {
     margin-right: 10px;
 }
 
+.map-popup-route-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
 /*204BD0*/
 .recipient-name {
     cursor: pointer;
