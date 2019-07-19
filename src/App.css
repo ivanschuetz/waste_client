@@ -186,7 +186,7 @@ body {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    border: solid 1px #1f4cd2;
+    border: solid 1px #D8E1EA;
     padding: 10px 20px;
     font-size: 18px;
     outline: 0;
@@ -198,6 +198,7 @@ body {
 
 .searchbox:focus {
     /* box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28); */
+    border: solid 1px #1f4cd2;
 }
 
 .searchbox.no-border {
