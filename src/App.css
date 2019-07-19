@@ -717,3 +717,63 @@ body {
         width: 10%;
     }
 }
+
+
+/* Checkbox styles */
+.map-filters input[type="checkbox"] {
+    display: none;
+}
+
+label.map-filter {
+    position: relative;
+}
+
+label.map-filter::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -30px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #1a47d3;
+    border-radius: 2px;
+    background-color: transparent;
+}
+
+.map-filters input[type="checkbox"]:checked~label.map-filter::before {
+    background-color: #2bdf82;
+}
+
+.map-filters input[type="checkbox"]:checked~label.map-filter::after {
+    content: "";
+    position: absolute;
+    bottom: 9px;
+    right: -27px;
+    width: 14px;
+    height: 5px;
+    border: 2px solid #1a47d3;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-52deg);
+}
+
+.map-filters-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.map-filters-wrapper>div {
+    margin-right: 30px;
+}
+
+/* Results */
+.result-header-icon {
+    vertical-align: middle;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.map-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+}

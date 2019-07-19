@@ -7,6 +7,8 @@ import {isOpenNow} from "./Time";
 import OpeningHours from "./OpeningHours";
 import {auth} from "./globals";
 
+import SVGIcon from './icons/SVGIcon';
+
 const axios = require('axios');
 
 const deg2rad = (deg) => {
@@ -237,10 +239,10 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
             const recipientTypeImagePath = (type) => {
                 switch (type) {
-                    case 0: return require('./trash.svg');
-                    case 1: return require('./heart.svg');
-                    case 2: return require('./money.svg');
-                    case 4: return require('./money.svg');
+                    case 0: return "trash";
+                    case 1: return "heart";
+                    case 2: return "2nd-hand";
+                    case 4: return "2nd-hand-filled"
                     default: return null;
                 }
             };
@@ -249,7 +251,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 const type = recipient["type"];
                 const imagePath = recipientTypeImagePath(type);
                 if (imagePath) {
-                    return <img src={imagePath} alt={type}/>
+                    return <SVGIcon name={imagePath} width="20px" height="20px" />
                 } else {
                     return <span />
                 }
@@ -258,7 +260,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             const hasPickupElement = () => {
                 const hasPickup = recipient["hasPickup"];
                 if (hasPickup) {
-                    return <img src={require('./car.svg')} alt='Pickup'/>
+                    return <SVGIcon name="truck" width="20px" height="20px" />
                 } else {
                     return <span />
                 }
@@ -301,8 +303,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     <li key='pcont' className='result-header-p-containers'>
                         <div className='p-containers-link' onClick={onPContainersClick}>
                             <div className='p-containers-span'>
-                                <img src={require('./map.svg')} style={{verticalAlign: 'middle', marginRight: 5}}
-                                     alt='map'/>
+                                <SVGIcon name="map" width="20px" height="20px" className="map-icon" />
                                 <span
                                     style={{verticalAlign: 'middle'}}>{t('results_header_public_containers')} ({recipientsWithGeoLocation.length})</span>
                             </div>
@@ -361,40 +362,34 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
-            <img src={require('./car.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            <SVGIcon name="truck" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_pickup')} </span>
         </li>;
         const donationPlacesHeader = <li key='donationheader'
                                          className='result-header'>
-            <img src={require('./heart.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            <SVGIcon name="heart" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_donations')} </span>
         </li>;
         const trashPlacesHeader = <li key='trashplacesheader'
                                       className='result-header'>
             <div>
-                <img src={require('./trash.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                     alt='map'/>
+                <SVGIcon name="public-disposal-1" width="20px" height="20px" className="result-header-icon" />
                 <span> {t('results_header_trash_places')} </span>
             </div>
         </li>;
         const secondHandPlacesHeader = <li key='secondhandplacesheader'
                                            className='result-header'>
-            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            <SVGIcon name="2nd-hand" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_second_hand')} </span>
         </li>;
         const onlineShopsHeader = <li key='onlineshopsheader'
                                            className='result-header'>
-            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            <SVGIcon name="online-shop-retailer" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_online_shops')} </span>
         </li>;
         const retailersHeader = <li key='retailersshopsheader'
                                       className='result-header'>
-            <img src={require('./money.svg')} style={{verticalAlign: 'middle', marginRight: 5, marginTop: -3}}
-                 alt='map'/>
+            <SVGIcon name="online-shop-retailer" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_retailers')} </span>
         </li>;
         const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;

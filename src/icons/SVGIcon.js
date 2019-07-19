@@ -1029,12 +1029,13 @@ const icon = name => {
   }
 };
 
-const SVGIcon = ({ name = '', width = '', height = '' }) => (
+const SVGIcon = ({ name = '', width = '', height = '', className='' }) => (
   <svg
     viewBox={getViewBox(name)}
     xmlns='http://www.w3.org/2000/svg'
     width={width}
     height={height}
+    className={className}
   >
     {icon(name)}
   </svg>
