@@ -653,7 +653,7 @@ body {
 .results-distance-link-closed {
     text-decoration: none;
     cursor: pointer;
-    margin-left: 12px;
+    margin-left: 5px;
 }
 
 a.results-distance-link-closed {
