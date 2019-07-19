@@ -265,9 +265,9 @@ const App = () => {
                     </Modal>}
                 {showLangModal &&
                     <Modal title={t('lang_modal_title')} onCloseClick={() => setShowLangModal(false)}>
-                        <p className={(i18n.language === "de") ? 'lang-selected' : 'lang'}
+                        <p className={(i18n.language.startsWith("de")) ? 'lang-selected' : 'lang'}
                             onClick={() => setLanguage("de")}>Deutsch</p>
-                        <p className={(i18n.language === "en") ? 'lang-selected' : 'lang'}
+                        <p className={(i18n.language.startsWith("en")) ? 'lang-selected' : 'lang'}
                             onClick={() => setLanguage("en")}>English</p>
                     </Modal>}
                 {showSocialModal &&
