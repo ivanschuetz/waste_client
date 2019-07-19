@@ -22,13 +22,13 @@ const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
 
 const myLocMarkerIcon = makeIcon(require('./icons/onsite-target.svg'), null, new L.Point(20, 20), [0, -15]);
 const disposalPlaceOpenMarkerIcon = makeIcon(require('./icons/public-disposal.svg'), null, new L.Point(20, 20), [0, -15]);
-const disposalPlaceClosedMarkerIcon = makeIcon(require('./icons/public-disposal.svg'), null, new L.Point(20, 20), [0, -15]);
+const disposalPlaceClosedMarkerIcon = makeIcon(require('./icons/public-disposal-closed.svg'), null, new L.Point(20, 20), [0, -15]);
 const donationsPlaceOpenMarkerIcon = makeIcon(require('./icons/heart.svg'), null, new L.Point(20, 20), [0, -15]);
-const donationsPlaceClosedMarkerIcon = makeIcon(require('./icons/heart.svg'), null, new L.Point(20, 20), [0, -15]);
+const donationsPlaceClosedMarkerIcon = makeIcon(require('./icons/heart-closed.svg'), null, new L.Point(20, 20), [0, -15]);
 const secondHandPlaceOpenMarkerIcon = makeIcon(require('./icons/2nd-hand.svg'), null, new L.Point(20, 20), [0, -15]);
-const secondHandPlaceClosedMarkerIcon = makeIcon(require('./icons/2nd-hand.svg'), null, new L.Point(20, 20), [0, -15]);
+const secondHandPlaceClosedMarkerIcon = makeIcon(require('./icons/2nd-hand-closed.svg'), null, new L.Point(20, 20), [0, -15]);
 const retailerOpenMarkerIcon = makeIcon(require('./icons/online-shop-retailer.svg'), null, new L.Point(20, 20), [0, -15]);
-const retailerClosedMarkerIcon = makeIcon(require('./icons/online-shop-retailer.svg'), null, new L.Point(20, 20), [0, -15]);
+const retailerClosedMarkerIcon = makeIcon(require('./icons/online-shop-retailer-closed.svg'), null, new L.Point(20, 20), [0, -15]);
 
 const createClusterIcon = (count) => {
     return new L.DivIcon({

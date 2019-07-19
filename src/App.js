@@ -14,6 +14,7 @@ import Helmet from "react-helmet/es/Helmet";
 import { auth } from "./globals";
 
 import Logo from './logo/Logo';
+import SVGIcon from './icons/SVGIcon';
 
 require('react-leaflet-markercluster/dist/styles.min.css');
 
@@ -202,7 +203,7 @@ const App = () => {
                 <title>{t('meta_page_title')}</title>
             </Helmet>
             {showProgressBar && <ProgressBar />}
-            <img style={{ position: "absolute", right: 10, top: 10 }} width={50} src={require('./beta_badge.png')} alt='beta' />
+            <SVGIcon name="beta" width="50px" height="25px" className="beta-icon" />
             <div className="Wrapper">
 
                 <div className="top">
