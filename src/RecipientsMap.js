@@ -20,15 +20,15 @@ const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     className: 'leaflet-div-icon'
 });
 
-const myLocMarkerIcon = makeIcon(require('./my_loc.svg'), null, new L.Point(20, 20), [0, -15]);
-const disposalPlaceOpenMarkerIcon = makeIcon(require('./trash.svg'), null, new L.Point(20, 20), [0, -15]);
-const disposalPlaceClosedMarkerIcon = makeIcon(require('./trash_closed.svg'), null, new L.Point(20, 20), [0, -15]);
-const donationsPlaceOpenMarkerIcon = makeIcon(require('./heart.svg'), null, new L.Point(20, 20), [0, -15]);
-const donationsPlaceClosedMarkerIcon = makeIcon(require('./heart_closed.svg'), null, new L.Point(20, 20), [0, -15]);
-const secondHandPlaceOpenMarkerIcon = makeIcon(require('./money.svg'), null, new L.Point(20, 20), [0, -15]);
-const secondHandPlaceClosedMarkerIcon = makeIcon(require('./money_closed.svg'), null, new L.Point(20, 20), [0, -15]);
-const retailerOpenMarkerIcon = makeIcon(require('./money.svg'), null, new L.Point(20, 20), [0, -15]);
-const retailerClosedMarkerIcon = makeIcon(require('./money_closed.svg'), null, new L.Point(20, 20), [0, -15]);
+const myLocMarkerIcon = makeIcon(require('./icons/onsite-target.svg'), null, new L.Point(20, 20), [0, -15]);
+const disposalPlaceOpenMarkerIcon = makeIcon(require('./icons/trash.svg'), null, new L.Point(20, 20), [0, -15]);
+const disposalPlaceClosedMarkerIcon = makeIcon(require('./icons/trash.svg'), null, new L.Point(20, 20), [0, -15]);
+const donationsPlaceOpenMarkerIcon = makeIcon(require('./icons/heart.svg'), null, new L.Point(20, 20), [0, -15]);
+const donationsPlaceClosedMarkerIcon = makeIcon(require('./icons/heart.svg'), null, new L.Point(20, 20), [0, -15]);
+const secondHandPlaceOpenMarkerIcon = makeIcon(require('./icons/online-shop-retailer.svg'), null, new L.Point(20, 20), [0, -15]);
+const secondHandPlaceClosedMarkerIcon = makeIcon(require('./icons/online-shop-retailer.svg'), null, new L.Point(20, 20), [0, -15]);
+const retailerOpenMarkerIcon = makeIcon(require('./icons/online-shop-retailer.svg'), null, new L.Point(20, 20), [0, -15]);
+const retailerClosedMarkerIcon = makeIcon(require('./icons/online-shop-retailer.svg'), null, new L.Point(20, 20), [0, -15]);
 
 const createClusterIcon = (count) => {
     return new L.DivIcon({

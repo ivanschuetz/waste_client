@@ -239,10 +239,15 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
             const recipientTypeImagePath = (type) => {
                 switch (type) {
-                    case 0: return "trash";
-                    case 1: return "heart";
+                    case 0: return "public-disposal-1";
+                    case 1: return "donation";
                     case 2: return "2nd-hand";
-                    case 4: return "2nd-hand-filled"
+                    case 4: return "online-shop-retailer";
+                    case 5: return "apple-laptop";
+                    case 6: return "apple-phone";
+                    case 7: return "ebay-laptop";
+                    case 8: return "ebay-phone";
+                    case 9: return "envelope";
                     default: return null;
                 }
             };
@@ -360,7 +365,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         const retailersListItem = recipentsSection('retailers', retailers, allUnsortedRetailers,
             maxRetailersLength, setMaxRetailersLength);
 
-        const containersHeader = <li key='contheader' className='result-header'>{t('results_header_containers')}</li>;
+        const containersHeader = <li key='contheader' className='result-header'>
+            <SVGIcon name="container" width="20px" height="20px" className="result-header-icon" />
+            <span>{t('results_header_containers')}</span></li>;
         const pickupCompaniesHeader = <li key='pickheader' className='result-header'>
             <SVGIcon name="truck" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_pickup')} </span>
@@ -392,7 +399,11 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             <SVGIcon name="online-shop-retailer" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_retailers')} </span>
         </li>;
-        const tipsHeader = <li key='tipheader' className='result-header'>{t('results_header_tips')}</li>;
+        const tipsHeader = <li key='tipheader'
+                                className='result-header'>
+            <SVGIcon name="tips" width="20px" height="20px" className="result-header-icon" />
+            <span>{t('results_header_tips')}</span>
+        </li>;
 
         const categorylistItemList = [categoryListItem];
         const containersHeaderList = containersListItems.length > 0 ? [containersHeader] : [];
