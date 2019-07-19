@@ -18,7 +18,7 @@ const getViewBox = name => {
       return '0 0 40.63 30.73';
     case 'ebay-phone':
       return '0 0 24.66 37.62';
-    case 'envelope':
+    case 'email':
       return '0 0 38.34 28.9';
     case 'heart':
       return '0 0 38.97 34.32';
@@ -360,7 +360,7 @@ const icon = name => {
           </g>
         </g>
       );
-    case 'envelope':
+    case 'email':
       return (
         <g id='Layer_2' data-name='Layer 2'>
           <g id='Layer_1-2' data-name='Layer 1'>
