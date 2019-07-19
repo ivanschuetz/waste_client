@@ -1,9 +1,28 @@
 @import url('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css');
 @import url('~react-leaflet-markercluster/dist/styles.min.css');
 
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto-Regular'), url(./fonts/Roboto-Regular.woff) format('woff2'),
+        local('Roboto-Regular'), url(./fonts/Roboto-Regular.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto-Bold'), url(./fonts/Roboto-Bold.woff) format('woff2'),
+        local('Roboto-Bold'), url(./fonts/Roboto-Bold.woff) format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+
 body {
     position: relative;
     min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
 }
 
 #root {
@@ -11,7 +30,8 @@ body {
 }
 
 .App {
-    font: 16px arial, sans-serif;
+    /* font: 16px arial, sans-serif; */
+    font-size: 16px;
 }
 
 .Wrapper {
@@ -602,6 +622,7 @@ body {
 .results-distance-link-closed {
     text-decoration: none;
     cursor: pointer;
+    margin-left: 12px;
 }
 
 a.results-distance-link-closed {
