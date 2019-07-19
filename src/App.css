@@ -350,13 +350,13 @@ body {
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
-    border-color: #999;
+    border-color: #828282;
     border-width: 1px;
     border-style: solid;
     margin-top: 15px;
     margin-bottom: 10px;
     display: inline-block;
-    color: #999;
+    color: #828282;
     cursor: pointer;
 }
 
@@ -393,7 +393,10 @@ body {
 .recipient-name-closed {
     cursor: pointer;
     text-decoration: none;
-    color: #999;
+}
+
+.recipient-name-closed span {
+    color: #828282;
 }
 
 .recipient-data-link {
@@ -599,7 +602,10 @@ body {
 .results-distance-link-closed {
     text-decoration: none;
     cursor: pointer;
-    color: #999;
+}
+
+a.results-distance-link-closed {
+    color: #828282;
 }
 
 a, a:visited, a:hover, a:active {
