@@ -180,8 +180,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             const phoneElement = () => {
                 if (recipient["phone"]) {
                     return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"tel:" + recipient["phone"]}>
-                        {/*<img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
                         <span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>
+                        <img src={require('./phone.svg')} style={{ verticalAlign: 'middle', marginLeft: 5}} alt='map'/>
                     </a>
                 } else {
                     return <span/>
@@ -191,8 +191,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 if (recipient["email"]) {
                     return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"mailto:" + recipient["email"]} target='_blank'
                               rel='noopener noreferrer'>
-                        {/*<img src={require('./email.svg')} style={{ verticalAlign: 'middle', marginRight: 5}} alt='map'/>*/}
-                        <span style={{verticalAlign: 'middle'}}>Email</span>
+                        <img src={require('./email.svg')} style={{ verticalAlign: 'middle' }} alt='map'/>
                     </a>
                 } else {
                     return <span/>
