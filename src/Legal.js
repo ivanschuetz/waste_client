@@ -19,14 +19,29 @@ const Legal = () => {
         }
     };
 
+    const termsLink = () => {
+        const lang = i18n.language;
+        switch (lang) {
+            case "en":
+                return "http://www.ivanschuetz.com/wohin_mit_terms.html";
+            case "de":
+                return "http://www.ivanschuetz.com/wohin_mit_terms.html";
+            default:
+                console.log("Invalid lang: " + lang);
+                return "#";
+        }
+    };
+
     const [selectedTab, setSeletedTab] = useState("about");
     return (
         <div>
             <div>
                 <span onClick={() => setSeletedTab("about")}
                       className={tabNameClassName(selectedTab, "about")}>{t('legal_tab_about')}</span> |&nbsp;
-                <span onClick={() => setSeletedTab("terms")}
-                      className={tabNameClassName(selectedTab, "terms")}>{t('legal_tab_terms')}</span> |&nbsp;
+                <a href={termsLink()} target="_blank"
+                   className="privacy-policy-link"
+                   rel="noopener noreferrer"
+                   title={t('legal_tab_terms')}>{t('legal_tab_terms')}</a> |&nbsp;
                 <a href={privacyPolicyLink()} target="_blank"
                    className="privacy-policy-link"
                    rel="noopener noreferrer"
