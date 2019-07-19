@@ -602,6 +602,10 @@ body {
     color: #999;
 }
 
+a, a:visited, a:hover, a:active {
+    color: inherit;
+}
+
 .social-link {
     cursor: pointer;
 }
