@@ -133,6 +133,7 @@ body {
 
 .modal-topbar-x {
     margin: 0;
+    cursor: pointer;
 }
 
 .p-recipients-table {}
