@@ -65,6 +65,8 @@ const App = () => {
         };
     }, [highlightedIndex, suggestions, searchText, selectedSuggestion]); // Empty array ensures that effect is only run on mount and unmount
 
+    const lang = i18n.language;
+
     const search = async (text) => {
         setShowingSuggestions(false);
 
@@ -73,8 +75,6 @@ const App = () => {
         }
 
         setLastSearchText(text);
-
-        const lang = i18n.language;
 
         handleSearchRequest();
 
@@ -188,6 +188,14 @@ const App = () => {
     /*<a className="social-option" href="https://twitter.com/intent/tweet?text=Hello%20world">*/
     const shareOnTwitterHref = () => 'https://twitter.com/intent/tweet?text=' + t('social_share_subject');
 
+    const logoImgName = (lang) => {
+        if (lang.startsWith('de')) {
+            return 'logo-de';
+        } else {
+            return 'logo-en'
+        }
+    };
+
     return (
         <div className="App">
             <Helmet>
@@ -200,7 +208,7 @@ const App = () => {
                 <div className="top">
                     <div className="page-title">
                         {/* <img width={300} src={require('./logo.png')} alt={t('app_title')} /> */}
-                        <Logo name="logo-en" width="300px" />
+                        <Logo name={logoImgName(lang)} width="300px" />
                     </div>
                     <SearchBox onSuggestions={handleSuggestions}
                         onInput={handleSearchBoxInput}
