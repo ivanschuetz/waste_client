@@ -132,7 +132,7 @@ const icon = name => {
           <g id='Layer_1-2' data-name='Layer 1'>
             <path
               d='M1.25 25.28H16v.3h8.69v-.3h14.69c0 1.75-2.14 4.2-5 4.2H6.23c-2.77 0-5-2.49-5-4.2'
-              fill-rule='evenodd'
+              fillRule='evenodd'
               fill='#1a47d3'
             />
             <path
@@ -177,7 +177,7 @@ const icon = name => {
           <g id='Layer_1-2' data-name='Layer 1'>
             <path
               d='M3.37 1.25h17.92a2.12 2.12 0 0 1 2.12 2.12v30.88a2.13 2.13 0 0 1-2.12 2.12H3.37a2.13 2.13 0 0 1-2.12-2.12V3.37a2.12 2.12 0 0 1 2.12-2.12'
-              fill-rule='evenodd'
+              fillRule='evenodd'
               fill='#1a47d3'
             />
             <path
@@ -216,7 +216,7 @@ const icon = name => {
           <g id='Layer_1-2' data-name='Layer 1'>
             <path
               d='M11.14 38.2c0-3.6-2.52-6.54-5.48-6.66L3.49 6.93H30.7l-2.22 3.85L27 30.52l-.4 5.36a3.49 3.49 0 0 1-2.5 2.32z'
-              fill-rule='evenodd'
+              fillRule='evenodd'
               fill='#2bdf82'
             />
             <path
@@ -954,7 +954,7 @@ const icon = name => {
             <path
               d='M9.74 20.08H5.11l2.76-4.51c.47-.75.66-.92 1.85-.92z'
               fill='#fff'
-              fill-rule='evenodd'
+              fillRule='evenodd'
             />
             <path
               d='M7.34 18.83h1.15V17zm2.4 2.5H5.11a1.25 1.25 0 0 1-1.25-1.25 1.19 1.19 0 0 1 .23-.72l2.72-4.45a2.93 2.93 0 0 1 1.13-1.18 3.58 3.58 0 0 1 1.78-.33A1.25 1.25 0 0 1 11 14.65v5.43a1.25 1.25 0 0 1-1.24 1.25z'

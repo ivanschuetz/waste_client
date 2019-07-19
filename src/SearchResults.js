@@ -240,14 +240,10 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             const recipientTypeImagePath = (type) => {
                 switch (type) {
                     case 0: return "public-disposal-1";
-                    case 1: return "donation";
+                    case 1: return "heart";
                     case 2: return "2nd-hand";
+                    case 3: return "ebay-laptop";
                     case 4: return "online-shop-retailer";
-                    case 5: return "apple-laptop";
-                    case 6: return "apple-phone";
-                    case 7: return "ebay-laptop";
-                    case 8: return "ebay-phone";
-                    case 9: return "envelope";
                     default: return null;
                 }
             };
@@ -391,7 +387,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
         </li>;
         const onlineShopsHeader = <li key='onlineshopsheader'
                                            className='result-header'>
-            <SVGIcon name="online-shop-retailer" width="20px" height="20px" className="result-header-icon" />
+            <SVGIcon name="ebay-laptop" width="20px" height="20px" className="result-header-icon" />
             <span> {t('results_header_online_shops')} </span>
         </li>;
         const retailersHeader = <li key='retailersshopsheader'
