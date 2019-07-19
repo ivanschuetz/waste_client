@@ -186,14 +186,14 @@ body {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    border: solid 1px #D8E1EA;
+    border: solid 1px #1f4cd2;
     padding: 10px 20px;
     font-size: 18px;
     outline: 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    margin-top: 30px;
+    margin-top: 70px;
 }
 
 .searchbox:focus {
@@ -225,7 +225,7 @@ body {
     z-index: 1200;
     background: white;
     margin: -1px 0 0 0;
-    border: 1px solid #ccc;
+    border: 1px solid #1f4cd2;
     -moz-border-radius-bottomleft: 20px;
     -webkit-border-bottom-left-radius: 20px;
     border-bottom-left-radius: 20px;
