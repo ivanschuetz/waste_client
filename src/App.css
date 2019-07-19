@@ -121,19 +121,18 @@ body {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #1a47d3;
     padding-bottom: 10px;
 }
 
 .modal-topbar-title {
     /*font-weight: bold;*/
     margin: 0;
+    color: #1a47d3;
 }
 
 .modal-topbar-x {
     margin: 0;
-    font-weight: bold;
-    cursor: pointer;
 }
 
 .p-recipients-table {}
@@ -612,6 +611,7 @@ body {
 .lang-selected {
     cursor: pointer;
     font-weight: bold;
+    color: #1a47d3;
 }
 
 .missingItemListItem {
@@ -733,8 +733,8 @@ label.map-filter::before {
     position: absolute;
     bottom: 0;
     right: -30px;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border: 2px solid #1a47d3;
     border-radius: 2px;
     background-color: transparent;
@@ -747,10 +747,10 @@ label.map-filter::before {
 .map-filters input[type="checkbox"]:checked~label.map-filter::after {
     content: "";
     position: absolute;
-    bottom: 9px;
-    right: -27px;
-    width: 14px;
-    height: 5px;
+    bottom: 8px;
+    right: -26px;
+    width: 10px;
+    height: 4px;
     border: 2px solid #1a47d3;
     border-top: none;
     border-right: none;
