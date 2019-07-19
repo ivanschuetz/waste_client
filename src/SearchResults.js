@@ -180,7 +180,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             const phoneElement = () => {
                 if (recipient["phone"]) {
                     return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"tel:" + recipient["phone"]}>
-                        <span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>
+                        {/*<span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>*/}
                         <SVGIcon name="phone-2" width="20px" height="20px" className="phone-icon" />
                     </a>
                 } else {
