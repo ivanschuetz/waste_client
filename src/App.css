@@ -266,7 +266,7 @@ body {
 .suggestion-highlighted {
     cursor: pointer;
     text-decoration: none;
-    color: inherit;
+    color: #1a47d3;
     font-weight: bold;
     text-align: left;
 }
