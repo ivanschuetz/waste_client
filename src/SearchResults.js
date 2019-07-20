@@ -179,7 +179,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
             const phoneElement = () => {
                 if (recipient["phone"]) {
-                    return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"tel:" + recipient["phone"]}>
+                    return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'}
+                              href={"tel:" + recipient["phone"]}
+                              title={t('results_phone_icon_title')}>
                         {/*<span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>*/}
                         <SVGIcon name="phone-2" width="20px" height="20px" className="phone-icon" />
                     </a>
@@ -189,7 +191,10 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             };
             const emailElement = () => {
                 if (recipient["email"]) {
-                    return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'} href={"mailto:" + recipient["email"]} target='_blank'
+                    return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'}
+                              href={"mailto:" + recipient["email"]}
+                              target='_blank'
+                              title={t('results_email_icon_title')}
                               rel='noopener noreferrer'>
                         <SVGIcon name="email" width="20px" height="20px" className="map-icon" />
                     </a>
@@ -247,11 +252,22 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 }
             };
 
+            const recipientTypeTitle = (type) => {
+                switch (type) {
+                    case 0: return t("results_recipient_type_title_disposal_place");
+                    case 1: return t("results_recipient_type_title_donation");
+                    case 2: return t("results_recipient_type_title_2hand");
+                    case 3: return t("results_recipient_type_title_online_shop");
+                    case 4: return t("results_recipient_type_title_retailer");
+                    default: return null;
+                }
+            };
+
             const recipientTypeElement = () => {
                 const type = recipient["type"];
                 const imagePath = recipientTypeImagePath(type);
                 if (imagePath) {
-                    return <SVGIcon name={imagePath} width="20px" height="20px" />
+                    return <div title={recipientTypeTitle(type)}><SVGIcon name={imagePath} width="20px" height="20px" /></div>
                 } else {
                     return <span />
                 }
@@ -260,7 +276,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             const hasPickupElement = () => {
                 const hasPickup = recipient["hasPickup"];
                 if (hasPickup) {
-                    return <SVGIcon name="truck" width="20px" height="20px" />
+                    return <div title={t('results_recipient_type_title_has_pickup')}><SVGIcon name="truck" width="20px" height="20px" /></div>
                 } else {
                     return <span />
                 }
