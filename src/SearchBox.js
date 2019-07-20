@@ -8,7 +8,7 @@ const axios = require('axios');
 
 let delayTimer;
 
-const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, isShowingSuggestions }) => {
+const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, isShowingSuggestions, onBlur }) => {
     const { t } = useTranslation();
 
     const suggestions = async (text) => {
@@ -57,6 +57,7 @@ const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, i
             value={searchText}
             onChange={event => onSearchInput(event.target.value)}
             autoFocus
+            onBlur={() => onBlur()}
         />
     );
 };

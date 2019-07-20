@@ -227,6 +227,7 @@ const App = () => {
                         searchText={searchText}
                         onSuggestionsRequest={handleSuggestionsRequest}
                         isShowingSuggestions={showingSuggestions}
+                        onBlur={() => onSuggestionEscape()}
                     />
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
