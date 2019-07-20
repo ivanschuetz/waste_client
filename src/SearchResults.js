@@ -274,9 +274,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
             const rows = [
                 <tr key={'p' + recipient["id"]} className="recipient-row" onClick={() => recipientRowClicked()}>
-                    <td> {nameElement()} </td>
-                    <td> {phoneElement()} </td>
-                    <td> {emailElement()} </td>
+                    <td> {nameElement()}{phoneElement()}{emailElement()} </td>
                     <td className="recipient-cell-right"> {hasPickupElement()} </td>
                     <td className="recipient-cell-right"> {recipientTypeElement()} </td>
                     <td className="recipient-cell-right"> {distanceElement()} </td>
