@@ -46,7 +46,7 @@ i18n
                     "results_header_online_shops": "Online shops",
                     "results_header_pickup": "Pickup",
                     "results_header_retailers": "Retailers",
-                    "results_header_second_hand": "Second hand shops",
+                    "results_header_second_hand": "Second hand",
                     "results_header_trash_places": "Disposal places",
                     "results_header_tips": "Infos",
                     "results_header_public_containers": "Map",
