@@ -644,6 +644,7 @@ body {
     text-decoration: none;
     cursor: pointer;
     color: inherit;
+    margin-left: 5px;
 }
 
 .result-distance-number {
