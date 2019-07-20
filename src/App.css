@@ -167,6 +167,16 @@ body {
     white-space: nowrap;
 }
 
+.recipient-row-interactive {
+    text-align: left;
+    height: 40px;
+    cursor: pointer;
+}
+
+.recipient-row-interactive td {
+    white-space: nowrap;
+}
+
 .recipient-cell-right {
     width: 100%;
     text-align: right;
@@ -463,6 +473,25 @@ body {
     color: #999;
 }
 
+.recipient-data-link-for-details {
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.recipient-data-link-closed-for-details {
+    cursor: pointer;
+    text-decoration: none;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.recipient-details-data-link-container {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
 .all-results {
     width: 100%;
     display: inline-block;
@@ -637,8 +666,6 @@ body {
 .lang-link {
     cursor: pointer;
 }
-
-.recipient-row td:last-child {}
 
 .results-distance-link {
     text-decoration: none;

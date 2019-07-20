@@ -189,15 +189,48 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     return <span/>
                 }
             };
+
+            const phoneElementForDetails = () => {
+                if (recipient["phone"]) {
+                    return <div className='recipient-details-data-link-container'>
+                        <a className={isOpen.isOpen ? 'recipient-data-link-for-details' : 'recipient-data-link-closed-for-details'}
+                              href={"tel:" + recipient["phone"]}
+                              title={t('results_phone_icon_title')}>
+                            {/*<SVGIcon name="phone-2" width="20px" height="20px" className="phone-icon" />*/}
+                            <span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>
+                        </a>
+                    </div>
+                } else {
+                    return <span/>
+                }
+            };
+
             const emailElement = () => {
                 if (recipient["email"]) {
                     return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'}
-                              href={"mailto:" + recipient["email"]}
-                              target='_blank'
-                              title={t('results_email_icon_title')}
-                              rel='noopener noreferrer'>
-                        <SVGIcon name="email" width="20px" height="20px" className="map-icon" />
-                    </a>
+                           href={"mailto:" + recipient["email"]}
+                           target='_blank'
+                           title={t('results_email_icon_title')}
+                           rel='noopener noreferrer'>
+                            <SVGIcon name="email" width="20px" height="20px" className="map-icon" />
+                        </a>
+                } else {
+                    return <span/>
+                }
+            };
+
+            const emailElementForDetails = () => {
+                if (recipient["email"]) {
+                    return <div className='recipient-details-data-link-container'>
+                        <a className={isOpen.isOpen ? 'recipient-data-link-for-details' : 'recipient-data-link-closed-for-details'}
+                                  href={"mailto:" + recipient["email"]}
+                                  target='_blank'
+                                  title={t('results_email_icon_title')}
+                                  rel='noopener noreferrer'>
+                            {/*<SVGIcon name="email" width="20px" height="20px" className="map-icon" />*/}
+                            <span style={{verticalAlign: 'middle'}}>{recipient["email"]}</span>
+                        </a>
+                    </div>
                 } else {
                     return <span/>
                 }
@@ -288,8 +321,21 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 setExpandedRecipientsState(expandedState);
             };
 
+            const openingHoursElement = () => {
+                if (recipient["open"] && recipient["open"]["hours"]) {
+                    return <div >
+                        <OpeningHours openingHoursList={recipient["open"]["hours"]} mode="list"/>
+                    </div>
+                } else {
+                    return <span/>
+                }
+            };
+
+            const hasDetails = recipient["address"] || recipient["phone"] || recipient["email"] ||
+                (recipient["open"] && recipient["open"]["hours"]);
+
             const rows = [
-                <tr key={'p' + recipient["id"]} className="recipient-row" onClick={() => recipientRowClicked()}>
+                <tr key={'p' + recipient["id"]} className={hasDetails ? "recipient-row-interactive" : "recipient-row"} onClick={() => recipientRowClicked()}>
                     <td> {nameElement()}{phoneElement()}{emailElement()} </td>
                     <td className="recipient-cell-right"> {hasPickupElement()} </td>
                     <td className="recipient-cell-right"> {recipientTypeElement()} </td>
@@ -297,16 +343,23 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     {/*{company.address}*/}
                 </tr>
             ];
-            if (recipient["open"] && recipient["open"]["hours"]) {
+
+            if (hasDetails) {
                 const className = (expandedRecipientsState[recipient["id"]] ? "results-details-row-expanded" : "results-details-row-collapsed");
                 rows.push(<tr key={'pdetails' + recipient['id']}>
                     <td colSpan={4}>
                         <div className={className}>
-                            <OpeningHours openingHoursList={recipient["open"]["hours"]} mode="list"/>
+                            <div className='recipient-details-data-link-container'>
+                                {recipient["address"]}
+                            </div>
+                            {phoneElementForDetails()}
+                            {emailElementForDetails()}
+                            {openingHoursElement()}
                         </div>
                     </td>
                 </tr>);
             }
+
             return rows;
         });
 
