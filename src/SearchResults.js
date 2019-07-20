@@ -181,6 +181,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 if (recipient["phone"]) {
                     return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'}
                               href={"tel:" + recipient["phone"]}
+                              onClick={ (e) => e.stopPropagation() }
                               title={t('results_phone_icon_title')}>
                         {/*<span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>*/}
                         <SVGIcon name="phone-2" width="20px" height="20px" className="phone-icon" />
@@ -210,6 +211,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                     return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'}
                            href={"mailto:" + recipient["email"]}
                            target='_blank'
+                           onClick={ (e) => e.stopPropagation() }
                            title={t('results_email_icon_title')}
                            rel='noopener noreferrer'>
                             <SVGIcon name="email" width="20px" height="20px" className="map-icon" />
@@ -248,7 +250,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 const fullTextElement = <span style={{verticalAlign: 'middle'}} >{fullTextWithHoliday}</span>;
                 if (recipient["url"]) {
                     return <a className={isOpen.isOpen ? 'recipient-name' : 'recipient-name-closed'} href={recipient["url"]} target='_blank'
-                              rel='noopener noreferrer'>
+                              rel='noopener noreferrer' onClick={ (e) => e.stopPropagation() }>
                         { fullTextElement }
                     </a>
                 } else {
