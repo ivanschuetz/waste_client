@@ -24,7 +24,7 @@ const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, i
             onSuggestionsRequest();
 
             const result = await axios('https://wohin-mit.de:8443/suggestions/' + text, {
-            // const result = await axios('https://localhost:8443/suggestions/' + text, {
+            // const result = await axios('http://localhost:8080/suggestions/' + text, {
                 headers: {"lang": lang},
                 auth: auth
             });

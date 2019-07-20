@@ -80,7 +80,7 @@ const App = () => {
         handleSearchRequest();
 
         const result = await axios('https://wohin-mit.de:8443/search/' + text, {
-            // const result = await axios('https://localhost:8443/search/' + text, {
+        // const result = await axios('http://localhost:8080/search/' + text, {
             headers: { "lang": lang },
             auth: auth
         });
