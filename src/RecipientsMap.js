@@ -7,6 +7,7 @@ import OpeningHours from "./OpeningHours";
 import { isOpenNow } from "./Time";
 import { useTranslation } from "react-i18next";
 import { routeLink } from "./Utils";
+import SVGIcon from "./icons/SVGIcon";
 
 const makeIcon = (path, iconAnchor, iconSize, popupAnchor) => new L.Icon({
     iconUrl: path,
@@ -145,14 +146,30 @@ const RecipientsMap = ({ recipients }) => {
         const lat = container["lat"];
         const lon = container["lon"];
         const phone = container["phone"];
+        const email = container["email"];
 
         return marker(lat, lon, icon(container["type"], isOpen(container).isOpen, container["hasPickup"]), <div style={{ minWidth: 200 }}>
             {/*return marker(lat, lon, isOpen(container) ? markerOpenIcon : markerClosedIcon, <div style={{minWidth: 200}}>*/}
             <a className="p-container-popup-title" href={container["url"]} target="_blank" rel="noopener noreferrer">
                 <span className="p-container-popup-title-span">{container["name"]}</span>
             </a><br />
-            {container["address"]}<br />
-            {phone ? <span>{container["phone"]}</span> : <span />}
+            {container["address"]}
+            <div>
+                {phone ?
+                    <a className="map-data-link" href={"tel:" + container["phone"]}>
+                        <SVGIcon name="phone-2" width="10px" height="10px" className="map-data-icon" />
+                        <span>{phone}</span>
+                    </a>
+                    : <span />}
+            </div>
+            <div>
+                {email ?
+                    <a className="map-data-link" href={"mailto:" + email} target="_blank" rel="noopener noreferrer">
+                        <SVGIcon name="email" width="10px" height="10px" className="map-data-icon" />
+                        <span>{email}</span>
+                    </a>
+                    : <span />}
+            </div>
             {openElement(container["openType"], container["open"])}
             {/*<a className="p-container-popup-company" href={container["url"]} target="_blank">*/}
             {/*    {container["company"]}*/}

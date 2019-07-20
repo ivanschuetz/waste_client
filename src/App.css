@@ -435,6 +435,15 @@ body {
     font-weight: bold;
 }
 
+.map-data-link {
+    text-decoration: none;
+    color: #000;
+}
+
+.map-data-icon {
+    margin-right: 5px;
+}
+
 .leaflet-container a {
     color: #000;
 }
