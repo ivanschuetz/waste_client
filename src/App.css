@@ -514,6 +514,10 @@ body {
 }
 
 .p-container-popup-title-span {
+    color: #000;
+}
+
+.p-container-popup-title-span:hover {
     color: #1a47d3;
 }
 
