@@ -629,6 +629,7 @@ body {
 
 .always-open-label {
     font-weight: bold;
+    margin-top: 5px;
 }
 
 .opening-times-table td {
