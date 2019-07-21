@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 
-const ItemSuggestions = ({suggestions, onClick, highlightedIndex}) => {
+const ItemSuggestions = ({suggestions, onClick, highlightedIndex, highlightBorder}) => {
     const suggestionClassName = (index) => {
         if (index === highlightedIndex) {
             return "suggestion-highlighted"
@@ -18,8 +18,10 @@ const ItemSuggestions = ({suggestions, onClick, highlightedIndex}) => {
         )
     };
 
+    const classNames = highlightBorder ? "suggestions suggestions-highlight" : "suggestions";
+
     return (
-        <ul className="suggestions">
+        <ul className={classNames}>
             {listItems()}
         </ul>
     );

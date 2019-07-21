@@ -35,6 +35,7 @@ const App = () => {
     const [showProgressBar, setShowProgressBar] = useState(false);
     const [showLegalModal, setShowLegalModal] = useState(false);
     const [lastSearchText, setLastSearchText] = useState("");
+    const [searchBoxFocused, setSearchBoxFocused] = useState(false);
 
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const keepInBounds = (newIndex) => Math.max(Math.min(newIndex, suggestions.length - 1), 0);
@@ -226,12 +227,14 @@ const App = () => {
                         searchText={searchText}
                         onSuggestionsRequest={handleSuggestionsRequest}
                         isShowingSuggestions={showingSuggestions}
-                        onBlur={() => onSuggestionEscape()}
+                        onFocus={() => setSearchBoxFocused(true)}
+                        onBlur={() => setSearchBoxFocused(false)}
                     />
                 </div>
                 {showingSuggestions && <ItemSuggestions suggestions={suggestions}
                     onClick={onSuggestionClick}
-                    highlightedIndex={highlightedIndex} />}
+                    highlightedIndex={highlightedIndex}
+                    highlightBorder={searchBoxFocused}/>}
                 <div className="all-results">
                     {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
                         onPContainersClick={onPContainersClick}

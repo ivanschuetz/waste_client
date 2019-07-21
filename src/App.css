@@ -271,7 +271,7 @@ body {
     z-index: 1200;
     background: white;
     margin: -1px 0 0 0;
-    border: 1px solid #1f4cd2;
+    border: 1px solid #D8E1EA;
     -moz-border-radius-bottomleft: 20px;
     -webkit-border-bottom-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -283,6 +283,11 @@ body {
 
     /* Fixes the z-index issue */
     -webkit-transform: translate3d(0, 0, 0);
+}
+
+.suggestions-highlight {
+    border: 1px solid #1f4cd2;
+    border-top: none;
 }
 
 .suggestions::before {
