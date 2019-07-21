@@ -9,6 +9,7 @@ i18n
             en: {
                 translations: {
                     "app_title": "Where with?",
+                    "browser_ie_note": "Internet Explorer refuses to follow modern standards and we have more useful things to do. Please use a different browser.",
                     "email_missing_item_subject": "Missing item: ",
                     "email_missing_item_body": "Describe item if needed",
                     "lang_modal_title": "Language",
@@ -82,6 +83,7 @@ i18n
             de: {
                 translations: {
                     "app_title": "Wohin mit?",
+                    "browser_ie_note": "Internet Explorer weigert sich modernen Standards zu folgen und wir investieren unsere Zeit lieber in Sinnvolles. Bitte benutze einen anderen Browser.",
                     "email_missing_item_subject": "Item fehlt: ",
                     "email_missing_item_body": "Beschreibung, falls nötig",
                     "lang_modal_title": "Sprache",
