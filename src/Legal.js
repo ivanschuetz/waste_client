@@ -23,9 +23,9 @@ const Legal = () => {
         const lang = i18n.language;
         switch (lang) {
             case "en":
-                return "http://www.ivanschuetz.com/wohin_mit_terms.html";
+                return "/terms_en";
             case "de":
-                return "http://www.ivanschuetz.com/wohin_mit_terms.html";
+                return "/terms_de";
             default:
                 console.log("Invalid lang: " + lang);
                 return "#";
