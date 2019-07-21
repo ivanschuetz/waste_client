@@ -14,7 +14,6 @@ import Helmet from "react-helmet/es/Helmet";
 import { auth } from "./globals";
 
 import Logo from './logo/Logo';
-import SVGIcon from './icons/SVGIcon';
 
 require('react-leaflet-markercluster/dist/styles.min.css');
 
