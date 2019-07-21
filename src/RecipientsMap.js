@@ -50,6 +50,7 @@ const RecipientsMap = ({ recipients }) => {
     const [myLoc, setMyLoc] = useState(null);
     const [zoom, setZoom] = useState(11);
     const [filteredRecipients, setFilteredRecipients] = useState(recipients);
+    const [mapCenter, setMapCenter] = useState([52.520008, 13.404954]);
 
     const [filterOptions, setFilterOptions] = useState({
         showDisposalPlaces: true,
@@ -101,6 +102,8 @@ const RecipientsMap = ({ recipients }) => {
     const onClusterClick = (cluster) => {
         const zoom = index.getClusterExpansionZoom(cluster["id"]);
         setZoom(zoom);
+        const clusterCoords = cluster["geometry"]["coordinates"];
+        setMapCenter(clusterCoords);
     };
 
     const openElement = (openType, open) => {
@@ -346,7 +349,7 @@ const RecipientsMap = ({ recipients }) => {
             </div>
 
             <div className='map-container' ref={myRef}>
-                <Map center={[52.520008, 13.404954]} zoom={zoom} maxZoom={18} ref={map} style={{ height: 380 }}
+                <Map center={mapCenter} zoom={zoom} maxZoom={18} ref={map} style={{ height: 380 }}
                     onZoomend={onZoomEvent}>
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
