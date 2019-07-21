@@ -14,6 +14,13 @@ export const groupBy = function (arr, criteria) {
     }, {});
 };
 
+const concat = (x, y) => x.concat(y);
+const flatMap = (f, xs) => xs.map(f).reduce(concat, []);
+
+Array.prototype.myFlatMap = function(f) {
+    return flatMap(f, this);
+};
+
 //////////////////////////////////////////////
 // Shared by several files. Too specific for utils but for now here.
 //////////////////////////////////////////////

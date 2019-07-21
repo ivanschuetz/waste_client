@@ -174,7 +174,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             </li>
         });
 
-        const recipientsTableRows = (recipients) => recipients.flatMap(recipient => {
+        const recipientsTableRows = (recipients) => recipients.myFlatMap(recipient => {
             const isOpen = recipient["isOpen"];
 
             const phoneElement = () => {
