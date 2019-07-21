@@ -219,7 +219,7 @@ const App = () => {
                 <div className="top">
                     <div className="page-title">
                         {/* <img width={300} src={require('./logo.png')} alt={t('app_title')} /> */}
-                        <Logo name={logoImgName(lang)} width="300px" />
+                        <Logo name={logoImgName(lang)} width="300px" height="100%" className="page-title-icon" />
                     </div>
                     <SearchBox onSuggestions={handleSuggestions}
                         onInput={handleSearchBoxInput}

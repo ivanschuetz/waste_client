@@ -887,6 +887,12 @@ label.map-filter::before {
 }
 
 /* Results */
+@media only screen and (max-width: 460px) {
+    .page-title-icon {
+        width: 280px;
+    }
+}
+
 .result-header-icon {
     vertical-align: middle;
     margin-bottom: 5px;
