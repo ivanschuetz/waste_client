@@ -51,23 +51,25 @@
         // Display message for IE users
         const userLang = navigator.language || navigator.userLanguage;
 
-        let userLangSlice;
+        if (userLang) {
+          let userLangSlice;
 
-        if (userLang.length >= 2) {
-          userLangSlice = userLang.slice(0,2);
-        } else {
-          console.log('Something went wrong with getting the browser language.')
+          if (userLang.length >= 2) {
+            userLangSlice = userLang.slice(0,2);
+          } else {
+            console.log('Something went wrong with getting the browser language.')
+          }
+
+          let userMessage;
+
+          if (userLangSlice === 'en') {
+            userMessage = 'Internet Explorer refuses to follow modern standards and we have more useful things to do. Please use a different browser.'
+          } else {
+            userMessage = 'Internet Explorer weigert sich modernen Standards zu folgen und wir investieren unsere Zeit lieber in Sinnvolles. Bitte benutze einen anderen Browser.'
+          }
+
+          document.getElementById('root').innerHTML = '<div style="margin-top:20px; font-family:\'Roboto\', sans-serif; text-align:center;">' + userMessage + '</div>';
         }
-
-        let userMessage;
-
-        if (userLangSlice === 'en') {
-          userMessage = 'Internet Explorer refuses to follow modern standards and we have more useful things to do. Please use a different browser.'
-        } else {
-          userMessage = 'Internet Explorer weigert sich modernen Standards zu folgen und wir investieren unsere Zeit lieber in Sinnvolles. Bitte benutze einen anderen Browser.'
-        }
-
-        document.getElementById('root').innerHTML = '<div style="margin-top:20px; font-family:\'Roboto\', sans-serif; text-align:center;">' + userMessage + '</div>';
       }
     </script>
   </body>
