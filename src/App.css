@@ -17,8 +17,6 @@
     font-style: normal;
 }
 
-
-
 body {
     position: relative;
     min-height: 100vh;
@@ -424,8 +422,8 @@ body {
 .map-container {}
 
 .map-filters {
-    height: 70px;
-    margin-top: 30px;
+    height: auto;
+    margin: 30px 0 15px 0;
 }
 
 .map-filter {
@@ -884,11 +882,13 @@ label.map-filter::before {
 
 .map-filters-wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .map-filters-wrapper>div {
     margin-right: 30px;
+    margin-bottom: 10px;
 }
 
 /* Results */

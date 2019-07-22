@@ -322,7 +322,7 @@ const RecipientsMap = ({ recipients }) => {
                         </label>
                     </div>
                 </div>
-                <div style={{ marginTop: 20 }} className="map-filters-wrapper">
+                <div className="map-filters-wrapper">
                     <div>
                         <input
                             id="check-5"
