@@ -654,6 +654,7 @@ body {
 }
 
 .opening-times-table-in-list td {
+    padding: 0;
     padding-right: 10px;
     text-align: left;
 }
@@ -690,6 +691,7 @@ body {
 
 .opening-hours-row-now {
     font-weight: bold;
+    color: #1a47d3;
 }
 
 .opening-hours-row-default {}
@@ -935,49 +937,33 @@ label.map-filter::before {
     height: 25px;
 }
 
+.recipient-cell-right:empty {
+	display: none;
+}
+
 
 /* Table responsive styles */
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 600px) {
+    .p-recipients-table-wrapper {
+        width: 90vw;
+        overflow-x: scroll;
+    }
+
     .p-recipients-table {
-        table-layout: fixed;
-        width: 280px;
+        width: 100%;
     }
 
-    .recipient-row,
-    .recipient-row-interactive {
-        font-size: 13px;
-    }
-
-    .recipient-row svg,
-    .recipient-row-interactive svg {
-        width: 14px;
-        height: 14px;
-    }
-
-    .recipient-row td:first-child,
-    .recipient-row-interactive td:first-child {
-        width: 120px;
-        overflow: hidden;
-    }
-
-    .recipient-row td:not(:first-child),
-    .recipient-row-interactive td:not(:first-child) {
-        width: 40px;
-        overflow: hidden;
-    }
-
-    .recipient-details-data-link-container {
-        font-size: 14px;
-    }
-
-
+    .recipient-row-interactive,
+    .recipient-details-data-link-container,
     .opening-times-status-in-list-open,
     .opening-times-title-in-list,
-    .opening-times-table-in-list td {
+    .opening-hours-row-default {
         font-size: 14px;
     }
+}
 
-    .opening-hours-row-now {
-        color: #1a47d3;
+@media only screen and (max-width: 320px) {
+    .p-recipients-table-wrapper {
+        width: 280px;
     }
 }

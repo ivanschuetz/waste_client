@@ -396,9 +396,11 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
         const recipentsSection = (key, recipients, allRecipients, maxRecipientsLength, setMaxRecipientsLength) => {
             return <li key={key}>
-                <table className="p-recipients-table">
-                    <tbody>{recipientsTableRows(recipients)}</tbody>
-                </table>
+                <div className="p-recipients-table-wrapper">
+                    <table className="p-recipients-table">
+                        <tbody>{recipientsTableRows(recipients)}</tbody>
+                    </table>
+                </div>
                 { allRecipients.length > maxRecipientsLength ?
                     <div>
                         <div className='show-more' onClick={() => {
