@@ -656,22 +656,23 @@ body {
     /*max-height: 600px;*/
     /*/ / still have to hard-code a value !;*/
 
-    -webkit-transition: max-height 0.5s ease;
-    -moz-transition: max-height 0.5s ease;
-    transition: max-height 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 
+    opacity: 1;
     max-height: 400px;
 }
 
 .results-details-row-collapsed {
+    opacity: 0;
     max-height: 0;
     /*line-height: 0;*/
-    /*opacity: 0;*/
     overflow: hidden;
 
-    -webkit-transition: max-height 0.5s ease;
-    -moz-transition: max-height 0.5s ease;
-    transition: max-height 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .opening-hours-row-now {
