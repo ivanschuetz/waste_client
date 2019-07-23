@@ -405,6 +405,19 @@ body {
     display: inline-block;
     color: #828282;
     cursor: pointer;
+
+    box-shadow: none;
+    transition: all .1s linear;
+}
+
+.show-more:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+
+.show-more:active {
+    box-shadow: none;
+    border-color: #1f4cd2;
+    color: #1f4cd2;
 }
 
 .results-list {
