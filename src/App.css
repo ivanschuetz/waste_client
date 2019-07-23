@@ -920,3 +920,50 @@ label.map-filter::before {
     width: 50px;
     height: 25px;
 }
+
+
+/* Table responsive styles */
+@media only screen and (max-width: 320px) {
+    .p-recipients-table {
+        table-layout: fixed;
+        width: 280px;
+    }
+
+    .recipient-row,
+    .recipient-row-interactive {
+        font-size: 13px;
+    }
+
+    .recipient-row svg,
+    .recipient-row-interactive svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .recipient-row td:first-child,
+    .recipient-row-interactive td:first-child {
+        width: 120px;
+        overflow: hidden;
+    }
+
+    .recipient-row td:not(:first-child),
+    .recipient-row-interactive td:not(:first-child) {
+        width: 40px;
+        overflow: hidden;
+    }
+
+    .recipient-details-data-link-container {
+        font-size: 14px;
+    }
+
+
+    .opening-times-status-in-list-open,
+    .opening-times-title-in-list,
+    .opening-times-table-in-list td {
+        font-size: 14px;
+    }
+
+    .opening-hours-row-now {
+        color: #1a47d3;
+    }
+}
