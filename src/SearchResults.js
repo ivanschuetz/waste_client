@@ -8,6 +8,7 @@ import OpeningHours from "./OpeningHours";
 import {auth} from "./globals";
 
 import SVGIcon from './icons/SVGIcon';
+import {useWindowSize} from "./WindowSizeHook";
 
 const axios = require('axios');
 
@@ -42,6 +43,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     const [maxSecondHandPlacesLength, setMaxSecondHandPlacesLength] = useState(3);
     const [maxOnlineShopsLength, setMaxOnlineShopsLength] = useState(3);
     const [maxRetailersLength, setMaxRetailersLength] = useState(3);
+    const windowSize = useWindowSize();
 
     const categories = results['categories'];
     const containers = results['containers'];
@@ -244,7 +246,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 // But in this case, we use the name as a message: "where you bought it".
                 // We translate this special case client side instead of changing the backend structure.
                 const actualName = name === "seller_translate_clientside" ? t('retailer_name_where_you_bought_it') : name;
-                const nameToShow = actualName.trunc(40);
+                const nameMaxChars = windowSize.width < 400 ? 17 : windowSize < 500 ? 25 : 40;
+                const nameToShow = actualName.trunc(nameMaxChars);
                 const fullText = isOpen.isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
                 const fullTextWithHoliday = isOpen.isHoliday ? fullText + ' (' + t('results_recipient_closed_holiday') + ')' : fullText;
                 const fullTextElement = <span style={{verticalAlign: 'middle'}} >{fullTextWithHoliday}</span>;
