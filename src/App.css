@@ -949,7 +949,7 @@ label.map-filter::before {
     .opening-times-status-in-list-open,
     .opening-times-title-in-list,
     .opening-hours-row-default {
-        font-size: 13px;
+        /*font-size: 13px;*/
     }
 
     .list-item-tip {
