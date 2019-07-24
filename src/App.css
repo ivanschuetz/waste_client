@@ -490,7 +490,10 @@ body {
     text-decoration: none;
 }
 
-.recipient-name-closed span {
+.recipient-name-span {
+}
+
+.recipient-name-span-closed {
     color: #828282;
 }
 

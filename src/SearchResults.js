@@ -253,7 +253,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 const nameToShow = actualName.trunc(nameMaxChars);
                 const fullText = isOpen.isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
                 const fullTextWithHoliday = isOpen.isHoliday ? fullText + ' (' + t('results_recipient_closed_holiday') + ')' : fullText;
-                const fullTextElement = <span style={{verticalAlign: 'middle'}} >{fullTextWithHoliday}</span>;
+                const fullTextElement =
+                    <span style={{verticalAlign: 'middle'}}
+                          className={isOpen.isOpen ? 'recipient-name-span' : 'recipient-name-span-closed'}>{fullTextWithHoliday}</span>;
                 if (recipient["url"]) {
                     return <a className={isOpen.isOpen ? 'recipient-name' : 'recipient-name-closed'} href={recipient["url"]} target='_blank'
                               rel='noopener noreferrer' onClick={ (e) => e.stopPropagation() }>
