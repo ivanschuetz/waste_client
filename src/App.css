@@ -403,6 +403,9 @@ body {
     border-style: solid;
     display: inline-block;
     color: #000;
+
+    box-shadow: none;
+    transition: all .1s linear;
 }
 
 .show-more {
@@ -423,7 +426,8 @@ body {
     transition: all .1s linear;
 }
 
-.show-more:hover {
+.show-more:hover,
+.p-containers-span:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
 }
 
