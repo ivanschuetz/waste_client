@@ -274,11 +274,11 @@ const App = () => {
                     </span>
                     <a className="social-option" href="https://www.facebook.com/wohinmitapp" target="_blank"
                     rel="noopener noreferrer">
-                        <FacebookIcon size={32} round/>
+                        <FacebookIcon size={20} round/>
                     </a>
                     <a className="social-option" href="https://twitter.com/wohinmit" target="_blank"
                     rel="noopener noreferrer">
-                        <TwitterIcon size={32} round/>
+                        <TwitterIcon size={20} round/>
                     </a>
                 </div>
                 {showAboutModal &&
