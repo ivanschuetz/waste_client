@@ -944,26 +944,29 @@ label.map-filter::before {
 
 /* Table responsive styles */
 @media only screen and (max-width: 600px) {
-    .p-recipients-table-wrapper {
-        width: 90vw;
-        overflow-x: scroll;
-    }
-
-    .p-recipients-table {
-        width: 100%;
-    }
-
     .recipient-row-interactive,
     .recipient-details-data-link-container,
     .opening-times-status-in-list-open,
     .opening-times-title-in-list,
     .opening-hours-row-default {
-        font-size: 14px;
+        font-size: 13px;
+    }
+
+    .list-item-tip {
+        font-size: 15px;
+        line-height: 1.4;
     }
 }
 
 @media only screen and (max-width: 320px) {
-    .p-recipients-table-wrapper {
-        width: 280px;
+    .recipient-cell-right svg {
+        width: 14px;
+        height: auto;
+    }
+
+    .phone-icon,
+    .main-icon {
+        width: 14px;
+        height: auto;
     }
 }
