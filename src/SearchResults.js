@@ -188,7 +188,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                               onClick={ (e) => e.stopPropagation() }
                               title={t('results_phone_icon_title')}>
                         {/*<span style={{verticalAlign: 'middle'}}>{recipient["phone"]}</span>*/}
-                        <SVGIcon name="phone-2" width="20px" height="20px" className="phone-icon" />
+                        <SVGIcon name={isOpen.isOpen ? 'phone-2' : 'phone-1-closed'}
+                                 width="20px" height="20px" className="phone-icon" />
                     </a>
                 } else {
                     return <span/>
