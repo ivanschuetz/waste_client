@@ -87,12 +87,14 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
     const groupedRecipients = groupBy(recipients, 'type');
 
-    const allUnsortedDisposalPlaces = (groupedRecipients[0] || []).filter((place) => place["hasInPlace"]);
-    const allUnsortedDonationPlaces = (groupedRecipients[1] || []);
-    const allUnsortedSecondHandPlaces = (groupedRecipients[2] || []);
-    const allUnsortedOnlineShops = (groupedRecipients[3] || []);
-    const allUnsortedRetailers = (groupedRecipients[4] || []);
-    const allUnsortedPickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]);
+    const maxTotalEntriesPerSection = 100;
+
+    const allUnsortedDisposalPlaces = (groupedRecipients[0] || []).filter((place) => place["hasInPlace"]).slice(0, maxTotalEntriesPerSection);
+    const allUnsortedDonationPlaces = (groupedRecipients[1] || []).slice(0, maxTotalEntriesPerSection);
+    const allUnsortedSecondHandPlaces = (groupedRecipients[2] || []).slice(0, maxTotalEntriesPerSection);
+    const allUnsortedOnlineShops = (groupedRecipients[3] || []).slice(0, maxTotalEntriesPerSection);
+    const allUnsortedRetailers = (groupedRecipients[4] || []).slice(0, maxTotalEntriesPerSection);
+    const allUnsortedPickupCompanies = recipients.filter((recipient) => recipient["hasPickup"]).slice(0, maxTotalEntriesPerSection);
 
     const sortByDistance = (recipients) => recipients.sort((a, b) => {
         const aIsOpenInt = a['isOpen'].isOpen ? 1 : 0;
