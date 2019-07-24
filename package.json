@@ -19,6 +19,7 @@
     "react-leaflet-markercluster": "^2.0.0-rc3",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-share": "^3.0.0",
     "supercluster": "^6.0.1"
   },
   "scripts": {

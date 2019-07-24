@@ -1034,3 +1034,36 @@ body {counter-reset:section;}
 
 /* ---------------------------------------------- */
 /* ---------------------------------------------- */
+
+
+/* ---------------------------------------------- */
+/* Social */
+/* ---------------------------------------------- */
+
+.social-network {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.social-network div:focus {
+    outline: none;
+}
+
+.social-network-share-button {
+    cursor: pointer;
+}
+
+.social-network-share-button:hover:not(:active) {
+    opacity: 0.75;
+}
+
+.social-network-custom-icon {
+    width: 32px;
+    height: 32px;
+}
+
+/* ---------------------------------------------- */
+/* ---------------------------------------------- */
