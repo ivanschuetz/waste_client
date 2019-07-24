@@ -318,7 +318,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
             const hasPickupElement = () => {
                 const hasPickup = recipient["hasPickup"];
                 if (hasPickup) {
-                    return <div title={t('results_recipient_type_title_has_pickup')}><SVGIcon name="truck" width="20px" height="20px" /></div>
+                    return <div title={t('results_recipient_type_title_has_pickup')}>
+                        <SVGIcon name={isOpen.isOpen ? 'truck' : 'truck-closed'} width="20px" height="20px" /></div>
                 } else {
                     return <span />
                 }
