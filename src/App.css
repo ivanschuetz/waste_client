@@ -112,7 +112,7 @@ body {
 }
 
 .footer > *:not(:last-child) {
-    margin-right: 10px;
+    margin-right: 6px;
 }
 
 .modal {
@@ -1090,13 +1090,7 @@ body {
     height: 32px;
 }
 
-.social-options {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-}
-
-.social-option:first-child {
+.footer > a.social-option:not(:last-child) {
     margin-right: 15px;
 }
 

@@ -263,13 +263,16 @@ const App = () => {
                 <div className="footer">
                     <a className="feedback-link" href="mailto:contact@wohin-mit.de" target="_blank" rel="noopener noreferrer">
                         {t('link_feedback')}
-                    </a> |&nbsp;
+                    </a>
+                    <span>|</span>
                     <span className="about-link" onClick={() => toggleLegalModal()} rel="noopener noreferrer">
                         {t('link_legal')}
-                    </span> |&nbsp;
+                    </span>
+                    <span>|</span>
                     <span className="social-link"
                         onClick={() => setShowSocialModal(!showSocialModal)}>{t('link_social')}
-                    </span> |&nbsp;
+                    </span>
+                    <span>|</span>
                     <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}
                     </span>
                     <a className="social-option" href="https://www.facebook.com/wohinmitapp" target="_blank"
