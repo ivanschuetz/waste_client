@@ -272,16 +272,14 @@ const App = () => {
                     </span> |&nbsp;
                     <span className="lang-link" onClick={() => setShowLangModal(!showLangModal)}>{t('link_lang')}
                     </span>
-                    <div className="social-options">
-                        <a className="social-option" href="https://www.facebook.com/wohinmitapp" target="_blank"
-                        rel="noopener noreferrer">
-                            <FacebookIcon size={32} round/>
-                        </a>
-                        <a className="social-option" href="https://twitter.com/wohinmit" target="_blank"
-                        rel="noopener noreferrer">
-                            <TwitterIcon size={32} round/>
-                        </a>
-                    </div>
+                    <a className="social-option" href="https://www.facebook.com/wohinmitapp" target="_blank"
+                    rel="noopener noreferrer">
+                        <FacebookIcon size={32} round/>
+                    </a>
+                    <a className="social-option" href="https://twitter.com/wohinmit" target="_blank"
+                    rel="noopener noreferrer">
+                        <TwitterIcon size={32} round/>
+                    </a>
                 </div>
                 {showAboutModal &&
                     <Modal onCloseClick={() => setShowAboutModal(false)}>
