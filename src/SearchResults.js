@@ -279,13 +279,14 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 }
             };
 
-            const recipientTypeImagePath = (type) => {
+            const recipientTypeImagePath = (type, isOpen) => {
                 switch (type) {
-                    case 0: return "public-disposal-1";
-                    case 1: return "heart";
-                    case 2: return "2nd-hand";
-                    case 3: return "ebay-laptop";
-                    case 4: return "online-shop-retailer";
+                    case 0: return isOpen["isOpen"] ? "public-disposal-1" : "public-disposal-1-closed";
+                    case 1: return isOpen["isOpen"] ? "heart" : "heart-closed";
+                    case 2: return isOpen["isOpen"] ? "2nd-hand" : "2nd-hand-closed";
+                    case 3: return isOpen["isOpen"] ? "ebay-laptop" : "ebay-laptop-closed";
+                    case 4: return isOpen["isOpen"] ? "online-shop-retailer" : "online-shop-retailer";
+                    // case 4: return isOpen ? "online-shop-retailer" : "online-shop-retailer-closed"; // TODO
                     default: return null;
                 }
             };
@@ -303,7 +304,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
 
             const recipientTypeElement = () => {
                 const type = recipient["type"];
-                const imagePath = recipientTypeImagePath(type);
+                const imagePath = recipientTypeImagePath(type, recipient["isOpen"]);
                 if (imagePath) {
                     return <div title={recipientTypeTitle(type)}><SVGIcon name={imagePath} width="20px" height="20px" /></div>
                 } else {
