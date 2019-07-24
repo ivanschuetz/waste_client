@@ -970,3 +970,68 @@ label.map-filter::before {
         height: auto;
     }
 }
+
+/* ---------------------------------------------- */
+/* Terms */
+/* ---------------------------------------------- */
+
+body {counter-reset:section;}
+.terms-bullet-contents-table {counter-reset:subsection;}
+.terms-bullet-contents-table:before
+{
+    counter-increment:section;
+    content: counter(section) ". ";
+    font-weight: bold;
+}
+
+.terms-reset-section-counter {counter-reset:section;}
+.terms-bullet {counter-reset:subsection;}
+.terms-bullet:before
+{
+    counter-increment:section;
+    content: counter(section) ". ";
+    font-weight: bold;
+}
+.terms-subbullet:before
+{
+    counter-increment:subsection;
+    content:counter(section) "." counter(subsection) " ";
+    font-weight: bold;
+}
+
+.terms-bullet-contents-table {
+    text-align: left;
+    font-weight: bold;
+}
+
+.terms-bullet {
+    text-align: left;
+    font-weight: bold;
+}
+
+.terms-subbullet {
+    text-align: left;
+}
+
+.terms-highlighted {
+    font-weight: bold;
+}
+
+.terms-embedded-list li {
+    text-align: left;
+}
+
+.terms {
+    padding: 10px 20px 10px 20px;
+}
+
+.terms p {
+    text-align: left;
+}
+
+.terms-bullet a:hover {
+    color: #000;
+}
+
+/* ---------------------------------------------- */
+/* ---------------------------------------------- */
