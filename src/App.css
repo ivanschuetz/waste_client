@@ -1081,5 +1081,15 @@ body {
     height: 32px;
 }
 
+.social-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.social-option:first-child {
+    margin-right: 15px;
+}
+
 /* ---------------------------------------------- */
 /* ---------------------------------------------- */
