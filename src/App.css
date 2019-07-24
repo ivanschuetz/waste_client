@@ -4,7 +4,7 @@
 @font-face {
     font-family: 'Roboto';
     src: local('Roboto-Regular'), url(./fonts/Roboto-Regular.woff) format('woff2'),
-        local('Roboto-Regular'), url(./fonts/Roboto-Regular.woff) format('woff');
+    local('Roboto-Regular'), url(./fonts/Roboto-Regular.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -12,7 +12,7 @@
 @font-face {
     font-family: 'Roboto';
     src: local('Roboto-Bold'), url(./fonts/Roboto-Bold.woff) format('woff2'),
-        local('Roboto-Bold'), url(./fonts/Roboto-Bold.woff) format('woff');
+    local('Roboto-Bold'), url(./fonts/Roboto-Bold.woff) format('woff');
     font-weight: bold;
     font-style: normal;
 }
@@ -154,7 +154,8 @@ body {
     cursor: pointer;
 }
 
-.p-recipients-table {}
+.p-recipients-table {
+}
 
 .recipient-row {
     text-align: left;
@@ -229,12 +230,15 @@ body {
 .searchbox::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-family: inherit;
 }
+
 .searchbox::-moz-placeholder { /* Firefox 19+ */
     font-family: inherit;
 }
+
 .searchbox:-ms-input-placeholder { /* IE 10+ */
     font-family: inherit;
 }
+
 .searchbox:-moz-placeholder { /* Firefox 18- */
     font-family: inherit;
 }
@@ -411,7 +415,7 @@ body {
 }
 
 .show-more:hover {
-    box-shadow: 0 2px 4px rgba(0,0,0,.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
 }
 
 .show-more:active {
@@ -432,7 +436,8 @@ body {
     margin-top: 20px;
 }
 
-.map-container {}
+.map-container {
+}
 
 .map-filters {
     height: auto;
@@ -693,7 +698,8 @@ body {
     color: #1a47d3;
 }
 
-.opening-hours-row-default {}
+.opening-hours-row-default {
+}
 
 .lang-link {
     cursor: pointer;
@@ -878,11 +884,11 @@ label.map-filter::before {
     background-color: transparent;
 }
 
-.map-filters input[type="checkbox"]:checked~label.map-filter::before {
+.map-filters input[type="checkbox"]:checked ~ label.map-filter::before {
     background-color: #2bdf82;
 }
 
-.map-filters input[type="checkbox"]:checked~label.map-filter::after {
+.map-filters input[type="checkbox"]:checked ~ label.map-filter::after {
     content: "";
     position: absolute;
     bottom: 8px;
@@ -901,7 +907,7 @@ label.map-filter::before {
     justify-content: center;
 }
 
-.map-filters-wrapper>div {
+.map-filters-wrapper > div {
     margin-right: 30px;
     margin-bottom: 10px;
 }
@@ -937,7 +943,7 @@ label.map-filter::before {
 }
 
 .recipient-cell-right:empty {
-	display: none;
+    display: none;
 }
 
 
@@ -974,27 +980,37 @@ label.map-filter::before {
 /* Terms */
 /* ---------------------------------------------- */
 
-body {counter-reset:section;}
-.terms-bullet-contents-table {counter-reset:subsection;}
-.terms-bullet-contents-table:before
-{
-    counter-increment:section;
+body {
+    counter-reset: section;
+}
+
+.terms-bullet-contents-table {
+    counter-reset: subsection;
+}
+
+.terms-bullet-contents-table:before {
+    counter-increment: section;
     content: counter(section) ". ";
     font-weight: bold;
 }
 
-.terms-reset-section-counter {counter-reset:section;}
-.terms-bullet {counter-reset:subsection;}
-.terms-bullet:before
-{
-    counter-increment:section;
+.terms-reset-section-counter {
+    counter-reset: section;
+}
+
+.terms-bullet {
+    counter-reset: subsection;
+}
+
+.terms-bullet:before {
+    counter-increment: section;
     content: counter(section) ". ";
     font-weight: bold;
 }
-.terms-subbullet:before
-{
-    counter-increment:subsection;
-    content:counter(section) "." counter(subsection) " ";
+
+.terms-subbullet:before {
+    counter-increment: subsection;
+    content: counter(section) "." counter(subsection) " ";
     font-weight: bold;
 }
 
@@ -1030,6 +1046,39 @@ body {counter-reset:section;}
 
 .terms-bullet a:hover {
     color: #000;
+}
+
+/* ---------------------------------------------- */
+/* ---------------------------------------------- */
+
+
+/* ---------------------------------------------- */
+/* Social */
+/* ---------------------------------------------- */
+
+.social-network {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.social-network div:focus {
+    outline: none;
+}
+
+.social-network-share-button {
+    cursor: pointer;
+}
+
+.social-network-share-button:hover:not(:active) {
+    opacity: 0.75;
+}
+
+.social-network-custom-icon {
+    width: 32px;
+    height: 32px;
 }
 
 /* ---------------------------------------------- */

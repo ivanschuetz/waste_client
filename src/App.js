@@ -14,6 +14,7 @@ import Helmet from "react-helmet/es/Helmet";
 import { auth } from "./globals";
 
 import Logo from './logo/Logo';
+import Social from "./Social";
 
 require('react-leaflet-markercluster/dist/styles.min.css');
 
@@ -287,19 +288,7 @@ const App = () => {
                     </Modal>}
                 {showSocialModal &&
                     <Modal title={t('social_modal_title')} onCloseClick={() => setShowSocialModal(false)}>
-                        {/*<p>{t('social_share_with_facebook')}</p>*/}
-                        {/*<p>{t('social_follow_in_facebook')}</p>*/}
-                        <p>
-                            <a className="social-option" href={shareOnTwitterHref()} target="_blank"
-                                rel="noopener noreferrer">
-                                {t('social_share_with_twitter')}
-                            </a>
-                        </p>
-                        <p>
-                            <a className="social-option" href="https://twitter.com/wohinmit" target="_blank" rel="noopener noreferrer">
-                                {t('social_follow_on_twitter')}
-                            </a>
-                        </p>
+                        <Social/>
                     </Modal>}
             </div>
         </div>);
