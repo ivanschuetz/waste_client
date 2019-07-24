@@ -1094,7 +1094,8 @@ body {
 }
 
 .footer > a.social-option:not(:last-child) {
-    margin-right: 15px;
+    margin-right: 9px;
+    margin-left: 5px;
 }
 
 /* ---------------------------------------------- */
