@@ -668,6 +668,13 @@ body {
     margin-top: 5px;
 }
 
+.always-open-label-list {
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
 .opening-times-table td {
     padding-right: 10px;
     text-align: left;

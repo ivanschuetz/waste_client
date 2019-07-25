@@ -333,15 +333,20 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 setExpandedRecipientsState(expandedState);
             };
 
-            const openingHoursElement = () => {
-                if (recipient["open"] && recipient["open"]["hours"]) {
-                    return <div >
-                        <OpeningHours openingHoursList={recipient["open"]["hours"]} mode="list"/>
-                    </div>
-                } else {
-                    return <span/>
+            const openElement = (openType, open) => {
+                switch (openType) {
+                    case "a":
+                        return <div className="always-open-label-list">{t('map_open_always')}</div>;
+                    case "u":
+                        return <div className="always-open-label-list">{t('map_open_unknown')}</div>;
+                    case "h":
+                        return <OpeningHours openingHoursList={open["hours"]} mode="list" />;
+                    default:
+                        console.log('Unknown openType value: ' + JSON.stringify(openType));
                 }
             };
+
+            const openingHoursElement = () => openElement(recipient["openType"], recipient["open"]);
 
             const hasDetails = recipient["address"] || recipient["phone"] || recipient["email"] ||
                 (recipient["open"] && recipient["open"]["hours"]);
