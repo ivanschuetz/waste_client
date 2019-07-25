@@ -57,6 +57,10 @@ const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, i
             value={searchText}
             onChange={event => onSearchInput(event.target.value)}
             autoFocus
+            autoComplete="off"
+            autoCapitalize="off"
+            autoCorrect="off"
+            aria-autocomplete="none"
             onFocus={() => onFocus()}
             onBlur={() => onBlur()}
         />
