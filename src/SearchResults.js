@@ -224,7 +224,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                               rel="noopener noreferrer"
                               onClick={ (e) => e.stopPropagation() }
                               title={t('results_recipient_type_title_url')}>
-                        <SVGIcon name={isOpen.isOpen ? 'planet-2' : 'planet-2'} // TODO closed icon
+                        <SVGIcon name={isOpen.isOpen ? 'planet-2' : 'planet-closed'}
                                  width="20px" height="20px" className="phone-icon" />
                     </a>
                 } else {
