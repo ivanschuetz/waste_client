@@ -326,8 +326,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                     case 1: return isOpen["isOpen"] ? "heart" : "heart-closed";
                     case 2: return isOpen["isOpen"] ? "2nd-hand" : "2nd-hand-closed";
                     case 3: return isOpen["isOpen"] ? "ebay-laptop" : "ebay-laptop-closed";
-                    case 4: return isOpen["isOpen"] ? "online-shop-retailer" : "online-shop-retailer";
-                    // case 4: return isOpen ? "online-shop-retailer" : "online-shop-retailer-closed"; // TODO
+                    case 4: return isOpen["isOpen"] ? "online-shop-retailer" : "online-shop-retailer-closed";
                     default: return null;
                 }
             };
