@@ -16,6 +16,7 @@ import { auth } from "./globals";
 import Logo from './logo/Logo';
 import Social from "./Social";
 import {FacebookIcon, TwitterIcon} from "react-share";
+import {requestSuggestions} from "./Requests";
 
 require('react-leaflet-markercluster/dist/styles.min.css');
 
@@ -90,7 +91,22 @@ const App = () => {
 
         const data = result.data;
         // TODO handle http errors (they are returned here, not in onrejected)
-        handleSearchResult(data);
+        
+        if (data.length === 0) {
+            // If there are no search results (exact text match failed), retrieve possible suggestions
+            const suggestions = await requestSuggestions(text);
+            if (suggestions.length === 0) {
+                // If there are also no suggestions, handle normally as (empty) search result
+                handleSearchResult(data);
+            } else {
+                // If there are suggestions, show suggestions
+                cancelSuggestionResponseProcessing = false;
+                handleSuggestions(suggestions)
+            }
+        } else {
+            // There's a search result - handle
+            handleSearchResult(data);
+        }
     };
 
     const handleSuggestions = items => {
