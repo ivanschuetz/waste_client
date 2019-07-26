@@ -137,7 +137,7 @@ i18n
                     "results_recipient_type_title_online_shop": "Online shop",
                     "results_recipient_type_title_retailer": "Händler",
                     "retailer_name_where_you_bought_it": "Wo es gekauft wurde",
-                    "search_box_placeholder": "Gib den Nn\u0430men des Gegenstandes ein",
+                    "search_box_placeholder": "Gib den N\u0430men des Gegenstandes ein",
                     "search_empty_result_request_item": "Item anfragen",
                     "social_modal_title": "Teilen",
                     "search_no_results": "Keine Ergebnisse für",
