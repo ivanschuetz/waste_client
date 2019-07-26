@@ -912,6 +912,7 @@ a:hover {
 
 label.map-filter {
     position: relative;
+    cursor: pointer;
 }
 
 label.map-filter::before {
