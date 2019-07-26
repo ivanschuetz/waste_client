@@ -17,12 +17,14 @@ import Logo from './logo/Logo';
 import Social from "./Social";
 import {FacebookIcon, TwitterIcon} from "react-share";
 import {requestSuggestions} from "./Requests";
+import GeolocModal from "./GeolocModal";
 
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 const axios = require('axios');
 
 let cancelSuggestionResponseProcessing = false; // This doesn't work well as hook so here
+let dismissGeolocInfoCallback = null; // I don't know how to model this with hooks, so as global variable
 
 const App = () => {
     const [suggestions, setSuggestions] = useState([]);
@@ -39,6 +41,7 @@ const App = () => {
     const [showLegalModal, setShowLegalModal] = useState(false);
     const [lastSearchText, setLastSearchText] = useState("");
     const [searchBoxFocused, setSearchBoxFocused] = useState(false);
+    const [showGeolocInfoModal, setShowGeolocInfoModal] = useState(false);
 
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const keepInBounds = (newIndex) => Math.max(Math.min(newIndex, suggestions.length - 1), 0);
@@ -214,6 +217,16 @@ const App = () => {
             return 'logo-en'
         }
     };
+    
+    const onCloseGeolocInfoModal = () => {
+        setShowGeolocInfoModal(false);
+        if (dismissGeolocInfoCallback) {
+            dismissGeolocInfoCallback();
+            dismissGeolocInfoCallback = null;
+        } else {
+            console.log('Warning: There should be a dismiss callback');
+        }
+    };
 
     const beta1x = require('./icons/beta1x.png');
     const beta2x = require('./icons/beta2x.png');
@@ -257,6 +270,10 @@ const App = () => {
                     {selectedSuggestion && <ItemSearch suggestion={selectedSuggestion} onResult={handleResults}
                         onPContainersClick={onPContainersClick}
                         showPContainersButton={!showMap}
+                        showGeolocationInfoModal={(onDismiss) => {
+                            setShowGeolocInfoModal(true);
+                            dismissGeolocInfoCallback = onDismiss;
+                        }}
                     />}
                     {results && showMap &&
                         <RecipientsMap recipients={(results['itemRecipients'].concat(results['categoryRecipients'])).filter((r) =>
@@ -317,6 +334,10 @@ const App = () => {
                 {showSocialModal &&
                     <Modal title={t('social_modal_title')} onCloseClick={() => setShowSocialModal(false)}>
                         <Social/>
+                    </Modal>}
+                {showGeolocInfoModal &&
+                    <Modal title={t('info_modal_title')} onCloseClick={() => onCloseGeolocInfoModal()}>
+                        <GeolocModal onOk={() => onCloseGeolocInfoModal()}/>
                     </Modal>}
             </div>
         </div>);

@@ -426,6 +426,23 @@ body {
     /*transition: all .1s linear;*/
 }
 
+.geo-loc-info-container {
+    position: relative;
+    /*text-align: center;*/
+}
+
+.action-button {
+    padding: 5px 30px 5px 30px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    margin-top: 15px;
+    display: inline-block;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #1a47d3;
+}
+
 .show-more:hover,
 .p-containers-span:hover {
     /*box-shadow: 0 2px 4px rgba(0, 0, 0, .3);*/

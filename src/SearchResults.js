@@ -34,7 +34,7 @@ String.prototype.trunc = String.prototype.trunc ||
         return (this.length > n) ? this.substr(0, n-1) + '...' : this;
     };
 
-const SearchResults = ({results, onPContainersClick, showPContainersButton}) => {
+const SearchResults = ({results, onPContainersClick, showPContainersButton, showGeolocationInfoModal}) => {
     const {t} = useTranslation();
     const [myLoc, setMyLoc] = useState(null);
     const [maxPickupCompaniesLength, setMaxPickupCompaniesLength] = useState(3);
@@ -133,7 +133,26 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
                 console.log('No geolocation available');
             }
         };
-        fetchMyLoc();
+
+        const checkPermissionAndFetch = async () => {
+            if (navigator.permissions) {
+                const permission = await navigator.permissions.query({name: 'geolocation'});
+                // Permission was already granted. Just fetch loc.
+                if (permission.state === "granted") {
+                    await fetchMyLoc();
+                } else {
+                    // Permission was not granted. Show info popup and fetch (which shows the browser's prompt as well)
+                    showGeolocationInfoModal(async () => await fetchMyLoc())
+                }
+            } else {
+                // Browser doesn't support permissions api - we can't check if geolocation was granted or not.
+                // We skip the info modal altogether in this case (it's either this or always show it when displaying results).
+                await fetchMyLoc();
+            }
+        };
+
+        checkPermissionAndFetch();
+
     }, []);
 
     const listItems = () => {
@@ -521,7 +540,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton}) => 
     );
 };
 
-const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersButton}) => {
+const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersButton, showGeolocationInfoModal}) => {
     const [results, setResults] = useState(null);
 
     useEffect(() => {
@@ -546,6 +565,7 @@ const ItemSearch = ({suggestion, onResult, onPContainersClick, showPContainersBu
     return results && <SearchResults results={results}
                                      onPContainersClick={onPContainersClick}
                                      showPContainersButton={showPContainersButton}
+                                     showGeolocationInfoModal={showGeolocationInfoModal}
                                      />
 };
 
