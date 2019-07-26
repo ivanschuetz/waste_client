@@ -215,6 +215,23 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                 }
             };
 
+            const urlElement = () => {
+                const hasUrl = recipient["url"];
+                if (hasUrl) {
+                    return <a className={isOpen.isOpen ? 'recipient-data-link' : 'recipient-data-link-closed'}
+                              href={recipient["url"]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={ (e) => e.stopPropagation() }
+                              title={t('results_recipient_type_title_url')}>
+                        <SVGIcon name={isOpen.isOpen ? 'planet-2' : 'planet-2'} // TODO closed icon
+                                 width="20px" height="20px" className="phone-icon" />
+                    </a>
+                } else {
+                    return <span />
+                }
+            };
+
             const phoneElementForDetails = () => {
                 if (recipient["phone"]) {
                     return <div className='recipient-details-data-link-container'>
@@ -238,7 +255,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                            onClick={ (e) => e.stopPropagation() }
                            title={t('results_email_icon_title')}
                            rel='noopener noreferrer'>
-                            <SVGIcon name="email" width="20px" height="20px" className="map-icon" />
+                            <SVGIcon name={isOpen.isOpen ? 'email' : 'email-closed'} width="20px" height="20px" className="map-icon" />
                         </a>
                 } else {
                     return <span/>
@@ -372,7 +389,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
 
             const rows = [
                 <tr key={'p' + recipient["id"]} className={hasDetails ? "recipient-row-interactive" : "recipient-row"} onClick={() => recipientRowClicked()}>
-                    <td> {nameElement()}{phoneElement()}{emailElement()} </td>
+                    <td> {nameElement()}{urlElement()}{phoneElement()}{emailElement()} </td>
                     <td className="recipient-cell-right"> {hasPickupElement()} </td>
                     <td className="recipient-cell-right"> {recipientTypeElement()} </td>
                     <td className="recipient-cell-right"> {distanceElement()} </td>
