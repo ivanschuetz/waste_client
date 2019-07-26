@@ -406,6 +406,9 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                     <td colSpan={4}>
                         <div className={className}>
                             <div className='recipient-details-data-link-container'>
+                                {recipient["name"]}
+                            </div>
+                            <div className='recipient-details-data-link-container'>
                                 {recipient["address"]}
                             </div>
                             {phoneElementForDetails()}
