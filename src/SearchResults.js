@@ -283,19 +283,42 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                 }
             };
 
-            const truncationForWidth = (width) => {
+            const truncationForWidth = (width, isOpen, lang) => {
                 const truncations = [
-                    { width: 400, chars: 12},
-                    { width: 420, chars: 13},
-                    { width: 440, chars: 14},
-                    { width: 460, chars: 15},
-                    { width: 480, chars: 16},
-                    { width: 500, chars: 20},
-                    { width: 600, chars: 30},
+                    { lang: "en", truncations: [
+                        { width: 400, isOpenChars: 12, isClosedChars: 12},
+                        { width: 420, isOpenChars: 13, isClosedChars: 13},
+                        { width: 440, isOpenChars: 14, isClosedChars: 14},
+                        { width: 460, isOpenChars: 15, isClosedChars: 15},
+                        { width: 480, isOpenChars: 16, isClosedChars: 16},
+                        { width: 500, isOpenChars: 20, isClosedChars: 20},
+                        { width: 600, isOpenChars: 30, isClosedChars: 30}
+                    ]},
+                    { lang: "de", truncations: [
+                        { width: 400, isOpenChars: 12, isClosedChars: 13},
+                        { width: 420, isOpenChars: 13, isClosedChars: 13},
+                        { width: 440, isOpenChars: 14, isClosedChars: 14},
+                        { width: 460, isOpenChars: 15, isClosedChars: 15},
+                        { width: 480, isOpenChars: 16, isClosedChars: 16},
+                        { width: 500, isOpenChars: 20, isClosedChars: 20},
+                        { width: 600, isOpenChars: 30, isClosedChars: 30}
+                    ]},
                 ];
-                const truncation = truncations.find((obj) => width < obj.width);
+
+                const langTruncations = truncations.find((truncation) => truncation.lang.startsWith(lang));
+                if (!langTruncations)  {
+                    console.log('No truncations found for lang: ' + lang);
+                    return 40;
+                }
+
+                const truncation = langTruncations.truncations.find((obj) => width < obj.width);
+
                 if (truncation)  {
-                    return truncation.chars;
+                    if (isOpen) {
+                        return truncation.isOpenChars;
+                    } else {
+                        return truncation.isClosedChars;
+                    }
                 } else {
                     return 40;
                 }
@@ -307,7 +330,7 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                 // But in this case, we use the name as a message: "where you bought it".
                 // We translate this special case client side instead of changing the backend structure.
                 const actualName = name === "seller_translate_clientside" ? t('retailer_name_where_you_bought_it') : name;
-                const nameMaxChars = truncationForWidth(windowSize.width);
+                const nameMaxChars = truncationForWidth(windowSize.width, isOpen.isOpen, i18n.language);
                 const nameToShow = actualName.trunc(nameMaxChars);
                 const fullText = isOpen.isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
                 const fullTextWithHoliday = isOpen.isHoliday ? fullText + ' (' + t('results_recipient_closed_holiday') + ')' : fullText;
