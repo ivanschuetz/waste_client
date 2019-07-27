@@ -1148,15 +1148,3 @@ body {
     }
 }
 
-@media only screen and (max-width: 320px) {
-    .recipient-cell-right svg {
-        width: 14px;
-        height: auto;
-    }
-
-    .phone-icon,
-    .main-icon {
-        width: 14px;
-        height: auto;
-    }
-}
