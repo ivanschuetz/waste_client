@@ -11,7 +11,7 @@ const SearchBox = ({ onSuggestions, onInput, searchText, onSuggestionsRequest, i
     const suggestions = async (text) => {
         clearTimeout(delayTimer);
         delayTimer = setTimeout(async function () {
-            onSuggestions(await requestSuggestions(text));
+            onSuggestions(await requestSuggestions(text, onSuggestionsRequest));
         }, 300); // Delay a little, to not send a request on each keystroke
     };
 

@@ -97,7 +97,7 @@ const App = () => {
         
         if (data.length === 0) {
             // If there are no search results (exact text match failed), retrieve possible suggestions
-            const suggestions = await requestSuggestions(text);
+            const suggestions = await requestSuggestions(text, handleSuggestionsRequest);
             if (suggestions.length === 0) {
                 // If there are also no suggestions, handle normally as (empty) search result
                 handleSearchResult(data);
