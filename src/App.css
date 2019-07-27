@@ -312,6 +312,11 @@ body {
     background-color: #e8eaed;
 }
 
+.suggestions-mobile .suggestion-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .suggestion-item {
     padding: 5px 20px;
 }
