@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import './App.css';
 
 const ItemSuggestions = ({suggestions, onClick, highlightedIndex, highlightBorder}) => {
-    const [isTouchscreen, setIsTouchscreen] = useState(false);
 
     const suggestionClassName = (index) => {
         if (index === highlightedIndex) {
@@ -20,18 +19,7 @@ const ItemSuggestions = ({suggestions, onClick, highlightedIndex, highlightBorde
         )
     };
 
-    let classNames = highlightBorder ? "suggestions suggestions-highlight" : "suggestions";
-
-    useEffect(() => {
-        window.addEventListener('touchstart', () => {
-            // the user touched the screen!
-            setIsTouchscreen(!isTouchscreen);
-        });
-    });
-
-    if (isTouchscreen) {
-        classNames = classNames + " suggestions-mobile";
-    }
+    const classNames = highlightBorder ? "suggestions suggestions-highlight" : "suggestions";
 
     return (
         <ul className={classNames}>

@@ -312,11 +312,6 @@ body {
     background-color: #e8eaed;
 }
 
-.suggestions-mobile .suggestion-item {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
 .suggestion-item {
     padding: 5px 20px;
 }
@@ -1125,6 +1120,11 @@ body {
 
 
 @media only screen and (max-width: 460px) {
+    .suggestions .suggestion-item {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
     .page-title-icon {
         width: 280px;
     }
