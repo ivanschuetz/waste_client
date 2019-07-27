@@ -283,13 +283,31 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                 }
             };
 
+            const truncationForWidth = (width) => {
+                const truncations = [
+                    { width: 400, chars: 12},
+                    { width: 420, chars: 13},
+                    { width: 440, chars: 14},
+                    { width: 460, chars: 15},
+                    { width: 480, chars: 16},
+                    { width: 500, chars: 20},
+                    { width: 600, chars: 30},
+                ];
+                const truncation = truncations.find((obj) => width < obj.width);
+                if (truncation)  {
+                    return truncation.chars;
+                } else {
+                    return 40;
+                }
+            };
+
             const nameElement = () => {
                 const name = recipient["name"];
                 // This is a little hack to translate a recipient name. Names are not translatable.
                 // But in this case, we use the name as a message: "where you bought it".
                 // We translate this special case client side instead of changing the backend structure.
                 const actualName = name === "seller_translate_clientside" ? t('retailer_name_where_you_bought_it') : name;
-                const nameMaxChars = windowSize.width < 400 ? 4 : (windowSize.width < 500 ? 10 : ((windowSize.width < 600 ? 20 : 40)));
+                const nameMaxChars = truncationForWidth(windowSize.width);
                 const nameToShow = actualName.trunc(nameMaxChars);
                 const fullText = isOpen.isOpen ? nameToShow : nameToShow + ' (' + t('results_recipient_closed') + ')';
                 const fullTextWithHoliday = isOpen.isHoliday ? fullText + ' (' + t('results_recipient_closed_holiday') + ')' : fullText;
