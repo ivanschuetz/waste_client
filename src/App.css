@@ -111,7 +111,7 @@ body {
     align-items: center;
 }
 
-.footer > *:not(:last-child) {
+.footer-links >*:not(:last-child) {
     margin-right: 6px;
 }
 
@@ -964,12 +964,6 @@ label.map-filter::before {
 }
 
 /* Results */
-@media only screen and (max-width: 460px) {
-    .page-title-icon {
-        width: 280px;
-    }
-}
-
 .result-header-icon {
     vertical-align: middle;
     margin-bottom: 5px;
@@ -995,36 +989,6 @@ label.map-filter::before {
 
 .recipient-cell-right:empty {
     display: none;
-}
-
-
-/* Table responsive styles */
-@media only screen and (max-width: 600px) {
-    .recipient-row-interactive,
-    .recipient-details-data-link-container,
-    .opening-times-status-in-list-open,
-    .opening-times-title-in-list,
-    .opening-hours-row-default {
-        /*font-size: 13px;*/
-    }
-
-    .list-item-tip {
-        font-size: 15px;
-        line-height: 1.4;
-    }
-}
-
-@media only screen and (max-width: 320px) {
-    .recipient-cell-right svg {
-        width: 14px;
-        height: auto;
-    }
-
-    .phone-icon,
-    .main-icon {
-        width: 14px;
-        height: auto;
-    }
 }
 
 /* ---------------------------------------------- */
@@ -1132,10 +1096,62 @@ body {
     height: 32px;
 }
 
-.footer > a.social-option:not(:last-child) {
+.footer-icons > a.social-option:first-child {
     margin-right: 9px;
-    margin-left: 5px;
+}
+
+.footer-icons {
+    display: flex;
+    margin-left: 10px;
 }
 
 /* ---------------------------------------------- */
+/* Responsive */
 /* ---------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+
+    /* Table responsive styles */
+    .list-item-tip {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+}
+
+
+@media only screen and (max-width: 460px) {
+    .page-title-icon {
+        width: 280px;
+    }
+
+    .footer {
+        flex-direction: column;
+    }
+
+    .footer-icons {
+        margin-top: 15px;
+    }
+
+    .footer-icons svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .footer-icons > a.social-option:first-child {
+        margin-right: 20px;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .recipient-cell-right svg {
+        width: 14px;
+        height: auto;
+    }
+
+    .phone-icon,
+    .main-icon {
+        width: 14px;
+        height: auto;
+    }
+}
