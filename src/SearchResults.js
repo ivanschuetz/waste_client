@@ -556,8 +556,8 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
         const retailersHeaderList = retailers.length > 0 ? [retailersHeader] : [];
         const tipsHeaderList = tipsListItems.length > 0 ? [tipsHeader] : [];
 
-        return categorylistItemList
-            .concat(containersHeaderList)
+        // categorylistItemList
+        return containersHeaderList
             .concat(containersListItems)
             .concat(tipsHeaderList)
             .concat(tipsListItems)
