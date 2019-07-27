@@ -129,7 +129,7 @@ i18n
                     "results_header_pickup": "Abholung",
                     "results_header_retailers": "Händler",
                     "results_header_second_hand": "Verkaufen",
-                    "results_header_trash_places": "Höfe",
+                    "results_header_trash_places": "Entsorgen",
                     "results_header_tips": "Infos",
                     "results_header_public_containers": "Karte",
                     "results_phone_icon_title": "Anrufen",
