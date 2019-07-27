@@ -106,7 +106,7 @@ i18n
                     "link_legal": "Rechtliches",
                     "link_lang": "Sprache",
                     "link_social": "Teilen",
-                    "map_filter_disposal_places": "Entsorgung",
+                    "map_filter_disposal_places": "Entsorgen",
                     "map_filter_donation_places": "Spenden",
                     "map_filter_2hand_places": "Verkaufen",
                     "map_filter_retailers": "Händler",
