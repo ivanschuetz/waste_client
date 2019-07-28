@@ -310,17 +310,17 @@ const RecipientsMap = ({ recipients }) => {
                             {t('map_filter_2hand_places')}
                         </label>
                     </div>
-                    <div>
-                        <input
-                            id="check-4"
-                            name="showRetailers"
-                            type="checkbox"
-                            checked={filterOptions.showRetailers}
-                            onChange={updateFilterOptions} />
-                        <label className='map-filter' htmlFor="check-4">
-                            {t('map_filter_retailers')}
-                        </label>
-                    </div>
+                    {/*<div>*/}
+                    {/*    <input*/}
+                    {/*        id="check-4"*/}
+                    {/*        name="showRetailers"*/}
+                    {/*        type="checkbox"*/}
+                    {/*        checked={filterOptions.showRetailers}*/}
+                    {/*        onChange={updateFilterOptions} />*/}
+                    {/*    <label className='map-filter' htmlFor="check-4">*/}
+                    {/*        {t('map_filter_retailers')}*/}
+                    {/*    </label>*/}
+                    {/*</div>*/}
                 </div>
                 <div className="map-filters-wrapper">
                     <div>
