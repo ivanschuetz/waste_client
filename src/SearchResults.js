@@ -326,19 +326,35 @@ const SearchResults = ({results, onPContainersClick, showPContainersButton, show
                 }
             };
 
+            const distanceText = (distance) => {
+                // < 999 instead of < 1000 to prevent rounding issues, where we end getting 1000.0 on the UI
+                if (distance < 999) {
+                    return {
+                        distance: distance.toFixed(1),
+                        tooltip: t('result_distance_linear_tooltip')
+                    };
+                } else {
+                    return {
+                        distance: ">",
+                        tooltip: t('result_distance_linear_tooltip_to_far')
+                    };
+                }
+            };
+
             const distanceElement = () => {
                 if (!myLoc) return <span/>;
                 const lat = recipient["lat"];
                 const lng = recipient["lon"];
                 if (lat && lng) {
                     const distance = getCrowDistanceFromLatLonInKm(myLoc.latitude, myLoc.longitude, lat, lng);
+                    const distanceTextObj = distanceText(distance);
                     return <a
-                        title={t('result_distance_linear_tooltip')}
+                        title={distanceTextObj.tooltip}
                         href={routeLink(myLoc, lat, lng, "driving")}
                         target='_blank'
                         className={isOpen.isOpen ? 'results-distance-link' : 'results-distance-link-closed'}
                         rel='noopener noreferrer'>
-                        <span className='result-distance-number'>{distance.toFixed(1)}</span>&nbsp;
+                        <span className='result-distance-number'>{distanceTextObj.distance}</span>&nbsp;
                         <span className='result-distance-unit'>{t('result_distance_km')}</span>
                     </a>
                 }
