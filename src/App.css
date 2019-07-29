@@ -1129,12 +1129,12 @@ body {
         width: 280px;
     }
 
-    .searchbox {
-        height: auto;
-        padding: 15px;
-        border-radius: 40px;
-        margin-top: 30px;
-    }
+    /*.searchbox {*/
+    /*    height: auto;*/
+    /*    padding: 15px;*/
+    /*    border-radius: 40px;*/
+    /*    margin-top: 30px;*/
+    /*}*/
 
     .footer {
         flex-direction: column;
