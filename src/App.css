@@ -1129,6 +1129,13 @@ body {
         width: 280px;
     }
 
+    .searchbox {
+        height: auto;
+        padding: 15px;
+        border-radius: 40px;
+        margin-top: 30px;
+    }
+
     .footer {
         flex-direction: column;
     }
@@ -1148,3 +1155,12 @@ body {
     }
 }
 
+@media only screen and (max-height: 460px) {
+    .Wrapper {
+        min-height: 460px;
+    }
+
+    .footer {
+        position: absolute;
+    }
+}
