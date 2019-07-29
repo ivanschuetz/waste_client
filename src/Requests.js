@@ -1,12 +1,14 @@
-import i18n from "./SearchBox";
+import i18n from 'i18next';
 import {auth} from "./globals";
 
 const axios = require('axios');
 
-export const requestSuggestions = async (text) => {
+export const requestSuggestions = async (text, onRequest) => {
     if (!text) {
         return [];
     }
+
+    onRequest();
 
     const lang = i18n.language;
 
