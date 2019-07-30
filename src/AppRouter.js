@@ -15,8 +15,7 @@ function AppRouter() {
         return <Router>
             <div>
                 <Route exact path="/" component={App} />
-                <Route path="/terms_en" component={TermsEN} />
-                <Route path="/terms_de" component={TermsDE} />
+                <Route path="/terms" component={TermsDE} />
             </div>
         </Router>;
     }

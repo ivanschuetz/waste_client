@@ -19,18 +19,7 @@ const Legal = () => {
         }
     };
 
-    const termsLink = () => {
-        const lang = i18n.language;
-        switch (lang) {
-            case "en":
-                return "/terms_en";
-            case "de":
-                return "/terms_de";
-            default:
-                console.log("Invalid lang: " + lang);
-                return "#";
-        }
-    };
+    const termsLink = () => "/terms";
 
     const [selectedTab, setSeletedTab] = useState("about");
     return (
