@@ -1096,7 +1096,11 @@ body {
     height: 32px;
 }
 
-.footer-icons > a.social-option:first-child {
+.footer-icons > a.social-option:last-child {
+    margin-right: 0px;
+}
+
+.footer-icons > a.social-option {
     margin-right: 9px;
 }
 
