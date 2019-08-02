@@ -19,6 +19,8 @@ import {FacebookIcon, TwitterIcon} from "react-share";
 import {requestSuggestions} from "./Requests";
 import GeolocModal from "./GeolocModal";
 
+import SVGIcon from "./icons/SVGIcon";
+
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 const axios = require('axios');
@@ -317,8 +319,9 @@ const App = () => {
                         </a>
                         <a className="social-option" href="https://www.instagram.com/wohinmitapp" target="_blank"
                            rel="noopener noreferrer">
+                            <SVGIcon name="instagram" width="20px" height="20px" />
                             {/*<img src={require('./icons/instagram-logo.svg')} style={{width: 20, height: 20}} alt='Instagram' />*/}
-                            <img src={require('./icons/instagram-logo.svg')} alt='Instagram' />
+                            {/* <img src={require('./icons/instagram-logo.svg')} alt='Instagram' /> */}
                         </a>
                         <a className="social-option" href="https://twitter.com/wohinmit" target="_blank"
                         rel="noopener noreferrer">
