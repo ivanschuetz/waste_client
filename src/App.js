@@ -343,7 +343,7 @@ const App = () => {
                         <p className={(i18n.language.startsWith("en")) ? 'lang-selected' : 'lang'}
                             onClick={() => setLanguage("en")}>English</p>
                         <p className={(i18n.language.startsWith("tr")) ? 'lang-selected' : 'lang'}
-                           onClick={() => setLanguage("tr")}>Türk</p>
+                           onClick={() => setLanguage("tr")}>Türkçe</p>
                     </Modal>}
                 {showSocialModal &&
                     <Modal title={t('social_modal_title')} onCloseClick={() => setShowSocialModal(false)}>
