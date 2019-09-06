@@ -1146,6 +1146,7 @@ body {
 
     .footer-icons {
         margin-top: 15px;
+        margin-left: 0;
     }
 
     .footer-icons svg {
@@ -1154,7 +1155,7 @@ body {
     }
 
     .footer-icons > a.social-option:first-child {
-        margin-right: 20px;
+        margin-right: 13px;
         margin-left: 0;
     }
 }
